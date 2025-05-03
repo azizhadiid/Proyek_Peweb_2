@@ -401,51 +401,51 @@
             <div class="category-carousel swiper">
               <div class="swiper-wrapper">
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="{{ asset('assets-user/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-vegetables-broccoli.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-bread-baguette.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-bread-baguette.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Breads & Sweets</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-soft-drinks-bottle.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-soft-drinks-bottle.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-wine-glass-bottle.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-wine-glass-bottle.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-animal-products-drumsticks.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-animal-products-drumsticks.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-bread-herb-flour.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-bread-herb-flour.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-vegetables-broccoli.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-vegetables-broccoli.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-vegetables-broccoli.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-vegetables-broccoli.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-vegetables-broccoli.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-vegetables-broccoli.png') }} " alt="Category Thumbnail">
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 
