@@ -488,7 +488,7 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-11.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="{{ asset('assets-user/images/product-thumb-11.jpg') }}" class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
@@ -503,7 +503,7 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-12.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="{{ asset('assets-user/images/product-thumb-12.jpg') }} " class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
@@ -518,7 +518,7 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-13.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="{{ asset('assets-user/images/product-thumb-13.jpg') }} " class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
@@ -533,7 +533,7 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-14.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="{{ asset('assets-user/images/product-thumb-14.jpg') }} " class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
@@ -548,7 +548,7 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-11.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="{{ asset('assets-user/images/product-thumb-11.jpg') }} " class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
@@ -563,7 +563,7 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-12.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="{{ asset('assets-user/images/product-thumb-12.jpg') }} " class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
@@ -612,7 +612,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -643,7 +643,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-biscuits.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-biscuits.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -673,7 +673,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-cucumber.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-cucumber.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -703,7 +703,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-milk.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-milk.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -733,7 +733,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -763,7 +763,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-biscuits.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-biscuits.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -793,7 +793,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-cucumber.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-cucumber.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -823,7 +823,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-milk.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-milk.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -853,7 +853,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -883,7 +883,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-biscuits.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-biscuits.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -923,7 +923,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-cucumber.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-cucumber.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -954,7 +954,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-milk.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-milk.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -985,7 +985,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-orange-juice.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-orange-juice.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1015,7 +1015,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-raspberries.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-raspberries.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1045,7 +1045,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1075,7 +1075,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1113,7 +1113,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-cucumber.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-cucumber.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1143,7 +1143,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-milk.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-milk.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1173,7 +1173,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-tomatoes.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-tomatoes.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1203,7 +1203,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-tomatoketchup.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1233,7 +1233,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1263,7 +1263,7 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                           </a>
                         </figure>
                         <h3>Sunstar Fresh Melon Juice</h3>
@@ -1367,7 +1367,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoes.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1396,7 +1396,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoketchup.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1425,7 +1425,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1454,7 +1454,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1481,35 +1481,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
-                    </a>
-                  </figure>
-                  <h3>Sunstar Fresh Melon Juice</h3>
-                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                  <span class="price">$18.00</span>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div class="input-group product-qty">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                            </button>
-                        </span>
-                    </div>
-                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                  </div>
-                </div>
-
-                <div class="product-item swiper-slide">
-                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                  <figure>
-                    <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoes.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1537,7 +1509,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoketchup.png') }}"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1565,7 +1537,35 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                            </button>
+                        </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
+                  <figure>
+                    <a href="index.html" title="Product Title">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1671,7 +1671,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoes.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1699,7 +1699,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoketchup.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1727,7 +1727,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1755,7 +1755,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1782,35 +1782,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
-                    </a>
-                  </figure>
-                  <h3>Sunstar Fresh Melon Juice</h3>
-                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                  <span class="price">$18.00</span>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div class="input-group product-qty">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                            </button>
-                        </span>
-                    </div>
-                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                  </div>
-                </div>
-
-                <div class="product-item swiper-slide">
-                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                  <figure>
-                    <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoes.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1838,7 +1810,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoketchup.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1866,7 +1838,35 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                            </button>
+                        </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
+                  <figure>
+                    <a href="index.html" title="Product Title">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1929,7 +1929,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoes.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1957,7 +1957,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoketchup.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -1985,7 +1985,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -2013,7 +2013,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -2040,35 +2040,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
-                    </a>
-                  </figure>
-                  <h3>Sunstar Fresh Melon Juice</h3>
-                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                  <span class="price">$18.00</span>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div class="input-group product-qty">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                            </button>
-                        </span>
-                    </div>
-                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                  </div>
-                </div>
-
-                <div class="product-item swiper-slide">
-                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                  <figure>
-                    <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoes.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -2096,7 +2068,7 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-tomatoketchup.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -2124,7 +2096,35 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                            </button>
+                        </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
+                  <figure>
+                    <a href="index.html" title="Product Title">
+                      <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
                     </a>
                   </figure>
                   <h3>Sunstar Fresh Melon Juice</h3>
@@ -2172,7 +2172,7 @@
             <article class="post-item card border-0 shadow-sm p-3">
               <div class="image-holder zoom-effect">
                 <a href="#">
-                  <img src="images/post-thumb-1.jpg" alt="post" class="card-img-top">
+                  <img src="{{ asset('assets-user/images/post-thumb-1.jpg') }} " alt="post" class="card-img-top">
                 </a>
               </div>
               <div class="card-body">
@@ -2193,7 +2193,7 @@
             <article class="post-item card border-0 shadow-sm p-3">
               <div class="image-holder zoom-effect">
                 <a href="#">
-                  <img src="images/post-thumb-2.jpg" alt="post" class="card-img-top">
+                  <img src="{{ asset('assets-user/images/post-thumb-2.jpg') }} " alt="post" class="card-img-top">
                 </a>
               </div>
               <div class="card-body">
@@ -2214,7 +2214,7 @@
             <article class="post-item card border-0 shadow-sm p-3">
               <div class="image-holder zoom-effect">
                 <a href="#">
-                  <img src="images/post-thumb-3.jpg" alt="post" class="card-img-top">
+                  <img src="{{ asset('assets-user/images/post-thumb-3.jpg') }} " alt="post" class="card-img-top">
                 </a>
               </div>
               <div class="card-body">
@@ -2242,14 +2242,14 @@
           <div class="container">
             <div class="row">
               <div class="col-md-4">
-                <img src="images/phone.png" alt="phone" class="image-float img-fluid">
+                <img src="{{ asset('assets-user/images/phone.png') }} " alt="phone" class="image-float img-fluid">
               </div>
               <div class="col-md-8">
                 <h2 class="my-5">Shop faster with foodmart App</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis sed ptibus liberolectus non et psryroin.</p>
                 <div class="d-flex gap-2 flex-wrap">
-                  <img src="images/app-store.jpg" alt="app-store">
-                  <img src="images/google-play.jpg" alt="google-play">
+                  <img src="{{ asset('assets-user/images/app-store.jpg') }} " alt="app-store">
+                  <img src="{{ asset('assets-user/images/google-play.jpg') }} " alt="google-play">
                 </div>
               </div>
             </div>
@@ -2371,7 +2371,7 @@
 
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer-menu">
-              <img src="images/logo.png" alt="logo">
+              <img src="{{ asset('assets-user/images/logo.png') }} " alt="logo">
               <div class="social-links mt-5">
                 <ul class="d-flex list-unstyled gap-2">
                   <li>
