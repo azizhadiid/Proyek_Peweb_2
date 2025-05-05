@@ -405,7 +405,7 @@
                   <h3 class="category-title">Fruits & Veges</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-bread-baguette.png" alt="Category Thumbnail">
+                  <img src="{{ asset('assets-user/images/icon-bread-baguette.png') }}" alt="Category Thumbnail">
                   <h3 class="category-title">Breads & Sweets</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
