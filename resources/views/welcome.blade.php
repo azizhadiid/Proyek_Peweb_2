@@ -22,6 +22,7 @@
 
   </head>
   <body>
+  <body style="background-color:  #FFFBAC;">
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <defs>
@@ -329,7 +330,7 @@
 
                   <div class="content-wrapper col-md-7">
                     <div class="categories mb-3 pb-3">Jelly Nanas Madu</div>
-                    <h3 class="item-title">Rasakan Kelembutannya!</h3>
+                    <h3 class="banner-title">Rasakan Kelembutannya!</h3>
                     <a href="#" class="d-flex align-items-center nav-link">Belanja Sekarang!<svg width="30" height="30"><use xlink:href="#arrow-right"></use></svg></a>
                   </div>
 
