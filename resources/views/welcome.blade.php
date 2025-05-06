@@ -22,7 +22,7 @@
 
   </head>
   <body>
-  <body style="background-color:  #FFFBAC;">
+  <body style="background-color:  #ffe300;">
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <defs>
