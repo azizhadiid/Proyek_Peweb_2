@@ -22,7 +22,7 @@
 
   </head>
   <body>
-  <body style="background-color:  #ffe300;">
+  <body style="background-color:  #fff7b9;">
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <defs>
@@ -165,6 +165,7 @@
                 <form id="search-form" class="text-center" action="index.html" method="post">
                   <input type="text" class="form-control border-0 bg-transparent" placeholder="Cari Produk" />
                 </form>
+                
               </div>
               <div class="col-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
@@ -172,6 +173,9 @@
             </div>
           </div>
           
+          
+
+
           <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
             <div class="support-box text-end d-none d-xl-block">
               <span class="fs-6 text-muted"></span>
@@ -181,12 +185,12 @@
             <ul class="d-flex justify-content-end list-unstyled m-0">
               <li>
                 <a href="#" class="rounded-circle bg-light p-2 mx-1">
-                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#user"></use></svg>
+                  <svg width="40" height="40" viewBox="0 0 24 24"><use xlink:href="#user"></use></svg>
                 </a>
               </li>
               <li>
                 <a href="#" class="rounded-circle bg-light p-2 mx-1">
-                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
+                  <svg width="40" height="40" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
                 </a>
               </li>
               <li class="d-lg-none">
@@ -231,19 +235,19 @@
                   
                   <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
                     <li class="nav-item active">
-                      <a href="#women" class="nav-link">Beranda</a>
+                      <a href="#Beranda" class="nav-link" style="font-size: 30px;">Beranda</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a href="#men" class="nav-link">Produk</a>
+                      <a href="#Produk" class="nav-link" style="font-size: 30px;">Produk</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#kids" class="nav-link">Daftar Jual</a>
+                      <a href="#Daftar Jual" class="nav-link" style="font-size: 30px;">Daftar Jual</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#accessories" class="nav-link">Akun</a>
+                      <a href="#Akun" class="nav-link" style="font-size: 30px;">Akun</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#brand" class="nav-link">Keranjang</a>
+                      <a href="#Keranjang" class="nav-link" style="font-size: 30px;">Keranjang</a>
                     </li>
                   </ul>
                 
