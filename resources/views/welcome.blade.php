@@ -173,8 +173,8 @@
           
           <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
             <div class="support-box text-end d-none d-xl-block">
-              <span class="fs-6 text-muted">Butuh Bantuan?</span>
-              <h5 class="mb-0">+62812345678</h5>
+              <span class="fs-6 text-muted"></span>
+              <h5 class="mb-0"></h5>
             </div>
 
             <ul class="d-flex justify-content-end list-unstyled m-0">
@@ -269,13 +269,13 @@
                     <div class="swiper-slide">
                       <div class="row banner-content p-5">
                         <div class="content-wrapper col-md-7">
-                          <div class="categories my-3">100% natural</div>
-                          <h3 class="display-4">Fresh Smoothie & Summer Juice</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
-                          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Shop Now</a>
+                          <div class="categories my-3">100% Asli Nanas</div>
+                          <h3 class="display-4">Vinas</h3>
+                          <p class="fs-5">Sirup nanas segar kaya vitamin dengan rasa alami yang menyegarkan dan menyehatkan setiap hari.</p>
+                          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Belanja Sekarang!</a>
                         </div>
                         <div class="img-wrapper col-md-5">
-                          <img src="{{ asset('assets-user/images/product-thumb-1.png') }}" class="img-fluid">
+                        <img src="{{ asset('assets-user/images/vinas.png') }}" class="img-fluid" style="max-width: 300px; height: 600px;">
                         </div>
                       </div>
                     </div>
