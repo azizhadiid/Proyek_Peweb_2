@@ -85,38 +85,38 @@
       <div class="offcanvas-body">
         <div class="order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Your cart</span>
+            <span class="text-primary">Keranjang Kamu</span>
             <span class="badge bg-primary rounded-pill">3</span>
           </h4>
           <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">Growers cider</h6>
-                <small class="text-body-secondary">Brief description</small>
+                <h6 class="my-0">Keripik Nanas</h6>
+                <small class="text-body-secondary">Deskripsi Produk</small>
               </div>
-              <span class="text-body-secondary">$12</span>
+              <span class="text-body-secondary">Rp20.000</span>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">Fresh grapes</h6>
-                <small class="text-body-secondary">Brief description</small>
+                <h6 class="my-0">Nastar Nanas</h6>
+                <small class="text-body-secondary">Deskripsi Produk</small>
               </div>
-              <span class="text-body-secondary">$8</span>
+              <span class="text-body-secondary">Rp40.000</span>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">Heinz tomato ketchup</h6>
-                <small class="text-body-secondary">Brief description</small>
+                <h6 class="my-0">Sirup Nanas</h6>
+                <small class="text-body-secondary">Deskripsi Produk</small>
               </div>
-              <span class="text-body-secondary">$5</span>
+              <span class="text-body-secondary">Rp15.000</span>
             </li>
             <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>$20</strong>
+              <span>Total Harga</span>
+              <strong>Rp75.000</strong>
             </li>
           </ul>
   
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Lanjutkan Membeli</button>
         </div>
       </div>
     </div>
@@ -203,7 +203,7 @@
             <div class="cart text-end d-none d-lg-block dropdown">
               <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                 <span class="fs-6 text-muted dropdown-toggle">Keranjang Kamu</span>
-                <span class="cart-total fs-5 fw-bold">Rp.2.975.423</span>
+                <span class="cart-total fs-5 fw-bold">Rp75.000</span>
               </button>
             </div>
           </div>
