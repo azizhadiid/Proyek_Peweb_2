@@ -142,11 +142,11 @@
       <div class="offcanvas-body">
         <div class="order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Search</span>
+            <span class="text-primary">Cari</span>
           </h4>
           <form role="search" action="index.html" method="get" class="d-flex mt-3 gap-0">
-            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="What are you looking for?" aria-label="What are you looking for?">
-            <button class="btn btn-dark rounded-end rounded-0" type="submit">Search</button>
+            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Apa yang kamu cari?" aria-label="Apa yang kamu cari?">
+            <button class="btn btn-dark rounded-end rounded-0" type="submit">Cari</button>
           </form>
         </div>
       </div>
@@ -201,11 +201,7 @@
 </li>
 
 
-              <li class="d-lg-none">
-                <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#cart"></use></svg>
-                </a>
-              </li>
+              
               <li class="d-lg-none">
                 <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
                   <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#search"></use></svg>
