@@ -153,6 +153,12 @@
     </div>
 
     <header>
+    <div style="height: 150px;"></div>
+
+    <nav class="main-menu d-flex navbar navbar-expand-lg fixed-top"
+     style="background-color: #fffaba; opacity: 1; z-index: 1050; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+
       <div class="container-fluid">
         <div class="row py-3 border-bottom">
           
@@ -234,19 +240,19 @@
                   
                   <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
                     <li class="nav-item active">
-                      <a href="#Beranda" class="nav-link" style="font-size: 30px;">Beranda</a>
+                      <a href="#Beranda" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Beranda</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a href="#Produk" class="nav-link" style="font-size: 30px;">Produk</a>
+                      <a href="#Produk" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Produk</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#Daftar Jual" class="nav-link" style="font-size: 30px;">Daftar Jual</a>
+                      <a href="#Daftar Jual" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Daftar Jual</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#Akun" class="nav-link" style="font-size: 30px;">Akun</a>
+                      <a href="#Akun" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Akun</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#Keranjang" class="nav-link" style="font-size: 30px;">Keranjang</a>
+                      <a href="#Keranjang" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Keranjang</a>
                     </li>
                   </ul>
                 
@@ -299,7 +305,7 @@
                     </div>
                     
                     <div class="swiper-slide">
-                      <div class="row banner-content p-5 align-items-center">
+                      <div class="row banner-content p-5 align-items-center" style="background-color: yellow;">
                         <div class="content-wrapper col-md-7">
                           <div class="categories mb-3 pb-3">100% Asli Nanas</div>
                           <h3 class="banner-title">Dodol Nanas</h3>
