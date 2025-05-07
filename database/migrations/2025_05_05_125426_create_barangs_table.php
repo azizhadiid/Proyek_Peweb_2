@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('barangs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // relasi ke tabel users
+            $table->string('nama_produk'); // contoh: "Selai Nanas", "Keripik Nanas"
+            $table->string('jenis_olahan'); // contoh: "Selai", "Keripik", "Manisan", "Jus"
+            $table->text('deskripsi')->nullable(); // penjelasan tentang produk
+            $table->integer('stok'); // jumlah unit yang tersedia
+            $table->decimal('harga', 10, 2); // harga produk (misalnya: 15000.00)
+            $table->string('gambar')->nullable(); // path gambar produk (opsional)
+            $table->timestamps();
+        });
+        
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('barangs');
+    }
+};
