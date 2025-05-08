@@ -369,6 +369,12 @@
           <div class="col-md-12">
 
             <div class="category-carousel swiper">
+            <style>
+  .swiper-pagination-bullet-active {
+    background-color: #fffaba !important;
+  }
+</style>
+
               <div class="swiper-wrapper">
                 
                 <a href="index.html" class="nav-link category-item swiper-slide">
