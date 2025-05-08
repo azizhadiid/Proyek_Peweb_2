@@ -20,6 +20,14 @@ Route::get('/dashboard', function () {
     return view('admin.templates.mainAdminlayout');
 });
 
+Route::get('/forgot', function () {
+    return view('auth.forgot');
+});
+
+Route::get('/reset', function () {
+    return view('auth.reset');
+});
+
 // Khusus Auth
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register']);

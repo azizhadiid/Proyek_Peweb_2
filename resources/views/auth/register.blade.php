@@ -7,7 +7,7 @@
 	<meta name="description" content="This is a login page template based on Bootstrap 5">
 	<title>Register RasaTangkit</title>
     <link href="{{asset('assets-admin/css/styles.css')}}" rel="stylesheet" />
-    </head>
+</head>
 
 <body style="background-color: #FFB22C;">
 	<section class="h-100">
@@ -32,7 +32,7 @@
 								</div>
 
 								<div class="mb-3">
-									<label class="mb-2 text-muted" for="email">E-Mail</label>
+									<label class="mb-2 text-muted" for="email">Alamat Email</label>
 									<input id="email" type="email" class="form-control" name="email" value="" required>
 									<div class="invalid-feedback">
 										Email tidak valid

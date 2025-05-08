@@ -5,7 +5,7 @@
 	<meta name="author" content="Muhamad Nauval Azhar">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="description" content="This is a login page template based on Bootstrap 5">
-	<title>Login RasaTangkit</title>
+	<title>Lupa Password</title>
     <link href="{{asset('assets-admin/css/styles.css')}}" rel="stylesheet" />
 </head>
 
@@ -15,48 +15,38 @@
 			<div class="row justify-content-sm-center h-100">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
-						<img src="{{ asset('assets-user/images/logo.png') }}" alt="logo" width="300">
+                        <img src="{{ asset('assets-user/images/logo.png') }}" alt="logo" width="300">
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4">Masuk Ke Akunmu</h1>
+							<h1 class="fs-4 card-title fw-bold mb-4">Reset Password</h1>
 							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
 								<div class="mb-3">
-									<label class="mb-2 text-muted" for="email">Alamat Email</label>
-									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+									<label class="mb-2 text-muted" for="password">Password Baru</label>
+									<input id="password" type="password" class="form-control" name="password" value="" required autofocus>
 									<div class="invalid-feedback">
-										Email tidak valid
+										Password diperlukan	
 									</div>
 								</div>
 
 								<div class="mb-3">
-									<div class="mb-2 w-100">
-										<label class="text-muted" for="password">Password</label>
-									</div>
-									<input id="password" type="password" class="form-control" name="password" required>
+									<label class="mb-2 text-muted" for="password-confirm">Konfirmasi Password</label>
+									<input id="password-confirm" type="password" class="form-control" name="password_confirm" required>
 								    <div class="invalid-feedback">
-								    	Password dibutuhkan
+										Tolong konfirmasi password baru
 							    	</div>
 								</div>
 
-								<div class="d-flex align-items-center mt-4" >
-                                        <a href="forgot" class="float-end">
-											Lupa Password?
-										</a>
-									<button type="submit" class="btn btn-primary ms-auto" href="dashboard">
-										Masuk
+								<div class="d-flex align-items-center mt-4">
+									<button type="submit" class="btn btn-primary ms-auto">
+										Reset Password	
 									</button>
 								</div>
 							</form>
-						</div>  
-						<div class="card-footer py-3 border-0">
-							<div class="text-center">
-								Belum punya akun? <a href="register" class="text-dark">Buat akun</a>
-							</div>
 						</div>
 					</div>
 					<div class="text-center mt-5 text-muted">
-						Copyright &copy; 2025 &mdash; AHID Production 
+						Copyright &copy; 2025 &mdash; AHID Production
 					</div>
 				</div>
 			</div>
