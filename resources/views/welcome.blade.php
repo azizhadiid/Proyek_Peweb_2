@@ -19,20 +19,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+   <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
-  </head>
-  <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html, body {
-    width: 100%;
-    overflow-x: hidden;
+<style>
+  .swiper-pagination-bullet-active {
+    background-color: yellow !important;
   }
 </style>
+
+
+  </head>
+  
 
   <body>
   
@@ -272,6 +270,19 @@
             <div class="banner-blocks">
             
               <div class="banner-ad large bg-info block-1">
+              <script>
+  var swiper = new Swiper(".main-swiper", {
+    loop: true,
+    autoplay: {
+      delay: 2000, // 2000 ms = 2 detik
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true
+    }
+  });
+</script>
 
                 <div class="swiper main-swiper">
                   <div class="swiper-wrapper">
@@ -1160,5 +1171,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="{{ asset('assets-user/js/plugins.js') }}"></script>
     <script src="{{ asset('assets-user/js/script.js') }}"></script>
+    <!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<!-- Inisialisasi -->
+<script>
+  var swiper = new Swiper(".main-swiper", {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true
+    }
+  });
+</script>
+
   </body>
 </html>
