@@ -305,7 +305,7 @@
                     </div>
                     
                     <div class="swiper-slide">
-                      <div class="row banner-content p-5 align-items-center" style="background-color: yellow;">
+                      <div class="row banner-content p-5 align-items-center">
                         <div class="content-wrapper col-md-7">
                           <div class="categories mb-3 pb-3">100% Asli Nanas</div>
                           <h3 class="banner-title">Dodol Nanas</h3>
