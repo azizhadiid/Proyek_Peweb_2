@@ -21,21 +21,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   </head>
-  <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html, body {
-    width: 100%;
-    overflow-x: hidden;
-  }
-</style>
-
   <body>
-  
+  <body style="background-color:  #fff7b9;">
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <defs>
@@ -142,23 +129,17 @@
       <div class="offcanvas-body">
         <div class="order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Cari</span>
+            <span class="text-primary">Search</span>
           </h4>
           <form role="search" action="index.html" method="get" class="d-flex mt-3 gap-0">
-            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Apa yang kamu cari?" aria-label="Apa yang kamu cari?">
-            <button class="btn btn-dark rounded-end rounded-0" type="submit">Cari</button>
+            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="What are you looking for?" aria-label="What are you looking for?">
+            <button class="btn btn-dark rounded-end rounded-0" type="submit">Search</button>
           </form>
         </div>
       </div>
     </div>
 
     <header>
-    <div style="height: 150px;"></div>
-
-    <nav class="main-menu d-flex navbar navbar-expand-lg fixed-top"
-     style="background-color: #fffaba; opacity: 1; z-index: 1050; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-
-
       <div class="container-fluid">
         <div class="row py-3 border-bottom">
           
@@ -171,16 +152,26 @@
           </div>
           
           <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
-  <form id="search-form" class="search-bar d-flex bg-light p-2 my-2 rounded-4" action="index.html" method="post">
-    <input type="text" class="form-control border-0 bg-transparent me-2" placeholder="Cari Produk">
-    <button type="submit" class="btn p-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
-      </svg>
-    </button>
-  </form>
-</div>
-
+            <div class="search-bar row bg-light p-2 my-2 rounded-4">
+              <div class="col-md-4 d-none d-md-block">
+                <select class="form-select border-0 bg-transparent">
+                  <option>Semua Kategori</option>
+                  <option>Makanan Nanas</option>
+                  <option>Minuman Nanas</option>
+                  <option>Obat-obatan Nanas</option>
+                </select>
+              </div>
+              <div class="col-11 col-md-7">
+                <form id="search-form" class="text-center" action="index.html" method="post">
+                  <input type="text" class="form-control border-0 bg-transparent" placeholder="Cari Produk" />
+                </form>
+                
+              </div>
+              <div class="col-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
+              </div>
+            </div>
+          </div>
           
           
 
@@ -192,22 +183,21 @@
             </div>
 
             <ul class="d-flex justify-content-end list-unstyled m-0">
-              
-            <li>
-  <a href="#offcanvasCart"
-     class="d-flex align-items-center justify-content-center rounded-circle bg-light p-2 mx-1"
-     style="width: 48px; height: 48px;"
-     data-bs-toggle="offcanvas"
-     aria-controls="offcanvasCart">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-      <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .49.598l-1.5 7A.5.5 0 0 1 13 13H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5ZM3.14 6l1.25 5h8.22l1.25-5H3.14Z"/>
-      <path d="M5.5 14a1 1 0 1 0 0 2a1 1 0 0 0 0-2Zm7 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2Z"/>
-    </svg>
-  </a>
-</li>
-
-
-              
+              <li>
+                <a href="#" class="rounded-circle bg-light p-2 mx-1">
+                  <svg width="40" height="40" viewBox="0 0 24 24"><use xlink:href="#user"></use></svg>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="rounded-circle bg-light p-2 mx-1">
+                  <svg width="40" height="40" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
+                </a>
+              </li>
+              <li class="d-lg-none">
+                <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#cart"></use></svg>
+                </a>
+              </li>
               <li class="d-lg-none">
                 <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
                   <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#search"></use></svg>
@@ -215,7 +205,12 @@
               </li>
             </ul>
 
-            
+            <div class="cart text-end d-none d-lg-block dropdown">
+              <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                <span class="fs-6 text-muted dropdown-toggle">Keranjang Kamu</span>
+                <span class="cart-total fs-5 fw-bold">Rp75.000</span>
+              </button>
+            </div>
           </div>
 
         </div>
@@ -240,19 +235,19 @@
                   
                   <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
                     <li class="nav-item active">
-                      <a href="#Beranda" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Beranda</a>
+                      <a href="#Beranda" class="nav-link" style="font-size: 30px;">Beranda</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a href="#Produk" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Produk</a>
+                      <a href="#Produk" class="nav-link" style="font-size: 30px;">Produk</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#Daftar Jual" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Daftar Jual</a>
+                      <a href="#Daftar Jual" class="nav-link" style="font-size: 30px;">Daftar Jual</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#Akun" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Akun</a>
+                      <a href="#Akun" class="nav-link" style="font-size: 30px;">Akun</a>
                     </li>
                     <li class="nav-item">
-                      <a href="#Keranjang" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Keranjang</a>
+                      <a href="#Keranjang" class="nav-link" style="font-size: 30px;">Keranjang</a>
                     </li>
                   </ul>
                 
@@ -305,7 +300,7 @@
                     </div>
                     
                     <div class="swiper-slide">
-                      <div class="row banner-content p-5 align-items-center" style="background-color: yellow;">
+                      <div class="row banner-content p-5 align-items-center">
                         <div class="content-wrapper col-md-7">
                           <div class="categories mb-3 pb-3">100% Asli Nanas</div>
                           <h3 class="banner-title">Dodol Nanas</h3>
