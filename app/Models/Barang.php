@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Barang extends Model
 {
-    protected $table = 'barangs';
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
@@ -15,6 +16,11 @@ class Barang extends Model
         'deskripsi',
         'stok',
         'harga',
-        'gambar',
+        'gambar'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

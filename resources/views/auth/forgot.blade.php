@@ -29,8 +29,8 @@
 									</div>
 								</div>
 
-								<div class="d-flex align-items-center mt-4">
-									<button type="submit" class="btn btn-primary ms-auto">
+								<div class="d-flex justify-content-center mt-4">
+									<button type="submit" class="btn btn-primary" style="width: 100%">
 										Kirim Link	
 									</button>
 								</div>

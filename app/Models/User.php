@@ -23,4 +23,9 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function barangs()
+    {
+        return $this->hasMany(Barang::class);
+    }
 }

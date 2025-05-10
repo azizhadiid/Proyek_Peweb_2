@@ -12,14 +12,43 @@
 <body>
     <div class="container mt-5">
         <h1>Tambah Barang</h1>
+
+        @if ($errors->any())
+        <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert" style="width: 100%">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-exclamation-circle-fill me-2"></i>
+                <div>
+                    @foreach ($errors->all() as $error)
+                    <p class="m-0">{{ $error }}</p>
+                    @endforeach
+                </div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        {{-- Jika Sukses Login --}}
+        @if (session('success'))
+        <div class="alert alert-success" style="width: 100%">
+            {{ session('success') }}
+        </div>
+        @endif
+
+        {{-- jika Password telah di ubah --}}
+        @if (session('status'))
+        <div class="alert alert-success" style="width: 100%">
+            {{ session('status') }}
+        </div>
+        @endif
+
         <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-        
+
             <div class="mb-3">
                 <label for="nama_produk" class="form-label">Nama Produk</label>
                 <input type="text" class="form-control" id="nama_produk" name="nama_produk" required>
             </div>
-        
+
             <div class="mb-3">
                 <label for="jenis_olahan">Jenis Olahan</label>
                 <select class="form-select" id="jenis_olahan" name="jenis_olahan" required>
@@ -31,30 +60,30 @@
                     <option value="Dodol">Dodol</option>
                 </select>
             </div>
-        
+
             <div class="mb-3">
                 <label for="deskripsi" class="form-label">Deskripsi</label>
                 <textarea class="form-control" id="deskripsi" rows="3" name="deskripsi"></textarea>
             </div>
-        
+
             <div class="mb-3">
                 <label for="stok" class="form-label">Stok</label>
                 <input type="number" class="form-control" id="stok" name="stok" required>
             </div>
-        
+
             <div class="mb-3">
                 <label for="harga" class="form-label">Harga</label>
                 <input type="number" class="form-control" id="harga" name="harga" required>
             </div>
-        
+
             <div class="mb-3">
                 <label for="gambar" class="form-label">Gambar</label>
                 <input class="form-control" type="file" id="gambar" name="gambar">
             </div>
-        
+
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
-        
+
     </div>
 
 

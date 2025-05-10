@@ -20,6 +20,11 @@ Route::get('/dashboard', function () {
     return view('admin.templates.mainAdminlayout');
 });
 
+// Khusus Auth
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'store']);
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register/create', [AuthController::class, 'create']);
 Route::get('/forgot', function () {
     return view('auth.forgot');
 });
@@ -27,9 +32,3 @@ Route::get('/forgot', function () {
 Route::get('/reset', function () {
     return view('auth.reset');
 });
-
-// Khusus Auth
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/register', [AuthController::class, 'register']);
-Route::post('/register/create', [AuthController::class, 'create']);
-Route::post('/login', [AuthController::class, 'store']);
