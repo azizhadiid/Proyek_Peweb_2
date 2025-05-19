@@ -119,6 +119,12 @@ CSS STRUCTURE:
     --heading-font        : "Nunito", sans-serif;
 }
 
+.custom-logo-size {
+  width: 241px;
+  height: 54px;
+  object-fit: contain; /* untuk menjaga proporsi gambar jika tidak pas */
+}
+
 body {
   --bs-link-color: #333;
   --bs-link-hover-color:#333;
