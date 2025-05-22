@@ -1,1217 +1,1025 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Rasa Tangkit - Welcome</title>
+
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="author" content="">
-    <meta name="keywords" content="">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Rasa Tangkit</title>
     <meta name="description" content="">
+    <meta name="keywords" content="">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets-user/css/vendor.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets-user/style.css') }}">
+    <!-- Favicons -->
+    <link href="{{ asset('assets-user/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets-user/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-   <!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
-<style>
-  .swiper-pagination-bullet-active {
-    background-color: yellow !important;
-  }
-</style>
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('assets-user/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/drift-zoom/drift-basic.css') }}" rel="stylesheet">
 
+    <!-- Main CSS File -->
+    <link href="{{ asset('assets-user/css/main.css') }}" rel="stylesheet">
 
-  </head>
-  
+    {{-- My Style --}}
+    <style>
+        .btn-search-style {
+            background-color: #E8A26D;
+            /* Warna oranye muda */
+            color: white;
+            border: none;
+            border-radius: 20px;
+            /* Atau gunakan '50%' untuk benar-benar bulat */
+            padding: 0.5rem 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
 
-  <body>
-  
+        .btn-search-style:hover {
+            background-color: #d38c57;
+            /* Warna saat hover */
+            color: white;
+        }
 
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-      <defs>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="link" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M12 19a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm5 0a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm0-4a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm-5 0a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm7-12h-1V2a1 1 0 0 0-2 0v1H8V2a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3Zm1 17a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9h16Zm0-11H4V6a1 1 0 0 1 1-1h1v1a1 1 0 0 0 2 0V5h8v1a1 1 0 0 0 2 0V5h1a1 1 0 0 1 1 1ZM7 15a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm0 4a1 1 0 1 0-1-1a1 1 0 0 0 1 1Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="arrow-right" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M17.92 11.62a1 1 0 0 0-.21-.33l-5-5a1 1 0 0 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l5-5a1 1 0 0 0 .21-.33a1 1 0 0 0 0-.76Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="category" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M19 5.5h-6.28l-.32-1a3 3 0 0 0-2.84-2H5a3 3 0 0 0-3 3v13a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-10a3 3 0 0 0-3-3Zm1 13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1h4.56a1 1 0 0 1 .95.68l.54 1.64a1 1 0 0 0 .95.68h7a1 1 0 0 1 1 1Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="calendar" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="heart" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M20.16 4.61A6.27 6.27 0 0 0 12 4a6.27 6.27 0 0 0-8.16 9.48l7.45 7.45a1 1 0 0 0 1.42 0l7.45-7.45a6.27 6.27 0 0 0 0-8.87Zm-1.41 7.46L12 18.81l-6.75-6.74a4.28 4.28 0 0 1 3-7.3a4.25 4.25 0 0 1 3 1.25a1 1 0 0 0 1.42 0a4.27 4.27 0 0 1 6 6.05Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="plus" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="minus" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M19 11H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="cart" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M8.5 19a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 8.5 19ZM19 16H7a1 1 0 0 1 0-2h8.491a3.013 3.013 0 0 0 2.885-2.176l1.585-5.55A1 1 0 0 0 19 5H6.74a3.007 3.007 0 0 0-2.82-2H3a1 1 0 0 0 0 2h.921a1.005 1.005 0 0 1 .962.725l.155.545v.005l1.641 5.742A3 3 0 0 0 7 18h12a1 1 0 0 0 0-2Zm-1.326-9l-1.22 4.274a1.005 1.005 0 0 1-.963.726H8.754l-.255-.892L7.326 7ZM16.5 19a1.5 1.5 0 1 0 1.5 1.5a1.5 1.5 0 0 0-1.5-1.5Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="check" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M18.71 7.21a1 1 0 0 0-1.42 0l-7.45 7.46l-3.13-3.14A1 1 0 1 0 5.29 13l3.84 3.84a1 1 0 0 0 1.42 0l8.16-8.16a1 1 0 0 0 0-1.47Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="trash" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M10 18a1 1 0 0 0 1-1v-6a1 1 0 0 0-2 0v6a1 1 0 0 0 1 1ZM20 6h-4V5a3 3 0 0 0-3-3h-2a3 3 0 0 0-3 3v1H4a1 1 0 0 0 0 2h1v11a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2ZM10 5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h-4Zm7 14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8h10Zm-3-1a1 1 0 0 0 1-1v-6a1 1 0 0 0-2 0v6a1 1 0 0 0 1 1Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="star-outline" viewBox="0 0 15 15">
-          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M7.5 9.804L5.337 11l.413-2.533L4 6.674l2.418-.37L7.5 4l1.082 2.304l2.418.37l-1.75 1.793L9.663 11L7.5 9.804Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="star-solid" viewBox="0 0 15 15">
-          <path fill="currentColor" d="M7.953 3.788a.5.5 0 0 0-.906 0L6.08 5.85l-2.154.33a.5.5 0 0 0-.283.843l1.574 1.613l-.373 2.284a.5.5 0 0 0 .736.518l1.92-1.063l1.921 1.063a.5.5 0 0 0 .736-.519l-.373-2.283l1.574-1.613a.5.5 0 0 0-.283-.844L8.921 5.85l-.968-2.062Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="search" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="user" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M15.71 12.71a6 6 0 1 0-7.42 0a10 10 0 0 0-6.22 8.18a1 1 0 0 0 2 .22a8 8 0 0 1 15.9 0a1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1a10 10 0 0 0-6.25-8.19ZM12 12a4 4 0 1 1 4-4a4 4 0 0 1-4 4Z"/>
-        </symbol>
-        <symbol xmlns="http://www.w3.org/2000/svg" id="close" viewBox="0 0 15 15">
-          <path fill="currentColor" d="M7.953 3.788a.5.5 0 0 0-.906 0L6.08 5.85l-2.154.33a.5.5 0 0 0-.283.843l1.574 1.613l-.373 2.284a.5.5 0 0 0 .736.518l1.92-1.063l1.921 1.063a.5.5 0 0 0 .736-.519l-.373-2.283l1.574-1.613a.5.5 0 0 0-.283-.844L8.921 5.85l-.968-2.062Z"/>
-        </symbol>
-      </defs>
-    </svg>
+    </style>
 
-    <div class="preloader-wrapper">
-      <div class="preloader">
-      </div>
-    </div>
+    <!-- =======================================================
+  * Template Name: eStore
+  * Template URL: https://bootstrapmade.com/estore-bootstrap-ecommerce-template/
+  * Updated: Apr 26 2025 with Bootstrap v5.3.5
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
 
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
-      <div class="offcanvas-header justify-content-center">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="order-md-last">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Keranjang Kamu</span>
-            <span class="badge bg-primary rounded-pill">3</span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Keripik Nanas</h6>
-                <small class="text-body-secondary">Deskripsi Produk</small>
-              </div>
-              <span class="text-body-secondary">Rp20.000</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Nastar Nanas</h6>
-                <small class="text-body-secondary">Deskripsi Produk</small>
-              </div>
-              <span class="text-body-secondary">Rp40.000</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Sirup Nanas</h6>
-                <small class="text-body-secondary">Deskripsi Produk</small>
-              </div>
-              <span class="text-body-secondary">Rp15.000</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total Harga</span>
-              <strong>Rp75.000</strong>
-            </li>
-          </ul>
-  
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Lanjutkan Membeli</button>
-        </div>
-      </div>
-    </div>
-    
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasSearch" aria-labelledby="Search">
-      <div class="offcanvas-header justify-content-center">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="order-md-last">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Cari</span>
-          </h4>
-          <form role="search" action="index.html" method="get" class="d-flex mt-3 gap-0">
-            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Apa yang kamu cari?" aria-label="Apa yang kamu cari?">
-            <button class="btn btn-dark rounded-end rounded-0" type="submit">Cari</button>
-          </form>
-        </div>
-      </div>
-    </div>
+<body class="index-page" style="padding-top: 150px">
 
-    <header>
-    <div style="height: 150px;"></div>
+    <header id="header" class="header fixed-top bg-white shadow-sm">
 
-    <nav class="main-menu d-flex navbar navbar-expand-lg fixed-top"
-     style="background-color: #fffaba; opacity: 1; z-index: 1050; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="container-fluid container-xl">
+                <div class="d-flex py-3 align-items-center justify-content-between">
 
+                    <!-- Logo -->
+                    <a href="/" class="logo d-flex align-items-center">
+                        <!-- Uncomment the line below if you also wish to use an image logo -->
+                        <!-- <img src="assets/img/logo.webp" alt=""> -->
+                        <h1 class="sitename">RasaTangkit</h1>
+                    </a>
 
-      <div class="container-fluid">
-        <div class="row py-3 border-bottom">
-          
-          <div class="col-sm-4 col-lg-3 text-center text-sm-start">
-            <div class="main-logo">
-              <a href="index.html">
-              <img src="{{ asset('assets-user/images/logo_rasa_tangkit.png') }}" alt="logo" class="img-fluid custom-logo-size">
-              </a>
-            </div>
-          </div>
-          
-<<<<<<< HEAD
-          <div class="col-lg-5 d-none d-lg-block">
-            <form id="search-form" class="text-center" action="index.html" method="post">
-              <div class="input-group bg-light p-2 my-2 rounded-4">
-                <input type="text" class="form-control border-0 bg-transparent" placeholder="Search for more than 20,000 products" />
-                <button class="btn bg-transparent border-0" type="submit">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
-                  </svg>
-                </button>
-              </div>
-            </form>
-          </div>
-=======
-          <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
-  <form id="search-form" class="search-bar d-flex bg-light p-2 my-2 rounded-4" action="index.html" method="post">
-    <input type="text" class="form-control border-0 bg-transparent me-2" placeholder="Cari Produk">
-    <button type="submit" class="btn p-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
-      </svg>
-    </button>
-  </form>
-</div>
->>>>>>> 6ea5b0709946c005856a8e3a313ff39dae88bc32
+                    <!-- Search -->
+                    <form class="search-form desktop-search-form">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for products">
+                            <button class="btn" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
 
-          
-          
+                    <!-- Actions -->
+                    <div class="header-actions d-flex align-items-center justify-content-end">
 
+                        <!-- Mobile Search Toggle -->
+                        <button class="header-action-btn mobile-search-toggle d-xl-none" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#mobileSearch" aria-expanded="false"
+                            aria-controls="mobileSearch">
+                            <i class="bi bi-search"></i>
+                        </button>
 
-          <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
-            <div class="support-box text-end d-none d-xl-block">
-              <span class="fs-6 text-muted"></span>
-              <h5 class="mb-0"></h5>
-            </div>
+                        <!-- Desktop buttons -->
+                        <div class="d-none d-md-flex">
+                            <a href="/login" class="btn btn-search-style me-2">
+                                Masuk <i class="bi bi-box-arrow-in-right ms-1"></i>
+                            </a>
+                            <a href="/register" class="btn btn-search-style">
+                                Daftar <i class="bi bi-person-plus ms-1"></i>
+                            </a>
+                        </div>
 
-            <ul class="d-flex justify-content-end list-unstyled m-0">
-              
-            <li>
-  <a href="#offcanvasCart"
-     class="d-flex align-items-center justify-content-center rounded-circle bg-light p-2 mx-1"
-     style="width: 48px; height: 48px;"
-     data-bs-toggle="offcanvas"
-     aria-controls="offcanvasCart">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-      <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .49.598l-1.5 7A.5.5 0 0 1 13 13H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5ZM3.14 6l1.25 5h8.22l1.25-5H3.14Z"/>
-      <path d="M5.5 14a1 1 0 1 0 0 2a1 1 0 0 0 0-2Zm7 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2Z"/>
-    </svg>
-  </a>
-</li>
+                        <!-- Mobile Navigation Toggle -->
+                        <i class="mobile-nav-toggle d-xl-none bi bi-list me-0"></i>
 
-
-              
-              <li class="d-lg-none">
-                <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
-                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#search"></use></svg>
-                </a>
-              </li>
-            </ul>
-
-<<<<<<< HEAD
-          <div class="cart text-end d-none d-lg-block dropdown">
-            <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-              <span class="fs-6 text-muted dropdown-toggle">Your Cart</span>
-              <span class="cart-total fs-5 fw-bold">$1290.00</span>
-            </button>
-=======
-            
->>>>>>> 6ea5b0709946c005856a8e3a313ff39dae88bc32
-          </div>
-        </div>
-
-        <div class="container-fluid">
-        <div class="row py-3">
-          <div class="d-flex  justify-content-center justify-content-sm-between align-items-center">
-            <nav class="main-menu d-flex navbar navbar-expand-lg">
-
-              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-
-              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-
-                <div class="offcanvas-header justify-content-center">
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
                 </div>
-
-                <div class="offcanvas-body">
-                  
-                  <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                    <li class="nav-item active">
-                      <a href="#Beranda" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Beranda</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a href="#Produk" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Produk</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#Daftar Jual" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Daftar Jual</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#Akun" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Akun</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#Keranjang" class="nav-link" style="font-size: 30px; font-family: 'Poppins', sans-serif;">Keranjang</a>
-                    </li>
-                  </ul>
-                
-                </div>
-              </div>
             </div>
-           </div>
         </div>
-      </div>
-      </div>
 
+        <!-- Navigation -->
+        <div class="header-nav">
+            <div class="container-fluid container-xl">
+                <div class="position-relative">
+                    <nav id="navmenu" class="navmenu">
+                        <ul>
+                            <li><a href="/" class="active">Beranda</a></li>
+                            <li><a href="about.html">Tentang</a></li>
+                            <li><a href="about.html">Produk</a></li>
+                            <li><a href="category.html">Category</a></li>
+                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="checkout.html">Checkout</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li class="d-md-none text-center mt-5">
+                                <div class="d-flex justify-content-center">
+                                    <a href="login-register.html"
+                                        style="background-color: #f7941d; width: 50%; color: white; text-align: center; display: flex; align-items: center; justify-content: center;"
+                                        class="btn">
+                                        Masuk
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="d-md-none text-center mt-2">
+                                <div class="d-flex justify-content-center">
+                                    <a href="register.html"
+                                        style="background-color: #f7941d; width: 50%; color: white; text-align: center; display: flex; align-items: center; justify-content: center;"
+                                        class="btn">
+                                        Daftar
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Search Form -->
+        <div class="collapse" id="mobileSearch">
+            <div class="container">
+                <form class="search-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for products">
+                        <button class="btn" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </header>
-    
-    <section class="py-3" style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
 
-            <div class="banner-blocks">
-            
-              <div class="banner-ad large bg-info block-1">
-              <script>
-  var swiper = new Swiper(".main-swiper", {
-    loop: true,
-    autoplay: {
-      delay: 2000, // 2000 ms = 2 detik
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true
-    }
-  });
-</script>
+    <main class="main">
+        <section class="ecommerce-hero-1 hero section" id="hero">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 content-col" data-aos="fade-right" data-aos-delay="100">
+                        <div class="content">
+                            <!-- <span class="promo-badge">New Collection 2025</span> -->
+                            <h1><span>RasaTangkit:</span> Produk Berkelas dari Nanas Tangkit</h1>
+                            <p>Temukan beragam olahan nanas khas Tangkit — nikmat, alami, dan penuh kebaikan rasa lokal.
+                            </p>
+                            <div class="hero-cta">
+                                <a href="#" class="btn btn-shop">Beli Sekarang <i class="bi bi-arrow-right"></i></a>
+                                <a href="#" class="btn btn-collection">Lihat Semua Produk</a>
+                            </div>
+                            <div class="hero-features">
+                                <div class="feature-item">
+                                    <i class="bi bi-truck"></i>
+                                    <span>100% Nanas Lokal</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-shield-check"></i>
+                                    <span>Kualitas Premium</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                    <span>Siap Kirim ke Seluruh Indonesia</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 image-col" data-aos="fade-left" data-aos-delay="200">
+                        <div class="hero-image">
+                            <img src="{{ asset('assets-user/img/product/nanas2.png') }}" alt="Selai Nanas"
+                                class="main-product" loading="lazy">
+                            <div class="floating-product product-1" data-aos="fade-up" data-aos-delay="300">
+                                <img src="{{ asset('assets-user/img/product/nanas3.webp') }}" alt="Product 2">
+                                <div class="product-info">
+                                    <h4>Nanas Queen</h4>
+                                    <span class="price">Rp15.000</span>
+                                </div>
+                            </div>
+                            <div class="floating-product product-2" data-aos="fade-up" data-aos-delay="400">
+                                <img src="{{ asset('assets-user/img/product/nastar.png') }}" alt="Product 3">
+                                <div class="product-info">
+                                    <h4>Nastar Nanas</h4>
+                                    <span class="price">Rp25.000</span>
+                                </div>
+                            </div>
+                            <div class="discount-badge" data-aos="zoom-in" data-aos-delay="500">
+                                <span class="percent">100%</span>
+                                <span class="text">LOCAL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- /Hero Section -->
 
-                <div class="swiper main-swiper">
-                  <div class="swiper-wrapper">
-                    
-                    <div class="swiper-slide">
-                      <div class="row banner-content p-5 align-items-center">
-                        <div class="content-wrapper col-md-7">
-                          <div class="categories my-3">100% Asli Nanas</div>
-                          <h3 class="display-4">Vinas</h3>
-                          <p class="fs-5">Sirup nanas segar kaya vitamin dengan rasa alami yang menyegarkan dan menyehatkan setiap hari.</p>
-                          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Belanja Sekarang!</a>
+        <!-- Info Cards Section -->
+        <section id="info-cards" class="info-cards section light-background">
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row g-4 justify-content-center">
+
+                    <!-- Info Card 1 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="info-card text-center">
+                            <div class="icon-box">
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <h3>Gratis Ongkir</h3>
+                            <p>Gratis ongkos kirim ke wilayah tertentu. Nikmati olahan nanas khas Tangkit langsung di
+                                rumah
+                                Anda.</p>
                         </div>
-                        <div class="img-wrapper col-md-5">
-                        <img src="{{ asset('assets-user/images/vinas.png') }}" class="img-fluid" style="max-width: 300px; height: 600px;">
+                    </div><!-- End Info Card 1 -->
+
+                    <!-- Info Card 2 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="info-card text-center">
+                            <div class="icon-box">
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <h3>Kualitas Terbaik</h3>
+                            <p>Produk kami diolah dari nanas pilihan dengan proses higienis untuk menjaga rasa dan mutu
+                                terbaik.
+                            </p>
                         </div>
-                      </div>
-                    </div>
-                    
-                    <div class="swiper-slide">
-                      <div class="row banner-content p-5 align-items-center">
-                        <div class="content-wrapper col-md-7">
-                          <div class="categories mb-3 pb-3">100% Asli Nanas</div>
-                          <h3 class="banner-title">Nanas Crispy</h3>
-                          <p class="fs-5">Camilan sehat berbahan dasar nanas pilihan yang dikeringkan secara alami untuk mempertahankan rasa manis aslinya.</p>
-                          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Belanja Sekarang!</a>
+                    </div><!-- End Info Card 2 -->
+
+                    <!-- Info Card 3 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                        <div class="info-card text-center">
+                            <div class="icon-box">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+                            <h3>Olahan Lokal Asli Tangkit</h3>
+                            <p>Dibuat langsung dari nanas unggulan Tangkit, Jambi—dengan cita rasa otentik khas daerah.
+                            </p>
                         </div>
-                        <div class="img-wrapper col-md-5">
-                          <img src="{{ asset('assets-user/images/snack.png') }}" class="img-fluid" style="max-width: 350px; height: 600px;">
+                    </div><!-- End Info Card 3 -->
+
+                    <!-- Info Card 4 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
+                        <div class="info-card text-center">
+                            <div class="icon-box">
+                                <i class="bi bi-recycle"></i>
+                            </div>
+                            <h3>Ramah Lingkungan</h3>
+                            <p>Kami berkomitmen pada keberlanjutan dengan kemasan ramah lingkungan dan praktik produksi
+                                yang
+                                bijak.</p>
                         </div>
-                      </div>
-                    </div>
-                    
-                    <div class="swiper-slide">
-                      <div class="row banner-content p-5 align-items-center">
-                        <div class="content-wrapper col-md-7">
-                          <div class="categories mb-3 pb-3">100% Asli Nanas</div>
-                          <h3 class="banner-title">Dodol Nanas</h3>
-                          <p class="fs-5">Camilan manis kenyal berbahan nanas asli yang menghadirkan cita rasa tropis khas dalam setiap gigitan.</p>
-                          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Belanja Sekarang!</a>
-                        </div>
-                        <div class="img-wrapper col-md-5">
-                          <img src="{{ asset('assets-user/images/dodol.png') }}" class="img-fluid">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="swiper-pagination"></div>
+                    </div><!-- End Info Card 4 -->
 
                 </div>
-              </div>
-              
-              <div class="banner-ad bg-success-subtle block-2" style="background:url('{{ asset('assets-user/images/keripik.png') }} ') no-repeat;background-position: right bottom">
-                <div class="row banner-content p-5">
-                  <div class="content-wrapper col-md-7">
-                    <div class="categories mb-3 pb-3">Keripik Nanas Madu</div>
-                    <h3 class="banner-title">Rasakan kenikmatannya!</h3>
-                    <a href="#" class="d-flex align-items-center nav-link">Belanja Sekarang!<svg width="30" height="30"><use xlink:href="#arrow-right"></use></svg></a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="banner-ad bg-danger block-3" style="background:url('{{ asset('assets-user/images/jelly.png') }} ') no-repeat;background-position: right bottom">
-                <div class="row banner-content p-5">
-
-                  <div class="content-wrapper col-md-7">
-                    <div class="categories mb-3 pb-3">Jelly Nanas Madu</div>
-                    <h3 class="banner-title">Rasakan Kelembutannya!</h3>
-                    <a href="#" class="d-flex align-items-center nav-link">Belanja Sekarang!<svg width="30" height="30"><use xlink:href="#arrow-right"></use></svg></a>
-                  </div>
-
-                </div>
-              </div>
 
             </div>
-            <!-- / Banner Blocks -->
-              
-          </div>
+        </section><!-- End Info Cards Section -->
+
+
+        <!-- Category Cards Section -->
+        <section id="category-cards" class="category-cards section">
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="category-slider swiper init-swiper">
+                    <script type="application/json" class="swiper-config">
+                        {
+                            "loop": true,
+                            "autoplay": {
+                                "delay": 5000,
+                                "disableOnInteraction": false
+                            },
+                            "grabCursor": true,
+                            "speed": 600,
+                            "slidesPerView": "auto",
+                            "spaceBetween": 20,
+                            "navigation": {
+                                "nextEl": ".swiper-button-next",
+                                "prevEl": ".swiper-button-prev"
+                            },
+                            "breakpoints": {
+                                "320": {
+                                    "slidesPerView": 2,
+                                    "spaceBetween": 15
+                                },
+                                "576": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 15
+                                },
+                                "768": {
+                                    "slidesPerView": 4,
+                                    "spaceBetween": 20
+                                },
+                                "992": {
+                                    "slidesPerView": 5,
+                                    "spaceBetween": 20
+                                },
+                                "1200": {
+                                    "slidesPerView": 6,
+                                    "spaceBetween": 20
+                                }
+                            }
+                        }
+
+                    </script>
+
+                    <!-- Best Sellers Section -->
+                    <section id="best-sellers" class="best-sellers section">
+                        <!-- Section Title -->
+                        <div class="container section-title" data-aos="fade-up">
+                            <h2>Best Sellers</h2>
+                            <p>Nikmati cita rasa khas dari olahan nanas pilihan, langsung dari kebun terbaik kami untuk
+                                Anda.
+                            </p>
+                        </div><!-- End Section Title -->
+
+                        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                            <div class="row gy-4">
+                                <!-- Product 1 -->
+                                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="assets/img/product/product-1.webp" class="img-fluid default-image"
+                                                alt="Product" loading="lazy">
+                                            <img src="assets/img/product/product-1-variant.webp"
+                                                class="img-fluid hover-image" alt="Product hover" loading="lazy">
+                                            <div class="product-tags">
+                                                <span class="badge bg-accent">New</span>
+                                            </div>
+                                            <div class="product-actions">
+                                                <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
+                                                    <i class="bi bi-heart"></i>
+                                                </button>
+                                                <button class="btn-quickview" type="button" aria-label="Quick view">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-title"><a href="product-details.html">Lorem ipsum dolor
+                                                    sit
+                                                    amet</a></h3>
+                                            <div class="product-price">
+                                                <span class="current-price">$89.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <span class="rating-count">(42)</span>
+                                            </div>
+                                            <button class="btn btn-add-to-cart">
+                                                <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product 1 -->
+
+                                <!-- Product 2 -->
+                                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="assets/img/product/product-4.webp" class="img-fluid default-image"
+                                                alt="Product" loading="lazy">
+                                            <img src="assets/img/product/product-4-variant.webp"
+                                                class="img-fluid hover-image" alt="Product hover" loading="lazy">
+                                            <div class="product-tags">
+                                                <span class="badge bg-sale">Sale</span>
+                                            </div>
+                                            <div class="product-actions">
+                                                <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
+                                                    <i class="bi bi-heart"></i>
+                                                </button>
+                                                <button class="btn-quickview" type="button" aria-label="Quick view">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-title"><a href="product-details.html">Consectetur
+                                                    adipiscing
+                                                    elit</a></h3>
+                                            <div class="product-price">
+                                                <span class="current-price">$64.99</span>
+                                                <span class="original-price">$79.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span class="rating-count">(28)</span>
+                                            </div>
+                                            <button class="btn btn-add-to-cart">
+                                                <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product 2 -->
+
+                                <!-- Product 3 -->
+                                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="assets/img/product/product-7.webp" class="img-fluid default-image"
+                                                alt="Product" loading="lazy">
+                                            <img src="assets/img/product/product-7-variant.webp"
+                                                class="img-fluid hover-image" alt="Product hover" loading="lazy">
+                                            <div class="product-actions">
+                                                <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
+                                                    <i class="bi bi-heart"></i>
+                                                </button>
+                                                <button class="btn-quickview" type="button" aria-label="Quick view">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-title"><a href="product-details.html">Sed do eiusmod
+                                                    tempor
+                                                    incididunt</a></h3>
+                                            <div class="product-price">
+                                                <span class="current-price">$119.00</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <span class="rating-count">(56)</span>
+                                            </div>
+                                            <button class="btn btn-add-to-cart">
+                                                <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product 3 -->
+
+                                <!-- Product 4 -->
+                                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="250">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="assets/img/product/product-12.webp"
+                                                class="img-fluid default-image" alt="Product" loading="lazy">
+                                            <img src="assets/img/product/product-12-variant.webp"
+                                                class="img-fluid hover-image" alt="Product hover" loading="lazy">
+                                            <div class="product-tags">
+                                                <span class="badge bg-sold-out">Sold Out</span>
+                                            </div>
+                                            <div class="product-actions">
+                                                <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
+                                                    <i class="bi bi-heart"></i>
+                                                </button>
+                                                <button class="btn-quickview" type="button" aria-label="Quick view">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-title"><a href="product-details.html">Ut labore et dolore
+                                                    magna
+                                                    aliqua</a></h3>
+                                            <div class="product-price">
+                                                <span class="current-price">$75.50</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span class="rating-count">(15)</span>
+                                            </div>
+                                            <button class="btn btn-add-to-cart btn-disabled" disabled="">
+                                                <i class="bi bi-bag-plus me-2"></i>Sold Out
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product 4 -->
+                            </div>
+
+                        </div>
+
+                    </section><!-- /Best Sellers Section -->
+
+                    <!-- Product List Section -->
+                    <section id="product-list" class="product-list section">
+
+                        <div class="container isotope-layout" data-aos="fade-up" data-aos-delay="100"
+                            data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="product-filters isotope-filters mb-5 d-flex justify-content-center"
+                                        data-aos="fade-up">
+                                        <ul class="d-flex flex-wrap gap-2 list-unstyled">
+                                            <li class="filter-active" data-filter="*">All</li>
+                                            <li data-filter=".filter-clothing">Clothing</li>
+                                            <li data-filter=".filter-accessories">Accessories</li>
+                                            <li data-filter=".filter-electronics">Electronics</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row product-container isotope-container" data-aos="fade-up"
+                                data-aos-delay="200">
+
+                                <!-- Product Item 1 -->
+                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <span class="badge">Sale</span>
+                                            <img src="assets/img/product/product-11.webp" alt="Product"
+                                                class="img-fluid main-img">
+                                            <img src="assets/img/product/product-11-variant.webp" alt="Product Hover"
+                                                class="img-fluid hover-img">
+                                            <div class="product-overlay">
+                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
+                                                    to
+                                                    Cart</a>
+                                                <div class="product-actions">
+                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
+                                                    <a href="#" class="action-btn"><i
+                                                            class="bi bi-arrow-left-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-title"><a href="product-details.html">Lorem ipsum dolor
+                                                    sit
+                                                    amet</a></h5>
+                                            <div class="product-price">
+                                                <span class="current-price">$89.99</span>
+                                                <span class="old-price">$129.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <span>(24)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product Item -->
+
+                                <!-- Product Item 2 -->
+                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="assets/img/product/product-9.webp" alt="Product"
+                                                class="img-fluid main-img">
+                                            <img src="assets/img/product/product-9-variant.webp" alt="Product Hover"
+                                                class="img-fluid hover-img">
+                                            <div class="product-overlay">
+                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
+                                                    to
+                                                    Cart</a>
+                                                <div class="product-actions">
+                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
+                                                    <a href="#" class="action-btn"><i
+                                                            class="bi bi-arrow-left-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-title"><a href="product-details.html">Consectetur
+                                                    adipiscing
+                                                    elit</a></h5>
+                                            <div class="product-price">
+                                                <span class="current-price">$249.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span>(18)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product Item -->
+
+                                <!-- Product Item 3 -->
+                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-accessories">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <span class="badge">New</span>
+                                            <img src="assets/img/product/product-3.webp" alt="Product"
+                                                class="img-fluid main-img">
+                                            <img src="assets/img/product/product-3-variant.webp" alt="Product Hover"
+                                                class="img-fluid hover-img">
+                                            <div class="product-overlay">
+                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
+                                                    to
+                                                    Cart</a>
+                                                <div class="product-actions">
+                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
+                                                    <a href="#" class="action-btn"><i
+                                                            class="bi bi-arrow-left-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-title"><a href="product-details.html">Sed do eiusmod
+                                                    tempor</a>
+                                            </h5>
+                                            <div class="product-price">
+                                                <span class="current-price">$59.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span>(7)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product Item -->
+
+                                <!-- Product Item 4 -->
+                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="assets/img/product/product-4.webp" alt="Product"
+                                                class="img-fluid main-img">
+                                            <img src="assets/img/product/product-4-variant.webp" alt="Product Hover"
+                                                class="img-fluid hover-img">
+                                            <div class="product-overlay">
+                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
+                                                    to
+                                                    Cart</a>
+                                                <div class="product-actions">
+                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
+                                                    <a href="#" class="action-btn"><i
+                                                            class="bi bi-arrow-left-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-title"><a href="product-details.html">Incididunt ut
+                                                    labore et
+                                                    dolore</a></h5>
+                                            <div class="product-price">
+                                                <span class="current-price">$79.99</span>
+                                                <span class="old-price">$99.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <span>(32)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product Item -->
+
+                                <!-- Product Item 5 -->
+                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <span class="badge">Sale</span>
+                                            <img src="assets/img/product/product-5.webp" alt="Product"
+                                                class="img-fluid main-img">
+                                            <img src="assets/img/product/product-5-variant.webp" alt="Product Hover"
+                                                class="img-fluid hover-img">
+                                            <div class="product-overlay">
+                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
+                                                    to
+                                                    Cart</a>
+                                                <div class="product-actions">
+                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
+                                                    <a href="#" class="action-btn"><i
+                                                            class="bi bi-arrow-left-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-title"><a href="product-details.html">Magna aliqua ut
+                                                    enim ad
+                                                    minim</a></h5>
+                                            <div class="product-price">
+                                                <span class="current-price">$199.99</span>
+                                                <span class="old-price">$249.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span>(15)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product Item -->
+
+                                <!-- Product Item 6 -->
+                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-accessories">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="assets/img/product/product-6.webp" alt="Product"
+                                                class="img-fluid main-img">
+                                            <img src="assets/img/product/product-6-variant.webp" alt="Product Hover"
+                                                class="img-fluid hover-img">
+                                            <div class="product-overlay">
+                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
+                                                    to
+                                                    Cart</a>
+                                                <div class="product-actions">
+                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
+                                                    <a href="#" class="action-btn"><i
+                                                            class="bi bi-arrow-left-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-title"><a href="product-details.html">Veniam quis nostrud
+                                                    exercitation</a></h5>
+                                            <div class="product-price">
+                                                <span class="current-price">$45.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span>(21)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product Item -->
+
+                                <!-- Product Item 7 -->
+                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <span class="badge">New</span>
+                                            <img src="assets/img/product/product-7.webp" alt="Product"
+                                                class="img-fluid main-img">
+                                            <img src="assets/img/product/product-7-variant.webp" alt="Product Hover"
+                                                class="img-fluid hover-img">
+                                            <div class="product-overlay">
+                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
+                                                    to
+                                                    Cart</a>
+                                                <div class="product-actions">
+                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
+                                                    <a href="#" class="action-btn"><i
+                                                            class="bi bi-arrow-left-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-title"><a href="product-details.html">Ullamco laboris
+                                                    nisi ut
+                                                    aliquip</a></h5>
+                                            <div class="product-price">
+                                                <span class="current-price">$69.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span>(11)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product Item -->
+
+                                <!-- Product Item 8 -->
+                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img src="assets/img/product/product-8.webp" alt="Product"
+                                                class="img-fluid main-img">
+                                            <img src="assets/img/product/product-8-variant.webp" alt="Product Hover"
+                                                class="img-fluid hover-img">
+                                            <div class="product-overlay">
+                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
+                                                    to
+                                                    Cart</a>
+                                                <div class="product-actions">
+                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
+                                                    <a href="#" class="action-btn"><i
+                                                            class="bi bi-arrow-left-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-title"><a href="product-details.html">Ex ea commodo
+                                                    consequat</a>
+                                            </h5>
+                                            <div class="product-price">
+                                                <span class="current-price">$159.99</span>
+                                            </div>
+                                            <div class="product-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <span>(29)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Product Item -->
+
+                            </div>
+
+                            <div class="text-center mt-5" data-aos="fade-up">
+                                <a href="#" class="view-all-btn">View All Products <i class="bi bi-arrow-right"></i></a>
+                            </div>
+
+                        </div>
+
+                    </section><!-- /Product List Section -->
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="row gy-4">
+                    <!-- Tentang -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="footer-widget footer-about">
+                            <a href="index.html" class="logo" style="margin-top: -20px;">
+                                <span class="sitename">Rasa Tangkit</span>
+                            </a>
+                            <p>Rasakan kelezatan nanas Tangkit dalam keripik, dodol, selai, dan minuman segar. Dukung
+                                petani lokal, nikmati rasa asli Indonesia!</p>
+                            <div class="footer-contact mt-4">
+                                <div class="contact-item">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <span>Jalan Nanas No. 5, Tangkit, Muaro Jambi, Jambi</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>+62 812-3456-7890</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span>info@rasatangkit.id</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produk -->
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="footer-widget">
+                            <h4>Produk</h4>
+                            <ul class="footer-links">
+                                <li><a href="produk.html">Semua Produk</a></li>
+                                <li><a href="produk.html#keripik">Keripik Nanas</a></li>
+                                <li><a href="produk.html#dodol">Dodol Nanas</a></li>
+                                <li><a href="produk.html#selai">Selai Nanas</a></li>
+                                <li><a href="produk.html#minuman">Minuman Nanas</a></li>
+                                <li><a href="promo.html">Promo Spesial</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Bantuan -->
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="footer-widget">
+                            <h4>Bantuan</h4>
+                            <ul class="footer-links">
+                                <li><a href="bantuan.html">Pusat Bantuan</a></li>
+                                <li><a href="pesanan.html">Status Pesanan</a></li>
+                                <li><a href="pengiriman.html">Info Pengiriman</a></li>
+                                <li><a href="pengembalian.html">Pengembalian Barang</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="kontak.html">Hubungi Kami</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tentang Kami -->
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="footer-widget">
+                            <h4>Perusahaan</h4>
+                            <ul class="footer-links">
+                                <li><a href="tentang.html">Tentang Kami</a></li>
+                                <li><a href="mitra.html">Mitra & Distribusi</a></li>
+                                <li><a href="berita.html">Berita & Media</a></li>
+                                <li><a href="csr.html">Tanggung Jawab Sosial</a></li>
+                                <li><a href="karir.html">Karir</a></li>
+                                <li><a href="kontak.html">Kontak</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Aplikasi & Sosial Media -->
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="footer-widget">
+                            <h4>Unduh Aplikasi Kami</h4>
+                            <p>Belanja olahan nanas lebih mudah lewat aplikasi</p>
+                            <div class="app-buttons">
+                                <a href="#" class="app-btn">
+                                    <i class="bi bi-apple"></i>
+                                    <span>App Store</span>
+                                </a>
+                                <a href="#" class="app-btn">
+                                    <i class="bi bi-google-play"></i>
+                                    <span>Google Play</span>
+                                </a>
+                            </div>
+                            <div class="social-links mt-4">
+                                <h5>Ikuti Kami</h5>
+                                <div class="social-icons">
+                                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                    <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                                    <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
 
-    <section class="py-5 overflow-hidden">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
+        <div class="footer-bottom">
+            <div class="container">
 
-            <div class="section-header d-flex flex-wrap justify-content-between mb-5">
-              <h2 class="section-title">Kategori</h2>
-            </div>
-            
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-
-            <div class="category-carousel swiper">
-            <style>
-  .swiper-pagination-bullet-active {
-    background-color: #fffaba !important;
-  }
-</style>
-
-              <div class="swiper-wrapper">
-                
-                <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="{{ asset('assets-user/images/icon-bread-baguette.png') }} " alt="Category Thumbnail">
-                  <h3 class="category-title">Makanan</h3>
-                </a>
-                <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="{{ asset('assets-user/images/icon-soft-drinks-bottle.png') }} " alt="Category Thumbnail">
-                  <h3 class="category-title">Minuman</h3>
-                </a>
-                <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="{{ asset('assets-user/images/icon-bread-herb-flour.png') }} " alt="Category Thumbnail">
-                  <h3 class="category-title">Obat-Obatan</h3>
-                </a>
-                
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    
-
-
-    <section class="py-5">
-      <div class="container-fluid">
-        
-        <div class="row">
-          <div class="col-md-12">
-
-            <div class="bootstrap-tabs product-tabs">
-              <div class="tabs-header d-flex justify-content-between border-bottom my-5">
-                <h3>Produk Rasa Tangkit</h3>
-                <nav>
-                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a href="#" class="nav-link text-uppercase fs-6 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all">Semua</a>
-                    <a href="#" class="nav-link text-uppercase fs-6" id="nav-fruits-tab" data-bs-toggle="tab" data-bs-target="#nav-fruits">Makanan</a>
-                    <a href="#" class="nav-link text-uppercase fs-6" id="nav-juices-tab" data-bs-toggle="tab" data-bs-target="#nav-juices">Minuman</a>
-                  </div>
-                </nav>
-              </div>
-              <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
-
-                  <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                  
-                    <div class="col">
-                      <div class="product-item">
-                        <span class="badge bg-success position-absolute m-3">-30%</span>
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <span class="badge bg-success position-absolute m-3">-30%</span>
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-biscuits.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-cucumber.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-milk.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-biscuits.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-cucumber.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-milk.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-biscuits.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <!-- / product-grid -->
-                  
+                <div class="copyright text-center">
+                    <p>© <span>Copyright</span> <strong class="sitename">RasaTangkit</strong>. All Rights Reserved.</p>
                 </div>
 
-                <div class="tab-pane fade" id="nav-fruits" role="tabpanel" aria-labelledby="nav-fruits-tab">
-                  
-                  <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-
-                    <div class="col">
-                      <div class="product-item">
-                        <span class="badge bg-success position-absolute m-3">-30%</span>
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-cucumber.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <span class="badge bg-success position-absolute m-3">-30%</span>
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-milk.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-                  
-                    <div class="col">
-                      <div class="product-item">
-                        <span class="badge bg-success position-absolute m-3">-30%</span>
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-orange-juice.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-raspberries.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <!-- / product-grid -->
-
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you've purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+                    Designed by <a href="https://rasatangkit.com/">RasaTangkit</a>
                 </div>
-                <div class="tab-pane fade" id="nav-juices" role="tabpanel" aria-labelledby="nav-juices-tab">
 
-                  <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-cucumber.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-milk.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-                  
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-tomatoes.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-tomatoketchup.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ asset('assets-user/images/thumb-bananas.png') }} "  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Sunstar Fresh Melon Juice</h3>
-                        <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <!-- / product-grid -->
-                  
-                </div>
-                
-              </div>
             </div>
 
-          </div>
         </div>
-      </div>
-    </section>
-
-    
-
-    
-                        
-
-    
-
-    
-
-    
-
-    <footer class="py-5">
-      <div class="container-fluid">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="footer-menu">
-              <img src="{{ asset('assets-user/images/logo.png') }} " alt="logo">
-              
-            </div>
-          </div>
-
-          
     </footer>
-    <div id="footer-bottom">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-6 copyright">
-            <p>© 2025 Rasa Tangkit. Hak Cipta Dilindungi.</p>
-          </div>
-          <div class="col-md-6 credit-link text-start text-md-end">
-            <p><a href="https://templatesjungle.com/"></a><a href="https://themewagon"></a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="{{ asset('assets-user/js/jquery-1.11.0.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets-user/js/plugins.js') }}"></script>
-    <script src="{{ asset('assets-user/js/script.js') }}"></script>
-    <!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
-<!-- Inisialisasi -->
-<script>
-  var swiper = new Swiper(".main-swiper", {
-    loop: true,
-    autoplay: {
-      delay: 4000,
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true
-    }
-  });
-</script>
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
-  </body>
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('assets-user/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/drift-zoom/Drift.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+
+    <!-- Main JS File -->
+    <script src="{{ asset('assets-user/js/main.js') }}"></script>
+
+</body>
+
 </html>
