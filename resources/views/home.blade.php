@@ -126,47 +126,6 @@
     <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="category-slider swiper init-swiper">
-            <script type="application/json" class="swiper-config">
-                {
-                    "loop": true,
-                    "autoplay": {
-                        "delay": 5000,
-                        "disableOnInteraction": false
-                    },
-                    "grabCursor": true,
-                    "speed": 600,
-                    "slidesPerView": "auto",
-                    "spaceBetween": 20,
-                    "navigation": {
-                        "nextEl": ".swiper-button-next",
-                        "prevEl": ".swiper-button-prev"
-                    },
-                    "breakpoints": {
-                        "320": {
-                            "slidesPerView": 2,
-                            "spaceBetween": 15
-                        },
-                        "576": {
-                            "slidesPerView": 3,
-                            "spaceBetween": 15
-                        },
-                        "768": {
-                            "slidesPerView": 4,
-                            "spaceBetween": 20
-                        },
-                        "992": {
-                            "slidesPerView": 5,
-                            "spaceBetween": 20
-                        },
-                        "1200": {
-                            "slidesPerView": 6,
-                            "spaceBetween": 20
-                        }
-                    }
-                }
-
-            </script>
-
             <!-- Best Sellers Section -->
             <section id="best-sellers" class="best-sellers section">
                 <!-- Section Title -->
@@ -179,14 +138,15 @@
                 <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                     <div class="row gy-4">
-                        <!-- Product 1 -->
+                        <!-- Menampilkan Product -->
+                        @foreach($barangs as $barang)
                         <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
                             <div class="product-card">
                                 <div class="product-image">
-                                    <img src="assets/img/product/product-1.webp" class="img-fluid default-image"
-                                        alt="Product" loading="lazy">
-                                    <img src="assets/img/product/product-1-variant.webp" class="img-fluid hover-image"
-                                        alt="Product hover" loading="lazy">
+                                    <img src="{{ asset('img/barang/' . $barang->gambar) }}"
+                                        class="img-fluid default-image" alt="Product" loading="lazy">
+                                    <img src="{{ asset('img/barang/' . $barang->gambar) }}"
+                                        class="img-fluid hover-image" alt="Product hover" loading="lazy">
                                     <div class="product-tags">
                                         <span class="badge bg-accent">New</span>
                                     </div>
@@ -200,10 +160,10 @@
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <h3 class="product-title"><a href="product-details.html">Lorem ipsum dolor sit
-                                            amet</a></h3>
+                                    <h3 class="product-title"><a href="#">{{ $barang->deskripsi }}</a></h3>
                                     <div class="product-price">
-                                        <span class="current-price">$89.99</span>
+                                        <span class="current-price">Rp
+                                            {{ number_format($barang->harga, 0, ',', '.') }}</span>
                                     </div>
                                     <div class="product-rating">
                                         <i class="bi bi-star-fill"></i>
@@ -214,134 +174,13 @@
                                         <span class="rating-count">(42)</span>
                                     </div>
                                     <button class="btn btn-add-to-cart">
-                                        <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                        <i class="bi bi-bag-plus me-2"></i>Tambah ke Keranjang
                                     </button>
                                 </div>
                             </div>
-                        </div><!-- End Product 1 -->
-
-                        <!-- Product 2 -->
-                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <img src="assets/img/product/product-4.webp" class="img-fluid default-image"
-                                        alt="Product" loading="lazy">
-                                    <img src="assets/img/product/product-4-variant.webp" class="img-fluid hover-image"
-                                        alt="Product hover" loading="lazy">
-                                    <div class="product-tags">
-                                        <span class="badge bg-sale">Sale</span>
-                                    </div>
-                                    <div class="product-actions">
-                                        <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                        <button class="btn-quickview" type="button" aria-label="Quick view">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-title"><a href="product-details.html">Consectetur adipiscing
-                                            elit</a></h3>
-                                    <div class="product-price">
-                                        <span class="current-price">$64.99</span>
-                                        <span class="original-price">$79.99</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span class="rating-count">(28)</span>
-                                    </div>
-                                    <button class="btn btn-add-to-cart">
-                                        <i class="bi bi-bag-plus me-2"></i>Add to Cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div><!-- End Product 2 -->
-
-                        <!-- Product 3 -->
-                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <img src="assets/img/product/product-7.webp" class="img-fluid default-image"
-                                        alt="Product" loading="lazy">
-                                    <img src="assets/img/product/product-7-variant.webp" class="img-fluid hover-image"
-                                        alt="Product hover" loading="lazy">
-                                    <div class="product-actions">
-                                        <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                        <button class="btn-quickview" type="button" aria-label="Quick view">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-title"><a href="product-details.html">Sed do eiusmod tempor
-                                            incididunt</a></h3>
-                                    <div class="product-price">
-                                        <span class="current-price">$119.00</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <span class="rating-count">(56)</span>
-                                    </div>
-                                    <button class="btn btn-add-to-cart">
-                                        <i class="bi bi-bag-plus me-2"></i>Add to Cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div><!-- End Product 3 -->
-
-                        <!-- Product 4 -->
-                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="250">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <img src="assets/img/product/product-12.webp" class="img-fluid default-image"
-                                        alt="Product" loading="lazy">
-                                    <img src="assets/img/product/product-12-variant.webp" class="img-fluid hover-image"
-                                        alt="Product hover" loading="lazy">
-                                    <div class="product-tags">
-                                        <span class="badge bg-sold-out">Sold Out</span>
-                                    </div>
-                                    <div class="product-actions">
-                                        <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                        <button class="btn-quickview" type="button" aria-label="Quick view">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-title"><a href="product-details.html">Ut labore et dolore magna
-                                            aliqua</a></h3>
-                                    <div class="product-price">
-                                        <span class="current-price">$75.50</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span class="rating-count">(15)</span>
-                                    </div>
-                                    <button class="btn btn-add-to-cart btn-disabled" disabled="">
-                                        <i class="bi bi-bag-plus me-2"></i>Sold Out
-                                    </button>
-                                </div>
-                            </div>
-                        </div><!-- End Product 4 -->
+                        </div>
+                        @endforeach
                     </div>
-
                 </div>
 
             </section><!-- /Best Sellers Section -->
@@ -357,10 +196,10 @@
                             <div class="product-filters isotope-filters mb-5 d-flex justify-content-center"
                                 data-aos="fade-up">
                                 <ul class="d-flex flex-wrap gap-2 list-unstyled">
-                                    <li class="filter-active" data-filter="*">All</li>
-                                    <li data-filter=".filter-clothing">Clothing</li>
-                                    <li data-filter=".filter-accessories">Accessories</li>
-                                    <li data-filter=".filter-electronics">Electronics</li>
+                                    <li class="filter-active" data-filter="*">Semua</li>
+                                    <li data-filter=".filter-clothing">Selai</li>
+                                    <li data-filter=".filter-accessories">Keripik</li>
+                                    <li data-filter=".filter-electronics">Minuman</li>
                                 </ul>
                             </div>
                         </div>
@@ -368,18 +207,18 @@
 
                     <div class="row product-container isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-                        <!-- Product Item 1 -->
+                        <!-- Menampilkan Barang -->
+                        @foreach($barangs as $barang)
                         <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
                             <div class="product-card">
                                 <div class="product-image">
                                     <span class="badge">Sale</span>
-                                    <img src="assets/img/product/product-11.webp" alt="Product"
+                                    <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="Product"
                                         class="img-fluid main-img">
-                                    <img src="assets/img/product/product-11-variant.webp" alt="Product Hover"
+                                    <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="Product Hover"
                                         class="img-fluid hover-img">
                                     <div class="product-overlay">
-                                        <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add to
-                                            Cart</a>
+                                        <a href="#" class="btn-cart"><i class="bi bi-cart-plus"></i> Tambah ke Keranjang</a>
                                         <div class="product-actions">
                                             <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
                                             <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
@@ -388,11 +227,14 @@
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <h5 class="product-title"><a href="product-details.html">Lorem ipsum dolor sit
-                                            amet</a></h5>
+                                    <h5 class="product-title">
+                                        <a href="#">{{ $barang->nama_produk }}</a>
+                                    </h5>
                                     <div class="product-price">
-                                        <span class="current-price">$89.99</span>
-                                        <span class="old-price">$129.99</span>
+                                        <span class="current-price">Rp
+                                            {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                                        <span class="old-price">Rp
+                                            {{ number_format($barang->harga + 10000, 0, ',', '.') }}</span>
                                     </div>
                                     <div class="product-rating">
                                         <i class="bi bi-star-fill"></i>
@@ -404,272 +246,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End Product Item -->
-
-                        <!-- Product Item 2 -->
-                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <img src="assets/img/product/product-9.webp" alt="Product"
-                                        class="img-fluid main-img">
-                                    <img src="assets/img/product/product-9-variant.webp" alt="Product Hover"
-                                        class="img-fluid hover-img">
-                                    <div class="product-overlay">
-                                        <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add to
-                                            Cart</a>
-                                        <div class="product-actions">
-                                            <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-title"><a href="product-details.html">Consectetur adipiscing
-                                            elit</a></h5>
-                                    <div class="product-price">
-                                        <span class="current-price">$249.99</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>(18)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Product Item -->
-
-                        <!-- Product Item 3 -->
-                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-accessories">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <span class="badge">New</span>
-                                    <img src="assets/img/product/product-3.webp" alt="Product"
-                                        class="img-fluid main-img">
-                                    <img src="assets/img/product/product-3-variant.webp" alt="Product Hover"
-                                        class="img-fluid hover-img">
-                                    <div class="product-overlay">
-                                        <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add to
-                                            Cart</a>
-                                        <div class="product-actions">
-                                            <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-title"><a href="product-details.html">Sed do eiusmod tempor</a>
-                                    </h5>
-                                    <div class="product-price">
-                                        <span class="current-price">$59.99</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>(7)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Product Item -->
-
-                        <!-- Product Item 4 -->
-                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <img src="assets/img/product/product-4.webp" alt="Product"
-                                        class="img-fluid main-img">
-                                    <img src="assets/img/product/product-4-variant.webp" alt="Product Hover"
-                                        class="img-fluid hover-img">
-                                    <div class="product-overlay">
-                                        <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add to
-                                            Cart</a>
-                                        <div class="product-actions">
-                                            <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-title"><a href="product-details.html">Incididunt ut labore et
-                                            dolore</a></h5>
-                                    <div class="product-price">
-                                        <span class="current-price">$79.99</span>
-                                        <span class="old-price">$99.99</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <span>(32)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Product Item -->
-
-                        <!-- Product Item 5 -->
-                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <span class="badge">Sale</span>
-                                    <img src="assets/img/product/product-5.webp" alt="Product"
-                                        class="img-fluid main-img">
-                                    <img src="assets/img/product/product-5-variant.webp" alt="Product Hover"
-                                        class="img-fluid hover-img">
-                                    <div class="product-overlay">
-                                        <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add to
-                                            Cart</a>
-                                        <div class="product-actions">
-                                            <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-title"><a href="product-details.html">Magna aliqua ut enim ad
-                                            minim</a></h5>
-                                    <div class="product-price">
-                                        <span class="current-price">$199.99</span>
-                                        <span class="old-price">$249.99</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>(15)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Product Item -->
-
-                        <!-- Product Item 6 -->
-                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-accessories">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <img src="assets/img/product/product-6.webp" alt="Product"
-                                        class="img-fluid main-img">
-                                    <img src="assets/img/product/product-6-variant.webp" alt="Product Hover"
-                                        class="img-fluid hover-img">
-                                    <div class="product-overlay">
-                                        <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add to
-                                            Cart</a>
-                                        <div class="product-actions">
-                                            <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-title"><a href="product-details.html">Veniam quis nostrud
-                                            exercitation</a></h5>
-                                    <div class="product-price">
-                                        <span class="current-price">$45.99</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>(21)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Product Item -->
-
-                        <!-- Product Item 7 -->
-                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <span class="badge">New</span>
-                                    <img src="assets/img/product/product-7.webp" alt="Product"
-                                        class="img-fluid main-img">
-                                    <img src="assets/img/product/product-7-variant.webp" alt="Product Hover"
-                                        class="img-fluid hover-img">
-                                    <div class="product-overlay">
-                                        <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add to
-                                            Cart</a>
-                                        <div class="product-actions">
-                                            <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-title"><a href="product-details.html">Ullamco laboris nisi ut
-                                            aliquip</a></h5>
-                                    <div class="product-price">
-                                        <span class="current-price">$69.99</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>(11)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Product Item -->
-
-                        <!-- Product Item 8 -->
-                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <img src="assets/img/product/product-8.webp" alt="Product"
-                                        class="img-fluid main-img">
-                                    <img src="assets/img/product/product-8-variant.webp" alt="Product Hover"
-                                        class="img-fluid hover-img">
-                                    <div class="product-overlay">
-                                        <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add to
-                                            Cart</a>
-                                        <div class="product-actions">
-                                            <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-title"><a href="product-details.html">Ex ea commodo consequat</a>
-                                    </h5>
-                                    <div class="product-price">
-                                        <span class="current-price">$159.99</span>
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <span>(29)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Product Item -->
-
+                        </div>
+                        @endforeach
                     </div>
 
                     <div class="text-center mt-5" data-aos="fade-up">
-                        <a href="#" class="view-all-btn">View All Products <i class="bi bi-arrow-right"></i></a>
+                        <a href="#" class="view-all-btn">Lihat Semua Produk<i class="bi bi-arrow-right"></i></a>
                     </div>
 
                 </div>
 
             </section><!-- /Product List Section -->
-@endsection
+            @endsection

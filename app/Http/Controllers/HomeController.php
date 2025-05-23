@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -11,7 +13,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Ambil semua data barang, bisa juga pakai paginate() jika banyak
+        $barangs = Barang::all();
+
+        return view('home', compact('barangs'));
     }
 
     /**

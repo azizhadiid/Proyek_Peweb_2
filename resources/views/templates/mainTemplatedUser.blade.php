@@ -136,13 +136,13 @@
                 <div class="position-relative">
                     <nav id="navmenu" class="navmenu">
                         <ul>
-                            <li><a href="index.html" class="active">Beranda</a></li>
-                            <li><a href="about.html">Tentang</a></li>
-                            <li><a href="about.html">Produk</a></li>
+                            <li><a href="/home" class="{{ request()->is('home') ? 'active' : '' }}">Beranda</a></li>
+                            <li><a href="/tentang" class="{{ request()->is('tentang') ? 'active' : '' }}">Tentang</a></li>
+                            <li><a href="/produk" class="{{ request()->is('produk') ? 'active' : '' }}">Produk</a></li>
                             <li><a href="category.html">Category</a></li>
-                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="/kerangjang" class="{{ request()->is('kerangjang') ? 'active' : '' }}">Cart</a></li>
                             <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="/kontak" class="{{ request()->is('kontak') ? 'active' : '' }}">Contact</a></li>
 
                         </ul>
                     </nav>
