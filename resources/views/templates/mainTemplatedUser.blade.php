@@ -58,7 +58,7 @@
                     <!-- Search -->
                     <form class="search-form desktop-search-form">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for products">
+                            <input type="text" class="form-control" placeholder="Cari Produk Anda">
                             <button class="btn" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>

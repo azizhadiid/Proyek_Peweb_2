@@ -1,6 +1,6 @@
 @extends('templates.mainTemplatedUser')
 
-@section('title', 'Tentang Kami')
+@section('title', 'Home')
 
 @section('konten')
 <!-- Hero Section -->
