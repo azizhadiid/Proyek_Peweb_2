@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TentangController;
 
 Route::get('/', function () {
@@ -13,6 +14,10 @@ Route::get('/', function () {
 // Khusus User
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact', [ContactController::class, 'update'])->name('contact.update');
+});
 
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');

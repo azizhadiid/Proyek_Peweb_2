@@ -28,4 +28,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Barang::class);
     }
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
 }
