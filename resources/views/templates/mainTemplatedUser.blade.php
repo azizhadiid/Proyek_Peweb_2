@@ -86,19 +86,19 @@
                                     <p class="mb-0">Access account &amp; manage orders</p>
                                 </div>
                                 <div class="dropdown-body">
-                                    <a class="dropdown-item d-flex align-items-center" href="/contact">
+                                    <a class="dropdown-item d-flex align-items-center" href="/account">
                                         <i class="bi bi-person-circle me-2"></i>
                                         <span>My Profile</span>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="/contact">
+                                    <a class="dropdown-item d-flex align-items-center" href="/account">
                                         <i class="bi bi-bag-check me-2"></i>
                                         <span>My Orders</span>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="/contact">
+                                    <a class="dropdown-item d-flex align-items-center" href="/account">
                                         <i class="bi bi-heart me-2"></i>
                                         <span>My Wishlist</span>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="/contact">
+                                    <a class="dropdown-item d-flex align-items-center" href="/account">
                                         <i class="bi bi-gear me-2"></i>
                                         <span>Settings</span>
                                     </a>
@@ -111,7 +111,7 @@
                         </div>
 
                         <!-- Wishlist -->
-                        <a href="/contact" class="header-action-btn d-none d-md-block">
+                        <a href="/account" class="header-action-btn d-none d-md-block">
                             <i class="bi bi-heart"></i>
                             <span class="badge">0</span>
                         </a>

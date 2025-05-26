@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TentangController;
+use App\Http\Controllers\UserProfileControlle;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,10 +15,8 @@ Route::get('/', function () {
 // Khusus User
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
-Route::middleware(['auth'])->group(function () {
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-    Route::post('/contact', [ContactController::class, 'update'])->name('contact.update');
-});
+Route::get('/account', [UserProfileControlle::class, 'index'])->name('account.index');
+Route::post('/account', [UserProfileControlle::class, 'update'])->name('account.update');
 
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
