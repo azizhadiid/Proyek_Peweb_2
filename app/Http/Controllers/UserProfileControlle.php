@@ -15,8 +15,9 @@ class UserProfileControlle extends Controller
     {
         $user = Auth::user();
         $userProfile = $user->profile;
+        $alamats = $user->alamats;
 
-        return view('account', compact('user', 'userProfile'));
+        return view('account', compact('user', 'userProfile', 'alamats'));
     }
 
     /**

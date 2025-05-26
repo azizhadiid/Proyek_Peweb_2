@@ -6,11 +6,11 @@
 <!-- Page Title -->
 <div class="page-title light-background">
     <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Account</h1>
+        <h1 class="mb-2 mb-lg-0">Akun</h1>
         <nav class="breadcrumbs">
             <ol>
-                <li><a href="index.html">Home</a></li>
-                <li class="current">Account</li>
+                <li><a href="/home">Beranda</a></li>
+                <li class="current">Akuun</li>
             </ol>
         </nav>
     </div>
@@ -35,9 +35,10 @@
                     <!-- User Info -->
                     <div class="user-info" data-aos="fade-right">
                         <div class="user-avatar">
-                            <img src="" alt="Profile">
+                            <img src="{{ $userProfile && $userProfile->foto_profil ? asset('img/user/profile/' . $userProfile->foto_profil) : asset('img/user/profile/default.png') }}"
+                                alt="Profile">
                         </div>
-                        <h4>Sarah Anderson</h4>
+                        <h4>{{ old('nama_panjang', $userProfile->nama_panjang ?? '') }}</h4>
                     </div>
 
                     <!-- Navigation Menu -->
@@ -738,7 +739,7 @@
                         <!-- Settings Tab -->
                         <div class="tab-pane fade" id="settings">
                             <div class="section-header" data-aos="fade-up">
-                                <h2>Account Settings</h2>
+                                <h2>Pengaturan Akun</h2>
                             </div>
 
                             <div class="settings-content">
@@ -790,7 +791,7 @@
                                         <!-- Foto Profil + Aksi -->
                                         <div class="profile-photo-wrapper text-center mb-4">
                                             <div class="profile-photo">
-                                                <img src="{{ asset('img/user/profile/' . $userProfile->foto_profil) }}"
+                                                <img src="{{ $userProfile && $userProfile->foto_profil ? asset('img/user/profile/' . $userProfile->foto_profil) : asset('img/user/profile/default.png') }}"
                                                     alt="Profile" class="profile-img">
                                             </div>
                                             <div class="profile-photo-actions mt-2">
@@ -862,11 +863,6 @@
                                         <div class="form-buttons mt-4">
                                             <button type="submit" class="btn-save">Simpan Perubahan</button>
                                         </div>
-
-                                        <!-- Feedback -->
-                                        <div class="loading">Loading</div>
-                                        <div class="error-message"></div>
-                                        <div class="sent-message">Your changes have been saved successfully!</div>
                                     </form>
                                 </div>
 
@@ -876,36 +872,74 @@
 
                                     <!-- Daftar Alamat -->
                                     <div class="list-group mb-3" id="address-list">
-                                        <!-- Contoh alamat statis, bisa di-generate backend -->
+                                        @foreach ($alamats as $index => $alamat)
                                         <div class="list-group-item d-flex justify-content-between align-items-start">
                                             <div>
-                                                <div class="fw-bold">Alamat 1</div>
-                                                Jl. Mawar No.123, Bandung, Jawa Barat
+                                                <div class="fw-bold">Alamat {{ $index + 1 }}</div>
+                                                {{ $alamat->alamat }}
                                             </div>
                                             <div>
-                                                <button type="button" class="btn btn-sm btn-outline-primary me-1">
+                                                <!-- Tombol Edit (ikon pensil) -->
+                                                <button type="button" class="btn btn-sm btn-outline-primary me-1"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editAddressModal{{ $alamat->id }}">
                                                     <i class="bi bi-pencil"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-outline-danger">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </div>
-                                        </div>
 
-                                        <div class="list-group-item d-flex justify-content-between align-items-start">
-                                            <div>
-                                                <div class="fw-bold">Alamat 2</div>
-                                                Komp. Anggrek No.45, Surabaya, Jawa Timur
-                                            </div>
-                                            <div>
-                                                <button type="button" class="btn btn-sm btn-outline-primary me-1">
-                                                    <i class="bi bi-pencil"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-sm btn-outline-danger">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
+                                                <!-- Modal Edit Alamat -->
+                                                <div class="modal fade" id="editAddressModal{{ $alamat->id }}"
+                                                    tabindex="-1"
+                                                    aria-labelledby="editAddressModalLabel{{ $alamat->id }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="editAddressModalLabel{{ $alamat->id }}">Edit
+                                                                    Alamat</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="POST"
+                                                                    action="{{ url('/alamat/' . $alamat->id) }}">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="mb-3">
+                                                                        <label for="newAddress{{ $alamat->id }}"
+                                                                            class="form-label">Alamat Lengkap</label>
+                                                                        <textarea class="form-control"
+                                                                            id="newAddress{{ $alamat->id }}" rows="3"
+                                                                            placeholder="Masukkan alamat lengkap"
+                                                                            name="alamat">{{ $alamat->alamat }}</textarea>
+                                                                    </div>
+                                                                    <div class="modal-footer px-0">
+                                                                        <button type="button"
+                                                                            class="btn btn-secondary btn-sm"
+                                                                            data-bs-dismiss="modal">Batal</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary btn-sm">Simpan
+                                                                            Perubahan Alamat</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Tombol Hapus -->
+                                                <form action="{{ url('/alamat/' . $alamat->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
+                                        @endforeach
+
                                     </div>
 
                                     <!-- Tombol Tambah Alamat -->
@@ -916,11 +950,12 @@
 
                                     <!-- Form Tambah Alamat -->
                                     <div class="collapse" id="addAddressForm">
-                                        <form class="php-email-form settings-form">
+                                        <form method="POST" action="{{url('/alamat')}}" class="">
+                                            @csrf
                                             <div class="mb-3">
                                                 <label for="newAddress" class="form-label">Alamat Lengkap</label>
                                                 <textarea class="form-control" id="newAddress" rows="3"
-                                                    placeholder="Masukkan alamat lengkap"></textarea>
+                                                    placeholder="Masukkan alamat lengkap" name="alamat"></textarea>
                                             </div>
                                             <button type="submit" class="btn btn-primary btn-sm">Simpan Alamat</button>
                                         </form>

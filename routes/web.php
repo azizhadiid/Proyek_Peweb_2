@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlamatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -17,6 +18,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
 Route::get('/account', [UserProfileControlle::class, 'index'])->name('account.index');
 Route::post('/account', [UserProfileControlle::class, 'update'])->name('account.update');
+Route::post('/alamat', [AlamatController::class, 'store'])->name('alamat.update');
 
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
