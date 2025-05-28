@@ -18,7 +18,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
 Route::get('/account', [UserProfileControlle::class, 'index'])->name('account.index');
 Route::post('/account', [UserProfileControlle::class, 'update'])->name('account.update');
-Route::post('/alamat', [AlamatController::class, 'store'])->name('alamat.update');
+Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
+Route::post('/alamat', [AlamatController::class, 'store'])->name('alamat.tambah');
+Route::put('/alamat/{id}', [AlamatController::class, 'update'])->name('alamat.update');
+Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->name('alamat.destroy');
 
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');

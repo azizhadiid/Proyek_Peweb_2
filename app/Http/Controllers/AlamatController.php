@@ -70,7 +70,22 @@ class AlamatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $alamat = Alamat::findOrFail($id);
+
+        $request->validate([
+            'alamat' => 'required|string|max:255'
+        ], [
+            // Custom pesan error
+            'alamat.required' => 'Alamat wajib diisi.',
+            'alamat.string' => 'Alamat harus berupa teks.',
+            'alamat.max' => 'Alamat maksimal 255 karakter.',
+        ]);
+
+        $alamat->update([
+            'alamat' => $request->alamat,
+        ]);
+
+        return redirect()->route('account.index')->with('success', 'Alamat berhasil diperbarui.');
     }
 
     /**
@@ -78,6 +93,10 @@ class AlamatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $alamat = Alamat::findOrFail($id);
+
+        $alamat->delete();
+
+        return redirect()->route('account.index')->with('success', 'Artikel berhasil dihapus.');
     }
 }

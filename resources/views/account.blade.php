@@ -816,9 +816,9 @@
                                             <div class="col-md-6">
                                                 <label for="nama_panjang" class="form-label">Nama Lengkap</label>
                                                 <input type="text" class="form-control" id="firstName"
-                                                    value="{{ old('nama_panjang', $userProfile->nama_panjang ?? '') }}"
+                                                    value="{{ old('email', $user->nama ?? '') }}"
                                                     placeholder="Masukkan nama lengkap" name="nama_panjang"
-                                                    id="nama_panjang">
+                                                    id="nama_panjang" readonly>
                                             </div>
 
                                             <div class="col-md-6">
@@ -872,6 +872,7 @@
 
                                     <!-- Daftar Alamat -->
                                     <div class="list-group mb-3" id="address-list">
+                                        @if ($alamats->count() > 0)
                                         @foreach ($alamats as $index => $alamat)
                                         <div class="list-group-item d-flex justify-content-between align-items-start">
                                             <div>
@@ -879,8 +880,32 @@
                                                 {{ $alamat->alamat }}
                                             </div>
                                             <div>
+                                                <style>
+                                                    .btn-outline-orange {
+                                                        color: #eda96d;
+                                                        border: 1px solid #eda96d;
+                                                        background-color: transparent;
+                                                        transition: 0.3s;
+                                                    }
+
+                                                    .btn-outline-orange:hover {
+                                                        background-color: #eda96d;
+                                                        color: #ffffff;
+                                                    }
+
+                                                    .btn-outline-orange:hover i {
+                                                        color: #ffffff;
+                                                    }
+
+                                                    .btn-outline-orange i {
+                                                        color: #eda96d;
+                                                        transition: 0.3s;
+                                                    }
+
+                                                </style>
                                                 <!-- Tombol Edit (ikon pensil) -->
-                                                <button type="button" class="btn btn-sm btn-outline-primary me-1"
+                                                <button type="button"
+                                                    class="btn btn-sm me-1 mb-2 mb-md-0 btn-outline-orange"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#editAddressModal{{ $alamat->id }}">
                                                     <i class="bi bi-pencil"></i>
@@ -902,7 +927,7 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <form method="POST"
-                                                                    action="{{ url('/alamat/' . $alamat->id) }}">
+                                                                    action="{{ route('alamat.update', $alamat->id) }}">
                                                                     @csrf
                                                                     @method('PUT')
                                                                     <div class="mb-3">
@@ -915,10 +940,10 @@
                                                                     </div>
                                                                     <div class="modal-footer px-0">
                                                                         <button type="button"
-                                                                            class="btn btn-secondary btn-sm"
+                                                                            class="btn btn-outline-danger btn-sm"
                                                                             data-bs-dismiss="modal">Batal</button>
                                                                         <button type="submit"
-                                                                            class="btn btn-primary btn-sm">Simpan
+                                                                            class="btn btn-sm btn-outline-orange">Simpan
                                                                             Perubahan Alamat</button>
                                                                     </div>
                                                                 </form>
@@ -928,23 +953,67 @@
                                                 </div>
 
                                                 <!-- Tombol Hapus -->
-                                                <form action="{{ url('/alamat/' . $alamat->id) }}" method="POST"
-                                                    class="d-inline">
+                                                <form action="{{ route('alamat.destroy', $alamat->id) }}" method="POST"
+                                                    class="d-inline form-hapus">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    <button type="submit"
+                                                        class="btn btn-sm me-1 mb-2 mb-md-0 btn-outline-danger">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </form>
+                                                {{-- CDN Switch Alert --}}
+                                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                        const hapusForms = document.querySelectorAll(
+                                                            '.form-hapus');
+
+                                                        hapusForms.forEach(form => {
+                                                            form.addEventListener('submit', function (
+                                                                e) {
+                                                                e
+                                                                    .preventDefault(); // Mencegah submit langsung
+
+                                                                Swal.fire({
+                                                                    title: 'Apakah kamu yakin?',
+                                                                    text: "Data alamat akan dihapus permanen!",
+                                                                    icon: 'warning',
+                                                                    showCancelButton: true,
+                                                                    confirmButtonColor: '#d33',
+                                                                    cancelButtonColor: '#6c757d',
+                                                                    confirmButtonText: 'Ya, hapus!',
+                                                                    cancelButtonText: 'Batal'
+                                                                }).then((result) => {
+                                                                    if (result
+                                                                        .isConfirmed) {
+                                                                        form
+                                                                            .submit(); // Submit jika user klik "Ya, hapus!"
+                                                                    }
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+
+                                                </script>
                                             </div>
                                         </div>
                                         @endforeach
 
+                                        @else
+                                        <!-- UI jika alamat kosong -->
+                                        <div class="list-group-item text-center py-4">
+                                            <i class="bi bi-geo-alt fs-2 text-muted"></i>
+                                            <p class="mt-2 mb-0 text-muted">Belum ada alamat yang ditambahkan.</p>
+                                        </div>
+                                        @endif
                                     </div>
 
                                     <!-- Tombol Tambah Alamat -->
-                                    <button class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="collapse"
-                                        data-bs-target="#addAddressForm" aria-expanded="false">
+                                    <button class="btn btn-sm mb-3" data-bs-toggle="collapse"
+                                        data-bs-target="#addAddressForm" aria-expanded="false"
+                                        style="background-color: #eda96d; color: white">
                                         <i class="bi bi-plus-circle"></i> Tambah Alamat
                                     </button>
 
@@ -957,43 +1026,43 @@
                                                 <textarea class="form-control" id="newAddress" rows="3"
                                                     placeholder="Masukkan alamat lengkap" name="alamat"></textarea>
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-sm">Simpan Alamat</button>
+                                            <button type="submit" class="btn btn-sm"
+                                                style="background-color: #eda96d; color: white">Simpan Alamat</button>
                                         </form>
                                     </div>
                                 </div>
 
                                 <!-- Security Settings -->
                                 <div class="settings-section" data-aos="fade-up" data-aos-delay="200">
-                                    <h3>Security</h3>
-                                    <form class="php-email-form settings-form">
+                                    <h3>Keamanan</h3>
+                                    <form class="settings-form" action="{{ route('profile.change-password') }}"
+                                        method="POST">
+                                        @csrf
                                         <div class="row g-3">
                                             <div class="col-md-12">
-                                                <label for="currentPassword" class="form-label">Current Password</label>
-                                                <input type="password" class="form-control" id="currentPassword"
-                                                    required>
+                                                <label for="currentPassword" class="form-label">Password Saat
+                                                    Ini</label>
+                                                <input type="password" class="form-control" id="currentPassword" name="current_password" required>
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="newPassword" class="form-label">New Password</label>
-                                                <input type="password" class="form-control" id="newPassword" required>
+                                                <label for="newPassword" class="form-label">Password Baru</label>
+                                                <input type="password" class="form-control"  id="newPassword" name="new_password" required>
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                                <label for="confirmPassword" class="form-label">Konfirmasi
+                                                    Password</label>
                                                 <input type="password" class="form-control" id="confirmPassword"
-                                                    required>
+                                                    name="new_password_confirmation" required>
                                             </div>
                                         </div>
 
                                         <!-- Tombol Simpan -->
                                         <div class="form-buttons mt-4">
-                                            <button type="submit" class="btn-save">Update Password</button>
+                                            <button type="submit" class="btn-save">Perbarui Password</button>
                                         </div>
 
-                                        <!-- Feedback -->
-                                        <div class="loading">Loading</div>
-                                        <div class="error-message"></div>
-                                        <div class="sent-message">Your password has been updated successfully!</div>
                                     </form>
                                 </div>
                             </div>
