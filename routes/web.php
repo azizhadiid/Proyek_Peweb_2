@@ -7,6 +7,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\UserProfileControlle;
 
@@ -29,10 +30,11 @@ Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('baran
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
 Route::post('/admin/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
-
-Route::get('/dashboard', function () {
-    return view('admin.templates.mainAdminlayout');
-});
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/admin/barang/edit', [BarangController::class, 'edit'])->name('barang.edit');
+Route::get('/admin/barang/edit/{id}', [BarangController::class, 'show'])->name('barang.show');
+Route::put('/admin/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
+Route::delete('/admin/barang/edit/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
 // Khusus Auth
 Route::get('/login', [AuthController::class, 'login'])->name('login');

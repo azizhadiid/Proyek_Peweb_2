@@ -574,7 +574,21 @@
                             </div>
 
                             <div class="wishlist-grid">
-                                <!-- Wishlist Item 2 -->
+                                @if ($barangs->isEmpty())
+                                <div class="d-flex justify-content-center">
+                                    <div class="text-center py-10 px-4 bg-white rounded-xl shadow-sm"
+                                        data-aos="fade-up">
+                                        <img src="{{ asset('img/hati.svg') }}" alt="Tidak ada like"
+                                            class="mx-auto mb-6 opacity-70" style="width: 100px;">
+                                        <h2 class="text-xl font-semibold text-gray-700 mb-2">Belum ada barang yang
+                                            disukai
+                                        </h2>
+                                        <p class="text-gray-500">Temukan produk favoritmu dan tekan tombol <span
+                                                class="text-pink-500">❤</span> untuk menyimpannya di sini.</p>
+                                    </div>
+                                </div>
+
+                                @else
                                 @foreach ($barangs as $barang)
                                 <div class="wishlist-card" data-aos="fade-up" data-aos-delay="200">
                                     <div class="wishlist-image">
@@ -608,7 +622,7 @@
                                     </div>
                                 </div>
                                 @endforeach
-
+                                @endif
                             </div>
                         </div>
 
