@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AlamatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TentangController;
@@ -22,6 +23,8 @@ Route::post('/profile/change-password', [AuthController::class, 'changePassword'
 Route::post('/alamat', [AlamatController::class, 'store'])->name('alamat.tambah');
 Route::put('/alamat/{id}', [AlamatController::class, 'update'])->name('alamat.update');
 Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->name('alamat.destroy');
+Route::post('/like/{barang}', [LikeController::class, 'toggle'])->name('barang.like');
+Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('barang.unlike');
 
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');

@@ -37,4 +37,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Alamat::class);
     }
+    public function likedBarangs()
+    {
+        return $this->belongsToMany(Barang::class, 'likes')->withTimestamps();
+    }
 }

@@ -218,9 +218,23 @@
                                     <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="Product Hover"
                                         class="img-fluid hover-img">
                                     <div class="product-overlay">
-                                        <a href="#" class="btn-cart"><i class="bi bi-cart-plus"></i> Tambah ke Keranjang</a>
+                                        <a href="#" class="btn-cart"><i class="bi bi-cart-plus"></i> Tambah ke
+                                            Keranjang</a>
                                         <div class="product-actions">
-                                            <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
+                                            @php
+                                            $liked = auth()->check() &&
+                                            auth()->user()->likedBarangs->contains($barang->id);
+                                            @endphp
+
+                                            <a href="#" class="action-btn"
+                                                onclick="event.preventDefault(); document.getElementById('like-form-{{ $barang->id }}').submit();">
+                                                <i class="bi bi-heart{{ $liked ? '-fill text-danger' : '' }}"></i>
+                                            </a>
+                                            <form id="like-form-{{ $barang->id }}"
+                                                action="{{ route('barang.like', $barang->id) }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
                                             <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
                                             <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
                                         </div>
