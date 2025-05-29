@@ -218,15 +218,21 @@
                                     <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="Product Hover"
                                         class="img-fluid hover-img">
                                     <div class="product-overlay">
-                                        <a href="#" class="btn-cart"><i class="bi bi-cart-plus"></i> Tambah ke
-                                            Keranjang</a>
+                                        <form action="{{ route('cart.add', $barang->id) }}" method="POST"
+                                            style="display: inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-cart">
+                                                <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
+                                            </button>
+                                        </form>
+
                                         <div class="product-actions">
                                             @php
                                             $liked = auth()->check() &&
                                             auth()->user()->likedBarangs->contains($barang->id);
                                             @endphp
 
-                                            <a href="#" class="action-btn"
+                                            <a href="" class="action-btn"
                                                 onclick="event.preventDefault(); document.getElementById('like-form-{{ $barang->id }}').submit();">
                                                 <i class="bi bi-heart{{ $liked ? '-fill text-danger' : '' }}"></i>
                                             </a>

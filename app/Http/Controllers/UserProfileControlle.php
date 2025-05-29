@@ -17,8 +17,9 @@ class UserProfileControlle extends Controller
         $userProfile = $user->profile;
         $alamats = $user->alamats;
         $barangs = Auth::user()->likedBarangs()->get();
+        $cart = auth()->user()->cart()->with('items.barang')->first();
 
-        return view('account', compact('user', 'userProfile', 'alamats', 'barangs'));
+        return view('account', compact('user', 'userProfile', 'alamats', 'barangs', 'cart'));
     }
 
     /**
