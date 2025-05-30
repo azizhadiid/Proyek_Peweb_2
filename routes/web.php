@@ -9,6 +9,7 @@ use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TentangController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserProfileControlle;
 
@@ -28,6 +29,8 @@ Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->name('alama
 Route::post('/like/{barang}', [LikeController::class, 'toggle'])->name('barang.like');
 Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('barang.unlike');
 Route::post('/keranjang/{barang}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');

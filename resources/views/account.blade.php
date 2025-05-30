@@ -90,28 +90,13 @@
                         <div class="tab-pane fade show active" id="orders">
                             <div class="section-header" data-aos="fade-up">
                                 <h2>Pesanan Saya</h2>
-                                <div class="header-actions">
-                                    <div class="dropdown">
-                                        <button class="filter-btn" data-bs-toggle="dropdown">
-                                            <i class="bi bi-funnel"></i>
-                                            <span>Filter</span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">All Orders</a></li>
-                                            <li><a class="dropdown-item" href="#">Diproses</a></li>
-                                            <li><a class="dropdown-item" href="#">Dikirim</a></li>
-                                            <li><a class="dropdown-item" href="#">Diterima</a></li>
-                                            <li><a class="dropdown-item" href="#">Dibatalkan</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="orders-grid">
                                 <div class="order-card mt-4">
                                     <div class="order-header">
                                         <div class="order-id">
-                                            <span class="label">Cart</span>
+                                            <span class="label">Keranjang</span>
                                             <span
                                                 class="value">#{{ auth()->user()->id }}-{{ now()->format('Ymd') }}</span>
                                         </div>
@@ -127,8 +112,8 @@
                                         </div>
                                         <div class="order-info">
                                             <div class="info-row">
-                                                <span>Items</span>
-                                                <span>{{ $cart->items->sum('quantity') }} items</span>
+                                                <span>Item</span>
+                                                <span>{{ $cart->items->sum('quantity') }} item</span>
                                             </div>
                                             <div class="info-row">
                                                 <span>Total</span>
@@ -138,9 +123,38 @@
                                         </div>
                                     </div>
 
-                                    <div class="order-footer">
-                                        <a href="#" class="btn-track">Checkout</a>
-                                        <a href="{{ route('home.index') }}" class="btn-details">Lanjut Belanja</a>
+                                    <div class="order-footer d-flex justify-content-end">
+                                        <form action="{{ route('checkout.process') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">Pesan Sekarang</button>
+                                        </form>
+                                        {{-- <a href="#" class="btn"
+                                            style="background-color: #eda96d; color: #ffffff;">Pesan</a> --}}
+                                        <style>
+                                            .btn-outline-orange {
+                                                color: #eda96d;
+                                                border: 1px solid #eda96d;
+                                                background-color: transparent;
+                                                transition: 0.3s;
+                                            }
+
+                                            .btn-outline-orange:hover {
+                                                background-color: #eda96d;
+                                                color: #ffffff;
+                                            }
+
+                                            .btn-outline-orange:hover i {
+                                                color: #ffffff;
+                                            }
+
+                                            .btn-outline-orange i {
+                                                color: #eda96d;
+                                                transition: 0.3s;
+                                            }
+
+                                        </style>
+                                        <a href="{{ route('home.index') }}" class="btn btn-outline-orange">Lanjut
+                                            Belanja</a>
                                     </div>
                                 </div>
                             </div>
