@@ -38,7 +38,7 @@
                             <img src="{{ $userProfile && $userProfile->foto_profil ? asset('img/user/profile/' . $userProfile->foto_profil) : asset('img/user/profile/default.png') }}"
                                 alt="Profile">
                         </div>
-                        <h4>{{ old('nama_panjang', $userProfile->nama_panjang ?? '') }}</h4>
+                        <h4>{{ old('nama', $user->nama ?? '') }}</h4>
                     </div>
 
                     <!-- Navigation Menu -->
@@ -49,6 +49,12 @@
                                     <i class="bi bi-heart"></i>
                                     <span>Daftar Suka</span>
                                     <span class="badge">12</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#history">
+                                    <i class="bi bi-clock-history"></i>
+                                    <span>Riwayat Pesanan</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -138,6 +144,53 @@
                                 </div>
                                 @endforeach
                                 @endif
+                            </div>
+                        </div>
+
+                        <!-- History Tab -->
+                        <div class="tab-pane fade" id="history">
+                            <div class="section-header" data-aos="fade-up">
+                                <h2>Riwayat Pesanan</h2>
+                                <div class="header-actions">
+                                    <div class="search-box">
+                                        <i class="bi bi-search"></i>
+                                        <input type="text" placeholder="Search orders...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="orders-grid">
+                                <!-- Order Card 1 -->
+                                <div class="order-card" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="order-header">
+                                        <div class="order-id">
+                                            <span class="label">ID Pesanan:</span>
+                                            <span class="value">#ORD-2024-1278</span>
+                                        </div>
+                                        <div class="order-date">Feb 20, 2025</div>
+                                    </div>
+                                    <div class="order-content">
+                                        <div class="product-grid">
+                                            <img src="assets/img/product/product-1.webp" alt="Product" loading="lazy">
+                                            <img src="assets/img/product/product-2.webp" alt="Product" loading="lazy">
+                                            <img src="assets/img/product/product-3.webp" alt="Product" loading="lazy">
+                                        </div>
+                                        <div class="order-info">
+                                            <div class="info-row">
+                                                <span>Status</span>
+                                                <span class="status processing">Processing</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span>Items</span>
+                                                <span>3 items</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span>Total</span>
+                                                <span class="price">$789.99</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -297,7 +350,7 @@
                                             <div class="col-md-6">
                                                 <label for="nama_panjang" class="form-label">Nama Lengkap</label>
                                                 <input type="text" class="form-control" id="firstName"
-                                                    value="{{ old('email', $user->nama ?? '') }}"
+                                                    value="{{ old('nama', $user->nama ?? '') }}"
                                                     placeholder="Masukkan nama lengkap" name="nama_panjang"
                                                     id="nama_panjang" readonly>
                                             </div>

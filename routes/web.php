@@ -11,6 +11,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserProfileControlle;
 
 Route::get('/', function () {
@@ -32,6 +33,7 @@ Route::get('/keranjang', [CartController::class, 'showCart'])->name('cart.index'
 Route::post('/keranjang/{barang}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/beli', [CheckoutController::class, 'payment'])->name('checkout.index');
 Route::post('/beli/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
