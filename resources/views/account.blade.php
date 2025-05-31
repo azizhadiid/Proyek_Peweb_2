@@ -44,15 +44,8 @@
                     <!-- Navigation Menu -->
                     <nav class="menu-nav">
                         <ul class="nav flex-column" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#orders">
-                                    <i class="bi bi-box-seam"></i>
-                                    <span>Pesanan Saya</span>
-                                    <span class="badge">3</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#wishlist">
+                            <li class="nav-item active">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#wishlist">
                                     <i class="bi bi-heart"></i>
                                     <span>Daftar Suka</span>
                                     <span class="badge">12</span>
@@ -86,99 +79,8 @@
             <div class="col-lg-9">
                 <div class="content-area">
                     <div class="tab-content">
-                        <!-- Orders Tab -->
-                        <div class="tab-pane fade show active" id="orders">
-                            <div class="section-header" data-aos="fade-up">
-                                <h2>Pesanan Saya</h2>
-                            </div>
-
-                            <div class="orders-grid">
-                                <div class="order-card mt-4">
-                                    <div class="order-header">
-                                        <div class="order-id">
-                                            <span class="label">Keranjang</span>
-                                            <span
-                                                class="value">#{{ auth()->user()->id }}-{{ now()->format('Ymd') }}</span>
-                                        </div>
-                                        <div class="order-date">{{ now()->format('M d, Y') }}</div>
-                                    </div>
-
-                                    <div class="order-content">
-                                        <div class="product-grid">
-                                            @foreach($cart->items as $item)
-                                            <img src="{{ asset('img/barang/' . $item->barang->gambar) }}" alt="Product"
-                                                loading="lazy">
-                                            @endforeach
-                                        </div>
-                                        <div class="order-info">
-                                            <div class="info-row">
-                                                <span>Item</span>
-                                                <span>{{ $cart->items->sum('quantity') }} item</span>
-                                            </div>
-                                            <div class="info-row">
-                                                <span>Total</span>
-                                                <span class="price">Rp
-                                                    {{ number_format($cart->items->sum(fn($i) => $i->barang->harga * $i->quantity), 0, ',', '.') }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="order-footer d-flex justify-content-end">
-                                        <form action="{{ route('checkout.process') }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-primary">Pesan Sekarang</button>
-                                        </form>
-                                        {{-- <a href="#" class="btn"
-                                            style="background-color: #eda96d; color: #ffffff;">Pesan</a> --}}
-                                        <style>
-                                            .btn-outline-orange {
-                                                color: #eda96d;
-                                                border: 1px solid #eda96d;
-                                                background-color: transparent;
-                                                transition: 0.3s;
-                                            }
-
-                                            .btn-outline-orange:hover {
-                                                background-color: #eda96d;
-                                                color: #ffffff;
-                                            }
-
-                                            .btn-outline-orange:hover i {
-                                                color: #ffffff;
-                                            }
-
-                                            .btn-outline-orange i {
-                                                color: #eda96d;
-                                                transition: 0.3s;
-                                            }
-
-                                        </style>
-                                        <a href="{{ route('home.index') }}" class="btn btn-outline-orange">Lanjut
-                                            Belanja</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pagination -->
-                            <div class="pagination-wrapper" data-aos="fade-up">
-                                <button type="button" class="btn-prev" disabled="">
-                                    <i class="bi bi-chevron-left"></i>
-                                </button>
-                                <div class="page-numbers">
-                                    <button type="button" class="active">1</button>
-                                    <button type="button">2</button>
-                                    <button type="button">3</button>
-                                    <span>...</span>
-                                    <button type="button">12</button>
-                                </div>
-                                <button type="button" class="btn-next">
-                                    <i class="bi bi-chevron-right"></i>
-                                </button>
-                            </div>
-                        </div>
-
                         <!-- Wishlist Tab -->
-                        <div class="tab-pane fade" id="wishlist">
+                        <div class="tab-pane fade show active" id="wishlist">
                             <div class="section-header" data-aos="fade-up">
                                 <h2>Daftar Suka</h2>
                                 <div class="header-actions">

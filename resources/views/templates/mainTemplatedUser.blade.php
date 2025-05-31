@@ -82,29 +82,29 @@
                             </button>
                             <div class="dropdown-menu">
                                 <div class="dropdown-header">
-                                    <h6>Welcome to <span class="sitename">eStore</span></h6>
-                                    <p class="mb-0">Access account &amp; manage orders</p>
+                                    <h6>Selamat Datang di <span class="sitename">Rasa Tangkit</span></h6>
+                                    <p class="mb-0">Akses Akun &amp; Atur Pesanan</p>
                                 </div>
                                 <div class="dropdown-body">
                                     <a class="dropdown-item d-flex align-items-center" href="/account">
                                         <i class="bi bi-person-circle me-2"></i>
-                                        <span>My Profile</span>
+                                        <span>Profil Saya</span>
                                     </a>
                                     <a class="dropdown-item d-flex align-items-center" href="/account">
                                         <i class="bi bi-bag-check me-2"></i>
-                                        <span>My Orders</span>
+                                        <span>Pesanan Saya</span>
                                     </a>
                                     <a class="dropdown-item d-flex align-items-center" href="/account">
                                         <i class="bi bi-heart me-2"></i>
-                                        <span>My Wishlist</span>
+                                        <span>List Harapan Saya</span>
                                     </a>
                                     <a class="dropdown-item d-flex align-items-center" href="/account">
                                         <i class="bi bi-gear me-2"></i>
-                                        <span>Settings</span>
+                                        <span>Pengaturan</span>
                                     </a>
                                 </div>
                                 <div class="dropdown-footer">
-                                    <a href="/logout" class="btn btn-primary w-100 mb-2">Log Out</a>
+                                    <a href="/logout" class="btn btn-primary w-100 mb-2">Keluar</a>
                                 </div>
                             </div>
                         </div>
@@ -138,10 +138,9 @@
                             <li><a href="/home" class="{{ request()->is('home') ? 'active' : '' }}">Beranda</a></li>
                             <li><a href="/tentang" class="{{ request()->is('tentang') ? 'active' : '' }}">Tentang</a></li>
                             <li><a href="/produk" class="{{ request()->is('produk') ? 'active' : '' }}">Produk</a></li>
-                            <li><a href="category.html">Category</a></li>
-                            <li><a href="/kerangjang" class="{{ request()->is('kerangjang') ? 'active' : '' }}">Cart</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="/kontak" class="{{ request()->is('kontak') ? 'active' : '' }}">Contact</a></li>
+                            <li><a href="/keranjang" class="{{ request()->is('keranjang') ? 'active' : '' }}">Keranjang</a></li>
+                            <li><a href="/beli" class="{{ request()->is('beli*') ? 'active' : '' }}">Beli</a></li>
+                            <li><a href="/kontak" class="{{ request()->is('kontak') ? 'active' : '' }}">Kontak</a></li>
 
                         </ul>
                     </nav>

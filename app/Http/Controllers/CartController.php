@@ -31,7 +31,7 @@ class CartController extends Controller
     public function showCart()
     {
         $cart = auth()->user()->cart()->with('items.barang')->first();
-        return view('account', compact('cart'));
+        return view('keranjang', compact('cart'));
     }
 
     public function index()

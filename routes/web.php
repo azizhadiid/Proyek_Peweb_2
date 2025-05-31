@@ -28,9 +28,10 @@ Route::put('/alamat/{id}', [AlamatController::class, 'update'])->name('alamat.up
 Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->name('alamat.destroy');
 Route::post('/like/{barang}', [LikeController::class, 'toggle'])->name('barang.like');
 Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('barang.unlike');
+Route::get('/keranjang', [CartController::class, 'showCart'])->name('cart.index');
 Route::post('/keranjang/{barang}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::get('/beli', [CheckoutController::class, 'payment'])->name('checkout.index');
+Route::post('/beli/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 
 // Khusus Admin
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
