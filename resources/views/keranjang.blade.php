@@ -125,12 +125,9 @@
                     </div>
 
                     <div class="checkout-button">
-                        <form action="{{ route('checkout.process') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-accent w-100">
-                                Proses Pembayaran <i class="bi bi-arrow-right"></i>
-                            </button>
-                        </form>
+                        <a href="/beli" class="btn btn-accent w-100">
+                            Proses Pembayaran <i class="bi bi-arrow-right"></i>
+                        </a>
                     </div>
 
                     <div class="continue-shopping">

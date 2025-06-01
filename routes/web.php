@@ -32,7 +32,8 @@ Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('baran
 Route::get('/keranjang', [CartController::class, 'showCart'])->name('cart.index');
 Route::post('/keranjang/{barang}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/beli', [CheckoutController::class, 'payment'])->name('checkout.index');
-Route::post('/beli/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::post('/checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::post('/midtrans/callback', [CheckoutController::class, 'handleCallback']);
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 
 // Khusus Admin
