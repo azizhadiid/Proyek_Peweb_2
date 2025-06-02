@@ -137,7 +137,7 @@
                         <ul>
                             <li><a href="/home" class="{{ request()->is('home') ? 'active' : '' }}">Beranda</a></li>
                             <li><a href="/tentang" class="{{ request()->is('tentang') ? 'active' : '' }}">Tentang</a></li>
-                            <li><a href="/produk" class="{{ request()->is('produk') ? 'active' : '' }}">Produk</a></li>
+                            <li><a href="/produk" class="{{ request()->is('produk*') ? 'active' : '' }}">Produk</a></li>
                             <li><a href="/keranjang" class="{{ request()->is('keranjang') ? 'active' : '' }}">Keranjang</a></li>
                             <li><a href="/beli" class="{{ request()->is('beli*') ? 'active' : '' }}">Beli</a></li>
                             <li><a href="/kontak" class="{{ request()->is('kontak') ? 'active' : '' }}">Kontak</a></li>

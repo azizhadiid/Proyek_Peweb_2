@@ -36,6 +36,7 @@ Route::get('/beli', [CheckoutController::class, 'payment'])->name('checkout.inde
 Route::post('/checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
 Route::post('/midtrans/callback', [CheckoutController::class, 'handleCallback']);
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+Route::get('/produk/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
 
 // Khusus Admin
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

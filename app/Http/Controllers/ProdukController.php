@@ -17,6 +17,12 @@ class ProdukController extends Controller
         return view('produk', compact('barangs'));
     }
 
+    public function detail($id)
+    {
+        $barang = Barang::with('user')->findOrFail($id);
+        return view('detailProduk', compact('barang'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

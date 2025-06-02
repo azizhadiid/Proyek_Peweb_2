@@ -74,9 +74,9 @@
                                                 class="d-none">
                                                 @csrf
                                             </form>
-                                            <button type="button" class="quick-action-btn">
+                                            <a href="{{ route('produk.detail', $barang->id) }}" class="quick-action-btn">
                                                 <i class="bi bi-eye"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                         <div class="add-to-cart-container">
                                             <button type="button" class="add-to-cart-btn">Tambah Ke Keranjang</button>
