@@ -13,6 +13,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserProfileControlle;
+use App\Http\Controllers\VerifikasiPembayaranController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,13 +38,15 @@ Route::post('/midtrans/callback', [CheckoutController::class, 'handleCallback'])
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 
 // Khusus Admin
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
 Route::post('/admin/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/admin/barang/edit', [BarangController::class, 'edit'])->name('barang.edit');
 Route::get('/admin/barang/edit/{id}', [BarangController::class, 'show'])->name('barang.show');
 Route::put('/admin/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
 Route::delete('/admin/barang/edit/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+Route::get('/admin/verifikasi/pembayaran', [VerifikasiPembayaranController::class, 'index'])->name('verifikasi.show');
+Route::patch('/admin/verifikasi/pembayaran/{id}', [VerifikasiPembayaranController::class, 'update'])->name('verifikasi.update');
 
 // Khusus Auth
 Route::get('/login', [AuthController::class, 'login'])->name('login');

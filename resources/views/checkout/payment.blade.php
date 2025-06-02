@@ -119,65 +119,64 @@
 
                             <script>
                                 document.getElementById('pay-button').addEventListener('click', function () {
-        let selectedAlamat = document.getElementById('alamat').value;
+                                let selectedAlamat = document.getElementById('alamat').value;
 
-        if (!selectedAlamat) {
-            alert("Silakan pilih alamat pengiriman terlebih dahulu.");
-            return;
-        }
+                                if (!selectedAlamat) {
+                                    alert("Silakan pilih alamat pengiriman terlebih dahulu.");
+                                    return;
+                                }
 
-        fetch('/checkout/payment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                alamat_id: selectedAlamat
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    console.error('Gagal memproses pembayaran:', err);
-                    alert(err.message || 'Terjadi kesalahan.');
-                    throw new Error('Gagal');
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (!data.snapToken) {
-                alert('Snap token tidak tersedia.');
-                return;
-            }
+                                fetch('/checkout/payment', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                        'Accept': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        alamat_id: selectedAlamat
+                                    })
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        return response.json().then(err => {
+                                            console.error('Gagal memproses pembayaran:', err);
+                                            alert(err.message || 'Terjadi kesalahan.');
+                                            throw new Error('Gagal');
+                                        });
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    if (!data.snapToken) {
+                                        alert('Snap token tidak tersedia.');
+                                        return;
+                                    }
 
-            snap.pay(data.snapToken, {
-                onSuccess: function (result) {
-                    console.log('Pembayaran sukses:', result);
-                    alert("Pembayaran sukses!");
-                    window.location.href = "/home";
-                },
-                onPending: function (result) {
-                    console.log('Menunggu pembayaran:', result);
-                    alert("Menunggu pembayaran...");
-                    window.location.href = "/beli";
-                },
-                onError: function (result) {
-                    console.error('Pembayaran gagal:', result);
-                    alert("Pembayaran gagal!");
-                },
-                onClose: function () {
-                    alert('Pembayaran dibatalkan!');
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
-
+                                    snap.pay(data.snapToken, {
+                                        onSuccess: function (result) {
+                                            console.log('Pembayaran sukses:', result);
+                                            alert("Pembayaran sukses!");
+                                            window.location.href = "/home";
+                                        },
+                                        onPending: function (result) {
+                                            console.log('Menunggu pembayaran:', result);
+                                            alert("Menunggu pembayaran...");
+                                            window.location.href = "/beli";
+                                        },
+                                        onError: function (result) {
+                                            console.error('Pembayaran gagal:', result);
+                                            alert("Pembayaran gagal!");
+                                        },
+                                        onClose: function () {
+                                            alert('Pembayaran dibatalkan!');
+                                        }
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                            }); 
                             </script>
 
                         </div>

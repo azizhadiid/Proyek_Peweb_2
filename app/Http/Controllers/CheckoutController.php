@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Midtrans\Snap;
 use App\Models\Cart;
+use Midtrans\Config;
 use App\Models\Order;
+use App\Models\CartItem;
 use App\Models\OrderItem;
-use App\Models\Barang; // Pastikan model Barang di-import
+use Midtrans\Notification;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log; // Untuk logging
+use App\Models\Barang; // Pastikan model Barang di-import
 use Illuminate\Support\Facades\Validator; // Untuk validasi
-use Illuminate\Support\Str;
-use Midtrans\Config;
-use Midtrans\Snap;
 use Midtrans\Notification as MidtransNotification; // Alias untuk Midtrans Notification
 
 class CheckoutController extends Controller
@@ -129,92 +132,156 @@ class CheckoutController extends Controller
 
     public function handleCallback(Request $request)
     {
-        Log::info('Midtrans callback received:', $request->all());
+        // 1. Catat semua data notifikasi yang masuk untuk debugging
+        Log::info('Midtrans Callback Received - Start Processing.');
+        Log::info('Raw Notification Data:', ['data' => $request->getContent()]);
+
+        // 2. Set konfigurasi Midtrans (penting dilakukan di setiap request callback)
         Config::$serverKey = config('midtrans.server_key');
         Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = true; // Input yang di-sanitize direkomendasikan
+        Config::$is3ds = true;       // Sesuaikan jika Anda tidak menggunakan 3DS
 
         try {
-            $notification = new MidtransNotification(); // Objek notifikasi dari Midtrans SDK
+            // 3. Buat instance notifikasi dari Midtrans SDK
+            // SDK akan otomatis mem-parse JSON dari body request
+            $notification = new MidtransNotification();
 
+            // 4. Ambil detail penting dari notifikasi
             $transactionStatus = $notification->transaction_status;
-            $orderId = $notification->order_id; // Ini adalah 'order_code' Anda
+            $orderId = $notification->order_id; // Ini adalah 'order_code' yang Anda kirim ke Midtrans
             $fraudStatus = $notification->fraud_status;
-            $paymentType = $notification->payment_type;
+            $paymentType = $notification->payment_type; // Jenis pembayaran, misal: 'gopay', 'bank_transfer'
 
+            Log::info('Parsed Midtrans Notification:', [
+                'order_id' => $orderId,
+                'transaction_status' => $transactionStatus,
+                'fraud_status' => $fraudStatus,
+                'payment_type' => $paymentType,
+                'gross_amount_notif' => $notification->gross_amount ?? 'N/A'
+            ]);
+
+            // 5. Cari order di database Anda berdasarkan order_code
             $order = Order::where('order_code', $orderId)->first();
 
             if (!$order) {
-                Log::warning('Midtrans Callback: Order not found.', ['order_code' => $orderId]);
-                return response()->json(['message' => 'Order not found'], 404);
+                Log::warning('Midtrans Callback: Order not found in database.', ['order_code' => $orderId]);
+                // Midtrans mengharapkan respons 200 OK bahkan jika order tidak ditemukan untuk menghindari pengiriman ulang notifikasi
+                return response()->json(['message' => 'Order not found, but notification acknowledged.'], 200);
             }
 
-            // Hindari proses ganda jika order sudah pernah diproses (misal sudah 'paid')
-            if (in_array($order->status, ['paid', 'settlement', 'capture'])) {
-                Log::info('Midtrans Callback: Order already processed.', ['order_code' => $orderId, 'status' => $order->status]);
-                return response()->json(['message' => 'Order already processed']);
+            // 6. Hindari pemrosesan ganda: Jika order sudah 'paid', jangan proses lagi
+            if ($order->status === 'paid') {
+                Log::info('Midtrans Callback: Order already marked as paid. Skipping.', ['order_code' => $orderId]);
+                return response()->json(['message' => 'Order already processed.']);
             }
 
-            $statusToUpdate = $order->status; // Default ke status saat ini
+            // 7. Proses berdasarkan status transaksi
+            //    Untuk sebagian besar metode, 'settlement' berarti sukses.
+            //    Untuk kartu kredit, 'capture' dengan fraud_status 'accept' berarti sukses.
+            if ($transactionStatus == 'settlement' || ($transactionStatus == 'capture' && $fraudStatus == 'accept')) {
+                // Jika pembayaran sukses, lakukan semua update dalam transaksi database
+                DB::transaction(function () use ($order, $notification) {
+                    Log::info('Processing successful payment for order.', ['order_code' => $order->order_code]);
 
-            if ($transactionStatus == 'capture') {
-                if ($fraudStatus == 'challenge') {
-                    $statusToUpdate = 'challenge';
-                } else if ($fraudStatus == 'accept') {
-                    $statusToUpdate = 'paid';
-                }
-            } else if ($transactionStatus == 'settlement') {
-                $statusToUpdate = 'paid';
-            } else if ($transactionStatus == 'pending') {
-                $statusToUpdate = 'pending';
-            } else if ($transactionStatus == 'deny') {
-                $statusToUpdate = 'denied';
-            } else if ($transactionStatus == 'expire') {
-                $statusToUpdate = 'expired';
-            } else if ($transactionStatus == 'cancel') {
-                $statusToUpdate = 'canceled';
-            }
+                    // a. Update status order menjadi 'paid'
+                    $order->status = 'paid';
+                    // Anda mungkin ingin menyimpan detail pembayaran lain jika perlu
+                    // $order->payment_type = $notification->payment_type;
+                    // $order->payment_details = json_encode($notification->toArray()); // Simpan semua detail notif
+                    $order->save();
+                    Log::info('Order status updated to paid.', ['order_code' => $order->order_code]);
 
-            if ($order->status !== $statusToUpdate) {
-                $order->status = $statusToUpdate;
-                $order->save();
-                Log::info('Order status updated.', ['order_code' => $orderId, 'new_status' => $statusToUpdate]);
-            }
+                    // b. Kurangi stok barang
+                    // Pastikan model Order memiliki relasi orderItems()
+                    // public function orderItems() { return $this->hasMany(OrderItem::class); }
+                    // Dan OrderItem memiliki relasi barang()
+                    // public function barang() { return $this->belongsTo(Barang::class); }
+                    $orderItems = OrderItem::where('order_id', $order->id)->with('barang')->get();
 
-
-            // Jika pembayaran berhasil ('paid')
-            if ($statusToUpdate == 'paid') {
-                // Kurangi stok barang
-                // Pastikan model Order memiliki relasi orderItems
-                // Di model Order.php: public function orderItems() { return $this->hasMany(OrderItem::class); }
-                foreach ($order->orderItems as $item) {
-                    $barang = Barang::find($item->barang_id); // Atau $item->barang jika relasi sudah di-load
-                    if ($barang) {
-                        $newStock = $barang->stok - $item->quantity;
-                        $barang->stok = $newStock >= 0 ? $newStock : 0; // Hindari stok negatif
-                        $barang->save();
-                        Log::info('Stock updated for barang.', ['barang_id' => $barang->id, 'new_stock' => $barang->stok]);
+                    if ($orderItems->isEmpty()) {
+                        Log::warning('No order items found for a paid order.', ['order_code' => $order->order_code]);
                     }
-                }
 
-                // Kosongkan cart user
-                $cart = Cart::where('user_id', $order->user_id)->first();
-                if ($cart) {
-                    // Hapus CartItems terlebih dahulu
-                    $cart->items()->delete(); // Menggunakan relasi 'items' di model Cart
-                    // Opsional: hapus Cart itu sendiri jika tidak lagi diperlukan
-                    // $cart->delete();
-                    Log::info('Cart cleared for user.', ['user_id' => $order->user_id]);
+                    foreach ($orderItems as $item) {
+                        if ($item->barang) { // Pastikan objek barang ada
+                            $barang = $item->barang;
+                            $stokSebelumnya = $barang->stok;
+                            $barang->stok -= $item->quantity;
+                            if ($barang->stok < 0) { // Hindari stok negatif
+                                Log::warning('Stock for item became negative, setting to 0.', [
+                                    'barang_id' => $barang->id,
+                                    'nama_produk' => $barang->nama_produk,
+                                    'stok_diminta' => $item->quantity,
+                                    'stok_sebelumnya' => $stokSebelumnya
+                                ]);
+                                $barang->stok = 0;
+                            }
+                            $barang->save();
+                            Log::info('Stock updated for barang.', [
+                                'barang_id' => $barang->id,
+                                'nama_produk' => $barang->nama_produk,
+                                'stok_berkurang' => $item->quantity,
+                                'stok_sekarang' => $barang->stok
+                            ]);
+                        } else {
+                            Log::warning('Associated barang not found for order item.', [
+                                'order_item_id' => $item->id,
+                                'barang_id_ref' => $item->barang_id
+                            ]);
+                        }
+                    }
+
+                    // c. Kosongkan keranjang (cart dan cart_items) milik user
+                    $cart = Cart::where('user_id', $order->user_id)->first();
+                    if ($cart) {
+                        // Hapus semua item dari keranjang tersebut
+                        // Pastikan model Cart memiliki relasi items()
+                        // public function items() { return $this->hasMany(CartItem::class); }
+                        CartItem::where('cart_id', $cart->id)->delete();
+                        Log::info('Cart items deleted for user.', ['user_id' => $order->user_id, 'cart_id' => $cart->id]);
+
+                        // Opsional: Hapus juga record Cart itu sendiri jika diinginkan
+                        // $cart->delete();
+                        // Log::info('Cart record deleted for user.', ['user_id' => $order->user_id, 'cart_id' => $cart->id]);
+                    } else {
+                        Log::info('No active cart found for user to clear.', ['user_id' => $order->user_id]);
+                    }
+
+                    // Tambahkan logika lain jika perlu, misalnya mengirim email konfirmasi
+                });
+            } else if (in_array($transactionStatus, ['pending'])) {
+                // Order masih pending, mungkin hanya update timestamp atau biarkan
+                if ($order->status !== 'paid') { // Jangan ubah jika sudah 'paid' oleh notif lain
+                    $order->status = 'pending';
+                    $order->save();
+                    Log::info('Order status set/confirmed as pending.', ['order_code' => $orderId]);
                 }
+            } else if (in_array($transactionStatus, ['deny', 'expire', 'cancel'])) {
+                // Order gagal atau dibatalkan
+                if ($order->status !== 'paid') { // Jangan ubah jika sudah 'paid'
+                    $order->status = $transactionStatus; // Atau status internal Anda untuk 'failed'/'canceled'
+                    $order->save();
+                    Log::info('Order status updated to failed/canceled.', ['order_code' => $orderId, 'new_status' => $transactionStatus]);
+                    // Di sini Anda mungkin tidak perlu mengurangi stok atau mengosongkan keranjang.
+                    // Atau, jika barang sudah "dipesan" (stok dikurangi sementara), Anda mungkin perlu mengembalikan stok.
+                }
+            } else {
+                Log::info('Unhandled Midtrans transaction status.', ['order_code' => $orderId, 'status' => $transactionStatus]);
             }
 
-            return response()->json(['message' => 'Callback processed successfully']);
+            // 8. Kirim respons HTTP 200 OK ke Midtrans agar tidak mengirim notifikasi berulang
+            return response()->json(['message' => 'Notification processed successfully.']);
         } catch (\Exception $e) {
-            Log::error('Midtrans Callback Error:', [
+            // Tangani semua jenis error dan log
+            DB::rollBack(); // Jika transaksi aktif dan terjadi error, batalkan
+            Log::error('Midtrans Callback General Error:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
-                'request_data' => $request->getContent() // Log raw data
+                'order_id_attempted' => $orderId ?? 'N/A' // orderId mungkin belum terdefinisi jika error di awal
             ]);
-            return response()->json(['message' => 'Error processing callback', 'error' => $e->getMessage()], 500);
+            // Tetap kirim 200 OK jika memungkinkan, atau 500 jika error parah
+            return response()->json(['message' => 'Error processing notification on server.', 'error' => $e->getMessage()], 500);
         }
     }
 }
