@@ -1,6 +1,6 @@
 @extends('templates.mainTemplatedUser')
 
-@section('title', 'Kontak')
+@section('title', 'Akun')
 
 @section('konten')
 <!-- Page Title -->
@@ -48,13 +48,14 @@
                                 <a class="nav-link active" data-bs-toggle="tab" href="#wishlist">
                                     <i class="bi bi-heart"></i>
                                     <span>Daftar Suka</span>
-                                    <span class="badge">12</span>
+                                    <span class="badge">{{$totalLikes}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#history">
                                     <i class="bi bi-clock-history"></i>
                                     <span>Riwayat Pesanan</span>
+                                    <span class="badge">{{ $totalOrders }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -152,45 +153,57 @@
                             <div class="section-header" data-aos="fade-up">
                                 <h2>Riwayat Pesanan</h2>
                                 <div class="header-actions">
-                                    <div class="search-box">
-                                        <i class="bi bi-search"></i>
-                                        <input type="text" placeholder="Search orders...">
-                                    </div>
+                                    <form method="GET" action="{{ route('account.index') }}">
+                                        <div class="search-box">
+                                            <i class="bi bi-search"></i>
+                                            <input type="text" name="search" placeholder="Cari Pesanan..."
+                                                value="{{ request('search') }}">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
                             <div class="orders-grid">
-                                <!-- Order Card 1 -->
+                                <!-- Order Card  -->
+                                @foreach ($orders as $order)
                                 <div class="order-card" data-aos="fade-up" data-aos-delay="100">
                                     <div class="order-header">
                                         <div class="order-id">
                                             <span class="label">ID Pesanan:</span>
-                                            <span class="value">#ORD-2024-1278</span>
+                                            <span class="value">#{{ $order->order_code }}</span>
                                         </div>
-                                        <div class="order-date">Feb 20, 2025</div>
+                                        <div class="order-date">{{ $order->created_at->format('M d, Y') }}</div>
                                     </div>
                                     <div class="order-content">
                                         <div class="product-grid">
-                                            <img src="assets/img/product/product-1.webp" alt="Product" loading="lazy">
-                                            <img src="assets/img/product/product-2.webp" alt="Product" loading="lazy">
-                                            <img src="assets/img/product/product-3.webp" alt="Product" loading="lazy">
+                                            @foreach ($order->items->take(3) as $item)
+                                            <img src="{{ asset('img/barang/' . $item->barang->gambar) }}"
+                                                alt="{{ $item->barang->nama_produk }}" loading="lazy">
+                                            @endforeach
                                         </div>
                                         <div class="order-info">
                                             <div class="info-row">
                                                 <span>Status</span>
-                                                <span class="status processing">Processing</span>
+                                                <span class="status  @if($order->status === 'paid') text-success 
+                                                @elseif($order->status === 'cancelled') text-danger 
+                                                @elseif($order->status === 'pending') text-warning 
+                                                @endif">{{ ucfirst($order->status) }}
+                                                </span>
                                             </div>
                                             <div class="info-row">
                                                 <span>Items</span>
-                                                <span>3 items</span>
+                                                <span>{{ $order->items->sum('quantity') }} items</span>
                                             </div>
                                             <div class="info-row">
                                                 <span>Total</span>
-                                                <span class="price">$789.99</span>
+                                                <span
+                                                    class="price">Rp{{ number_format($order->total, 0, ',', '.') }}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
+
                             </div>
                         </div>
 

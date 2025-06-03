@@ -56,9 +56,9 @@
                     </a>
 
                     <!-- Search -->
-                    <form class="search-form desktop-search-form">
+                    <form class="search-form desktop-search-form" action="{{ route('produk.cari') }}" method="GET">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Cari Produk Anda">
+                            <input type="text" class="form-control" placeholder="Cari Produk Anda" name="query">
                             <button class="btn" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>

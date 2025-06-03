@@ -23,6 +23,19 @@ class ProdukController extends Controller
         return view('detailProduk', compact('barang'));
     }
 
+    public function cari(Request $request)
+    {
+        $query = $request->input('query');
+
+        $produk = \App\Models\Barang::where('nama_produk', 'like', '%' . $query . '%')->first();
+
+        if ($produk) {
+            return redirect()->route('produk.detail', ['id' => $produk->id]);
+        } else {
+            return redirect()->back()->with('error', 'Produk tidak ditemukan');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */

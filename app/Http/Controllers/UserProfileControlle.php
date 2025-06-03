@@ -11,15 +11,42 @@ class UserProfileControlle extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $userProfile = $user->profile;
         $alamats = $user->alamats;
-        $barangs = Auth::user()->likedBarangs()->get();
-        $cart = auth()->user()->cart()->with('items.barang')->first();
+        $barangs = $user->likedBarangs()->get();
+        $cart = $user->cart()->with('items.barang')->first();
 
-        return view('account', compact('user', 'userProfile', 'alamats', 'barangs', 'cart'));
+        // Ambil keyword pencarian
+        $search = $request->input('search');
+
+        // Query untuk orders
+        $ordersQuery = $user->orders()->with(['items.barang'])->latest();
+
+        if ($search) {
+            $ordersQuery->where('order_code', 'like', '%' . $search . '%')
+                ->orWhereHas('items.barang', function ($query) use ($search) {
+                    $query->where('nama_produk', 'like', '%' . $search . '%');
+                });
+        }
+
+        $orders = $ordersQuery->get();
+        $totalOrders = $orders->count();
+        $totalLikes = $barangs->count();
+
+        return view('account', compact(
+            'user',
+            'userProfile',
+            'alamats',
+            'barangs',
+            'cart',
+            'orders',
+            'totalOrders',
+            'totalLikes',
+            'search'
+        ));
     }
 
     /**
