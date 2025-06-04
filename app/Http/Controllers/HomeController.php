@@ -13,10 +13,17 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Produk best seller dengan rata-rata rating >= 4
+        $bestProducts = Barang::withAvg('reviews', 'rating')
+            ->having('reviews_avg_rating', '>=', 4)
+            ->orderByDesc('reviews_avg_rating')
+            ->take(8) // Boleh dibatasi kalau mau
+            ->get();
+
         // Ambil semua data barang, bisa juga pakai paginate() jika banyak
         $barangs = Barang::all();
 
-        return view('home', compact('barangs'));
+        return view('home', compact('barangs', 'bestProducts'));
     }
 
     /**

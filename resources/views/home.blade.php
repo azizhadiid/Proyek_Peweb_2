@@ -139,7 +139,7 @@
 
                     <div class="row gy-4">
                         <!-- Menampilkan Product -->
-                        @foreach($barangs as $barang)
+                        @foreach($bestProducts as $barang)
                         <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
                             <div class="product-card">
                                 <div class="product-image">
@@ -160,6 +160,7 @@
                                     </div>
                                 </div>
                                 <div class="product-info">
+                                    <h4>{{ $barang->nama_produk }}</h4>
                                     <h3 class="product-title"><a href="#">{{ $barang->deskripsi }}</a></h3>
                                     <div class="product-price">
                                         <span class="current-price">Rp
