@@ -37,6 +37,8 @@ Route::post('/checkout/payment', [CheckoutController::class, 'payment'])->name('
 Route::post('/midtrans/callback', [CheckoutController::class, 'handleCallback']);
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/produk/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
+Route::post('/produk/beli', [ProdukController::class, 'beli'])->name('produk.beli');
+Route::post('/produk/beli/bayar', [ProdukController::class, 'bayar'])->name('produk.bayar');
 Route::get('/produk/cari', [ProdukController::class, 'cari'])->name('produk.cari');
 
 

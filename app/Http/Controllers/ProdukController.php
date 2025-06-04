@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Midtrans\Snap;
+use Midtrans\Config;
+use App\Models\Order;
 use App\Models\Barang;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $barangs = Barang::all();
@@ -36,51 +37,77 @@ class ProdukController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function beli(Request $request)
     {
-        //
+        $request->validate([
+            'barang_id' => 'required|exists:barangs,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $barang = Barang::findOrFail($request->barang_id);
+        $alamatList = auth()->user()->alamats;
+        $quantity = $request->quantity;
+        $total = $barang->harga * $quantity;
+
+        return view('checkout', compact('barang', 'quantity', 'total', 'alamatList'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function bayar(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'barang_id' => 'required|exists:barangs,id',
+            'quantity' => 'required|integer|min:1',
+            'alamat_id' => 'required|exists:alamat,id',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $barang = Barang::findOrFail($request->barang_id);
+        $quantity = $request->quantity;
+        $total = $barang->harga * $quantity;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Konfigurasi Midtrans
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.sanitized');
+        Config::$is3ds = config('midtrans.3ds');
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        // Simpan sementara order ke DB dengan status pending
+        $order = Order::create([
+            'user_id' => auth()->id(),
+            'alamat_id' => $request->alamat_id,
+            'order_code' => 'ORD-' . strtoupper(uniqid()),
+            'total' => $total,
+            'status' => 'pending',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        OrderItem::create([
+            'order_id' => $order->id,
+            'barang_id' => $barang->id,
+            'quantity' => $quantity,
+            'price' => $barang->harga,
+        ]);
+
+        // Buat token pembayaran
+        $params = [
+            'transaction_details' => [
+                'order_id' => $order->order_code,
+                'gross_amount' => $total,
+            ],
+            'item_details' => [
+                [
+                    'id' => $barang->id,
+                    'price' => $barang->harga,
+                    'quantity' => $quantity,
+                    'name' => $barang->nama_produk,
+                ]
+            ],
+            'customer_details' => [
+                'first_name' => auth()->user()->nama,
+                'email' => auth()->user()->email,
+            ]
+        ];
+
+        $snapToken = Snap::getSnapToken($params);
+
+        return response()->json(['snap_token' => $snapToken]);
     }
 }

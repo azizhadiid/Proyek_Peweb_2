@@ -59,8 +59,8 @@
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide thumbnail-item active"
                                     data-image="{{ asset('img/barang/' . $barang->gambar) }}">
-                                    <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="{{$barang->nama_produk}}"
-                                        class="img-fluid">
+                                    <img src="{{ asset('img/barang/' . $barang->gambar) }}"
+                                        alt="{{$barang->nama_produk}}" class="img-fluid">
                                 </div>
                             </div>
                             <div class="swiper-button-next"></div>
@@ -109,7 +109,8 @@
                             <button class="quantity-btn decrease">
                                 <i class="bi bi-dash"></i>
                             </button>
-                            <input type="number" class="quantity-input" value="1" min="1" max="24">
+                            <input type="number" class="quantity-input" value="1" min="1" max="24" name="quantity"
+                                value="1" min="1" max="{{ $barang->stok }}">
                             <button class="quantity-btn increase">
                                 <i class="bi bi-plus"></i>
                             </button>
@@ -117,17 +118,55 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="product-actions">
-                        <button class="btn btn-primary add-to-cart-btn">
-                            <i class="bi bi-cart-plus"></i> Tambah ke keranjang
-                        </button>
-                        <button class="btn btn-outline-primary buy-now-btn">
-                            <i class="bi bi-lightning-fill"></i> Beli sekarang
-                        </button>
-                        <button class="btn btn-outline-secondary wishlist-btn">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
+                    <form method="POST" action="{{ route('produk.beli') }}">
+                        @csrf
+                        <input type="hidden" name="barang_id" value="{{ $barang->id }}">
+                        <input type="hidden" id="buy-quantity" name="quantity" value="1">
+                        <div class="product-actions">
+                            <button class="btn btn-primary add-to-cart-btn">
+                                <i class="bi bi-cart-plus"></i> Tambah ke keranjang
+                            </button>
+                            <button class="btn btn-outline-primary buy-now-btn">
+                                <i class="bi bi-lightning-fill"></i> Beli sekarang
+                            </button>
+                            <button type="submit" class="btn btn-outline-secondary wishlist-btn">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <script>
+                        const quantityInput = document.querySelector('.quantity-input');
+                        const quantityHiddenInput = document.getElementById('buy-quantity');
+                        const increaseBtn = document.querySelector('.quantity-btn.increase');
+                        const decreaseBtn = document.querySelector('.quantity-btn.decrease');
+
+                        // Tambah quantity
+                        increaseBtn.addEventListener('click', () => {
+                            let current = parseInt(quantityInput.value);
+                            let max = parseInt(quantityInput.max);
+                            if (current < max) {
+                                quantityInput.value = current + 1;
+                                quantityHiddenInput.value = current + 1;
+                            }
+                        });
+
+                        // Kurangi quantity
+                        decreaseBtn.addEventListener('click', () => {
+                            let current = parseInt(quantityInput.value);
+                            if (current > 1) {
+                                quantityInput.value = current - 1;
+                                quantityHiddenInput.value = current - 1;
+                            }
+                        });
+
+                        // Sync manual input ke hidden input
+                        quantityInput.addEventListener('input', () => {
+                            quantityHiddenInput.value = quantityInput.value;
+                        });
+
+                    </script>
+
 
                     <!-- Additional Info -->
                     <div class="additional-info mt-4">
