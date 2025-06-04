@@ -28,4 +28,9 @@ class Barang extends Model
     {
         return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

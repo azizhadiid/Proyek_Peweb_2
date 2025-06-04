@@ -20,6 +20,35 @@
 <section id="product-details" class="product-details section">
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row">
+            @if ($errors->any())
+            <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert" style="width: 100%">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    <div>
+                        @foreach ($errors->all() as $error)
+                        <p class="m-0">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
+            {{-- Jika Sukses Login --}}
+            @if (session('success'))
+            <div class="alert alert-success" style="width: 100%">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            {{-- jika Password telah di ubah --}}
+            @if (session('status'))
+            <div class="alert alert-success" style="width: 100%">
+                {{ session('status') }}
+            </div>
+            @endif
+        </div>
 
         <div class="row">
             <!-- Product Images -->
@@ -98,13 +127,13 @@
 
                     <div class="product-availability mb-4">
                         <i class="bi bi-check-circle-fill text-success"></i>
-                        <span>In Stock</span>
+                        <span>Dalam Stok</span>
                         <span class="stock-count">({{$barang->stok}})</span>
                     </div>
 
                     <!-- Quantity Selector -->
                     <div class="product-quantity mb-4">
-                        <h6 class="option-title">Quantity:</h6>
+                        <h6 class="option-title">Kuantiti:</h6>
                         <div class="quantity-selector">
                             <button class="quantity-btn decrease">
                                 <i class="bi bi-dash"></i>
@@ -172,15 +201,15 @@
                     <div class="additional-info mt-4">
                         <div class="info-item">
                             <i class="bi bi-truck"></i>
-                            <span>Free shipping on orders over $50</span>
+                            <span>Gratis pengiriman untuk pesanan di atas Rp 50.000,00</span>
                         </div>
                         <div class="info-item">
                             <i class="bi bi-arrow-repeat"></i>
-                            <span>30-day return policy</span>
+                            <span>Kebijakan pengembalian 30 hari</span>
                         </div>
                         <div class="info-item">
                             <i class="bi bi-shield-check"></i>
-                            <span>2-year warranty</span>
+                            <span>Garansi 2 tahun</span>
                         </div>
                     </div>
                 </div>
@@ -209,11 +238,7 @@
                             aria-labelledby="description-tab">
                             <div class="product-description">
                                 <h4>Gambaran Umum Produk</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at lacus congue,
-                                    suscipit elit nec, tincidunt orci. Phasellus egestas nisi vitae lectus imperdiet
-                                    venenatis. Suspendisse vulputate quam diam, et consectetur augue condimentum in.
-                                    Aenean dapibus urna eget nisi pharetra, in iaculis nulla blandit. Praesent at
-                                    consectetur sem, sed sollicitudin nibh. Ut interdum risus ac nulla placerat aliquet.
+                                <p>{{$barang->deskripsi}}
                                 </p>
                             </div>
                         </div>
@@ -231,7 +256,7 @@
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-half"></i>
                                         </div>
-                                        <div class="rating-count">Based on 42 reviews</div>
+                                        <div class="rating-count">Berdasarkan 42 ulasan</div>
                                     </div>
 
                                     <div class="rating-breakdown">
@@ -280,34 +305,33 @@
 
                                 <div class="review-form-container">
                                     <h4>Tulis Review</h4>
-                                    <form class="review-form">
+                                    <form class="review-form" method="POST"
+                                        action="{{ route('produk.review', $barang->id) }}">
+                                        @csrf
                                         <div class="rating-select mb-4">
                                             <label class="form-label">Beri Rating</label>
                                             <div class="star-rating">
-                                                <input type="radio" id="star5" name="rating" value="5"><label
-                                                    for="star5" title="5 stars"><i class="bi bi-star-fill"></i></label>
-                                                <input type="radio" id="star4" name="rating" value="4"><label
-                                                    for="star4" title="4 stars"><i class="bi bi-star-fill"></i></label>
-                                                <input type="radio" id="star3" name="rating" value="3"><label
-                                                    for="star3" title="3 stars"><i class="bi bi-star-fill"></i></label>
-                                                <input type="radio" id="star2" name="rating" value="2"><label
-                                                    for="star2" title="2 stars"><i class="bi bi-star-fill"></i></label>
-                                                <input type="radio" id="star1" name="rating" value="1"><label
-                                                    for="star1" title="1 star"><i class="bi bi-star-fill"></i></label>
+                                                @for ($i = 5; $i >= 1; $i--)
+                                                <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}">
+                                                <label for="star{{ $i }}" title="{{ $i }} stars">
+                                                    <i class="bi bi-star-fill"></i>
+                                                </label>
+                                                @endfor
                                             </div>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="review-title" class="form-label">Judul Ulasan</label>
-                                            <input type="text" class="form-control" id="review-title" required="">
+                                            <input type="text" class="form-control" id="review-title" name="judul"
+                                                required>
                                         </div>
 
                                         <div class="mb-4">
                                             <label for="review-content" class="form-label">Ulasan Kamu</label>
-                                            <textarea class="form-control" id="review-content" rows="4"
-                                                required=""></textarea>
+                                            <textarea class="form-control" id="review-content" name="ulasan" rows="4"
+                                                required></textarea>
                                             <div class="form-text">Beri tahu orang lain pendapatmu tentang produk ini.
-                                                Jujurlah dan berikan ulasan yang bermanfaat!</div>
+                                            </div>
                                         </div>
 
                                         <div class="d-grid">
@@ -319,91 +343,43 @@
                                 <div class="reviews-list mt-5">
                                     <h4>Ulasan Pembeli</h4>
 
-                                    <!-- Review Item -->
-                                    <div class="review-item">
-                                        <div class="review-header">
-                                            <div class="reviewer-info">
-                                                <img src="assets/img/person/person-m-1.webp" alt="Reviewer"
-                                                    class="reviewer-avatar">
+                                    @forelse ($barang->reviews as $review)
+                                    <div class="review-item mb-4 p-3 border rounded shadow-sm">
+                                        <div class="review-header d-flex justify-content-between align-items-start">
+                                            <div class="reviewer-info d-flex align-items-center">
+                                                <img src="{{ asset('img/user/profile/' . ($review->user->profile->foto_profil ?? 'default.png')) }}"
+                                                    alt="Reviewer" class="reviewer-avatar rounded-circle me-3"
+                                                    style="width: 50px; height: 50px; object-fit: cover;">
                                                 <div>
-                                                    <h5 class="reviewer-name">John Doe</h5>
-                                                    <div class="review-date">03/15/2024</div>
+                                                    <h5 class="reviewer-name mb-0">
+                                                        {{ $review->user->profile->nama_panjang ?? $review->user->nama }}
+                                                    </h5>
+                                                    <div class="review-date text-muted" style="font-size: 0.875rem;">
+                                                        {{ $review->created_at->format('d/m/Y') }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="review-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
+                                            <div class="review-rating text-warning">
+                                                @for($i = 1; $i <= 5; $i++) <i
+                                                    class="bi bi-star{{ $i <= $review->rating ? '-fill' : '' }}"></i>
+                                                    @endfor
                                             </div>
                                         </div>
-                                        <h5 class="review-title">Exceptional sound quality and comfort</h5>
-                                        <div class="review-content">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at
-                                                lacus congue, suscipit elit nec, tincidunt orci. Phasellus egestas nisi
-                                                vitae lectus imperdiet venenatis. Suspendisse vulputate quam diam, et
-                                                consectetur augue condimentum in.</p>
-                                        </div>
-                                    </div><!-- End Review Item -->
 
-                                    <!-- Review Item -->
-                                    <div class="review-item">
-                                        <div class="review-header">
-                                            <div class="reviewer-info">
-                                                <img src="assets/img/person/person-f-2.webp" alt="Reviewer"
-                                                    class="reviewer-avatar">
-                                                <div>
-                                                    <h5 class="reviewer-name">Jane Smith</h5>
-                                                    <div class="review-date">02/28/2024</div>
-                                                </div>
-                                            </div>
-                                            <div class="review-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                            </div>
+                                        <h6 class="review-title mt-2 fw-semibold">{{ $review->judul }}</h6>
+                                        <div class="review-content text-muted">
+                                            <p class="mb-0">{{ $review->ulasan }}</p>
                                         </div>
-                                        <h5 class="review-title">Great headphones, battery could be better</h5>
-                                        <div class="review-content">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at
-                                                lacus congue, suscipit elit nec, tincidunt orci. Phasellus egestas nisi
-                                                vitae lectus imperdiet venenatis.</p>
-                                        </div>
-                                    </div><!-- End Review Item -->
+                                    </div>
+                                    @empty
+                                    <p class="text-muted">Belum ada ulasan untuk produk ini.</p>
+                                    @endforelse
 
-                                    <!-- Review Item -->
-                                    <div class="review-item">
-                                        <div class="review-header">
-                                            <div class="reviewer-info">
-                                                <img src="assets/img/person/person-m-3.webp" alt="Reviewer"
-                                                    class="reviewer-avatar">
-                                                <div>
-                                                    <h5 class="reviewer-name">Michael Johnson</h5>
-                                                    <div class="review-date">02/15/2024</div>
-                                                </div>
-                                            </div>
-                                            <div class="review-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-half"></i>
-                                            </div>
-                                        </div>
-                                        <h5 class="review-title">Impressive noise cancellation</h5>
-                                        <div class="review-content">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at
-                                                lacus congue, suscipit elit nec, tincidunt orci. Phasellus egestas nisi
-                                                vitae lectus imperdiet venenatis. Suspendisse vulputate quam diam.</p>
-                                        </div>
-                                    </div><!-- End Review Item -->
-
+                                    @if ($barang->reviews->count() > 3)
                                     <div class="text-center mt-4">
                                         <button class="btn btn-outline-primary load-more-btn">Ulasan lainnya</button>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -91,7 +91,7 @@
                             <div class="section-header" data-aos="fade-up">
                                 <h2>Daftar Suka</h2>
                                 <div class="header-actions">
-                                    <button type="button" class="btn-add-all">Add All to Cart</button>
+                                    <button type="button" class="btn" style="background-color: #eda96d; color: aliceblue">Tambah Semuanya</button>
                                 </div>
                             </div>
 
@@ -140,7 +140,7 @@
                                                     {{ number_format($barang->harga, 0, ',', '.') }}</span>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn-add-cart">Add to Cart</button>
+                                        <button type="button" class="btn-add-cart">Tambah ke Keranjang</button>
                                     </div>
                                 </div>
                                 @endforeach

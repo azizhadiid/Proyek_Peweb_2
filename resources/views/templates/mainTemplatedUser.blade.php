@@ -112,13 +112,13 @@
                         <!-- Wishlist -->
                         <a href="/account" class="header-action-btn d-none d-md-block">
                             <i class="bi bi-heart"></i>
-                            <span class="badge">0</span>
+                            <span class="badge">{{ $likeCount ?? 0 }}</span>
                         </a>
 
                         <!-- Cart -->
-                        <a href="cart.html" class="header-action-btn">
+                        <a href="/keranjang" class="header-action-btn">
                             <i class="bi bi-cart3"></i>
-                            <span class="badge">3</span>
+                            <span class="badge">{{ $cartItemCount ?? 0 }}</span>
                         </a>
 
                         <!-- Mobile Navigation Toggle -->

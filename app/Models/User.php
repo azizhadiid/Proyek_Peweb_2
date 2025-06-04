@@ -33,20 +33,29 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserProfile::class);
     }
+
     public function alamats()
     {
         return $this->hasMany(Alamat::class);
     }
+
     public function likedBarangs()
     {
         return $this->belongsToMany(Barang::class, 'likes')->withTimestamps();
     }
+
     public function cart()
     {
         return $this->hasOne(Cart::class);
     }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

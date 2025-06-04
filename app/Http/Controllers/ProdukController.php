@@ -6,6 +6,7 @@ use Midtrans\Snap;
 use Midtrans\Config;
 use App\Models\Order;
 use App\Models\Barang;
+use App\Models\Review;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,33 @@ class ProdukController extends Controller
 
     public function detail($id)
     {
-        $barang = Barang::with('user')->findOrFail($id);
-        return view('detailProduk', compact('barang'));
+        $barang = Barang::with([
+            'user',
+            'reviews.user.profile' // memuat user dan profil user dari review
+        ])->findOrFail($id);
+
+        $averageRating = $barang->reviews->avg('rating');
+
+        return view('detailProduk', compact('barang', 'averageRating'));
+    }
+
+    public function submitReview(Request $request, $id)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'judul' => 'required|string|max:255',
+            'ulasan' => 'required|string',
+        ]);
+
+        Review::create([
+            'user_id' => auth()->id(),
+            'barang_id' => $id,
+            'rating' => $request->rating,
+            'judul' => $request->judul,
+            'ulasan' => $request->ulasan,
+        ]);
+
+        return redirect()->route('produk.detail', $id)->with('success', 'Ulasan berhasil dikirim!');
     }
 
     public function cari(Request $request)
