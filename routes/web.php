@@ -7,10 +7,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\BarangController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserProfileControlle;
 use App\Http\Controllers\VerifikasiPembayaranController;
@@ -41,6 +41,9 @@ Route::post('/produk/review/{id}', [ProdukController::class, 'submitReview'])->n
 Route::post('/produk/beli', [ProdukController::class, 'beli'])->name('produk.beli');
 Route::post('/produk/beli/bayar', [ProdukController::class, 'bayar'])->name('produk.bayar');
 Route::get('/produk/cari', [ProdukController::class, 'cari'])->name('produk.cari');
+Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
+Route::post('/kontak/kirim', [KontakController::class, 'kirim'])->name('kontak.kirim');
+
 
 
 // Khusus Admin
