@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 // Khusus User
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
 Route::get('/account', [UserProfileControlle::class, 'index'])->name('account.index');
 Route::post('/account', [UserProfileControlle::class, 'update'])->name('account.update');
@@ -38,6 +39,8 @@ Route::post('/midtrans/callback', [CheckoutController::class, 'handleCallback'])
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/produk/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
 Route::post('/produk/review/{id}', [ProdukController::class, 'submitReview'])->name('produk.review');
+Route::put('/produk/review/{id}', [ProdukController::class, 'update'])->name('produk.review.update');
+Route::delete('/produk/review/{id}', [ProdukController::class, 'destroy'])->name('produk.review.delete');
 Route::post('/produk/beli', [ProdukController::class, 'beli'])->name('produk.beli');
 Route::post('/produk/beli/bayar', [ProdukController::class, 'bayar'])->name('produk.bayar');
 Route::get('/produk/cari', [ProdukController::class, 'cari'])->name('produk.cari');

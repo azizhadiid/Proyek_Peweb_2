@@ -19,6 +19,12 @@ class UserProfileControlle extends Controller
         $barangs = $user->likedBarangs()->get();
         $cart = $user->cart()->with('items.barang')->first();
 
+        // Ambil SEMUA review milik user login, termasuk relasi ke barang dan profil user
+        $reviews = $user->reviews()->with(['barang', 'user.profile'])->latest()->get();
+
+        // Hitung rata-rata rating dari semua review milik user
+        $averageRating = $reviews->avg('rating');
+
         // Ambil keyword pencarian
         $search = $request->input('search');
 
@@ -45,7 +51,9 @@ class UserProfileControlle extends Controller
             'orders',
             'totalOrders',
             'totalLikes',
-            'search'
+            'search',
+            'reviews',
+            'averageRating',
         ));
     }
 
@@ -118,7 +126,7 @@ class UserProfileControlle extends Controller
 
         $userProfile->save();
 
-        return redirect()->route('account.index')->with('success', 'Profile updated successfully.');
+        return redirect()->route('account.index')->with('success', 'Update Profil Sukses.');
     }
 
     /**

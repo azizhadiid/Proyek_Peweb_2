@@ -104,7 +104,7 @@
                                     </a>
                                 </div>
                                 <div class="dropdown-footer">
-                                    <a href="/logout" class="btn btn-primary w-100 mb-2">Keluar</a>
+                                    <a href="/logout" class="btn btn-primary w-100 mb-2 logout">Keluar</a>
                                 </div>
                             </div>
                         </div>
@@ -313,6 +313,12 @@
 
     <!-- Main JS File -->
     <script src="{{ asset('assets-user/js/main.js') }}"></script>
+
+    {{-- CD MySwitchAlert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- MyScript --}}
+    <script src="{{ asset('assets-user/js/main-layout-user.js') }}"></script>
 
 </body>
 
