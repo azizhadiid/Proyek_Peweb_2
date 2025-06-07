@@ -3,126 +3,186 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="Muhamad Nauval Azhar">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="This is a login page template based on Bootstrap 5">
-    <title>Register RasaTangkit</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="{{asset('assets-admin/css/styles.css')}}" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="{{asset('assets-admin/css/styles.css')}}" rel="stylesheet" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Registrasi RasaTangkit</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="{{asset('assets-user/img/favicon.png')}}" rel="icon">
+    <link href="{{asset('assets-user/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('assets-user/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/drift-zoom/drift-basic.css') }}" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="{{ asset('assets-user/css/main.css') }}" rel="stylesheet">
 </head>
 
-<body style="background-color: #FFB22C;">
-    <section class="h-100">
-        <div class="container h-100">
-            <div class="row justify-content-sm-center h-100">
-                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-                    <div class="text-center my-5">
-                        <img src="{{ asset('assets-user/images/logo.png') }}" alt="logo" width="300">
-                    </div>
-                    <div class="card shadow-lg">
-                        <div class="card-body p-5">
-                            <h1 class="fs-4 card-title fw-bold mb-4">Buat Akun Baru</h1>
+<body class="login-register-page">
 
-                            @if ($errors->any())
-                            <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert"
-                                style="width: 100%">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-exclamation-circle-fill me-2"></i>
-                                    <div>
-                                        @foreach ($errors->all() as $error)
-                                        <p class="m-0">{{ $error }}</p>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+    <main class="main">
+        <!-- Login Register Section -->
+        <section id="login-register" class="login-register section">
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="login-register-wraper">
+
+                            <!-- Logo -->
+                            <div class="text-center mb-4">
+                                <img src="{{ asset('assets-user/img/logo_rasa_tangkit.png') }}" alt="Logo"
+                                    style="max-width: 150px;">
                             </div>
-                            @endif
 
-                            {{-- Jika Sukses Login --}}
-                            @if (session('success'))
-                            <div class="alert alert-success" style="width: 100%">
-                                {{ session('success') }}
+                            <div class="row g-4">
+                                {{-- Jika Ada Error --}}
+                                @if ($errors->any())
+                                <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert"
+                                    style="width: 100%">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+                                        <div>
+                                            @foreach ($errors->all() as $error)
+                                            <p class="m-0">{{ $error }}</p>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                                @endif
+
+                                {{-- Jika Sukses Login --}}
+                                @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert"
+                                    style="width: 100%">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                                @endif
+
+                                {{-- Jika Password Telah Diubah --}}
+                                @if (session('status'))
+                                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert"
+                                    style="width: 100%">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    {{ session('status') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                                @endif
                             </div>
-                            @endif
 
-                            {{-- jika Password telah di ubah --}}
-                            @if (session('status'))
-                            <div class="alert alert-success" style="width: 100%">
-                                {{ session('status') }}
+                            <!-- Tab Navigation -->
+                            <ul class="nav nav-tabs nav-tabs-bordered justify-content-center mb-4 mt-5" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" href="/login">
+                                        <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" href="/register">
+                                        <i class="bi bi-person-plus me-1"></i>Register
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab Content -->
+                            <div class="tab-content">
+
+                                <!-- Login Form -->
+                                <div class="tab-pane fade show active" id="login-register-login-form" role="tabpanel">
+                                    <form method="POST" action="{{url('/register/create')}}" class="mt-5">
+                                        @csrf
+
+                                        <div class="mb-4">
+                                            <label for="nama" class="form-label">Nama</label>
+                                            <input type="text" class="form-control" id="nama"
+                                                name="nama" required autofocus>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="login-register-login-email" class="form-label">Alamat
+                                                Email</label>
+                                            <input type="email" class="form-control" id="login-register-login-email"
+                                                name="email" value="" required autofocus>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="password"
+                                                class="form-label">Password</label>
+                                            <input type="password" class="form-control"
+                                                id="password" name="password" required>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="password_confirmation"
+                                                class="form-label">Konfirmasi Password</label>
+                                            <input type="password" class="form-control"
+                                                id="password_confirmation" name="password_confirmation" required>
+                                        </div>
+
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                                        </div>
+                                    </form>
+
+                                    <div class="d-flex justify-content-center mt-5">
+                                        <div class="d-flex justify-content-center align-items-center mb-4">
+                                            <span style="margin-right: 5px">Sudah punya akun?</span> <a href="/login" class="forgot-password">Klik Disini!</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            @endif
 
-                            <form method="POST" action="{{url('/register/create')}}" class="needs-validation" novalidate="" autocomplete="off">
-								@csrf
-                                <div class="mb-3">
-                                    <div class="mb-2 w-100">
-                                        <label class="text-muted" for="nama">Nama</label>
-                                    </div>
-                                    <input id="nama" type="text" class="form-control" name="nama" required
-                                        autofocus>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="mb-2 text-muted" for="email">Alamat Email</label>
-                                    <input id="email" type="email" class="form-control" name="email" value="" required>
-                                    <div class="invalid-feedback">
-                                        Email tidak valid
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <div class="mb-2 w-100">
-                                        <label class="text-muted" for="password">Password</label>
-                                    </div>
-                                    <input id="password" type="password" class="form-control" name="password" required>
-                                    <div class="invalid-feedback">
-                                        Password dibutuhkan
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <div class="mb-2 w-100">
-                                        <label class="text-muted" for="password_confirmation">Konfir Password</label>
-                                    </div>
-                                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required>
-                                    <div class="invalid-feedback">
-                                        Konfirmasi password
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-center mt-4">
-                                    <button type="submit" class="btn btn-primary" style="width: 100%">
-                                        Buat Akun
-                                    </button>
-                                </div>
-                            </form>
                         </div>
-                        <div class="card-footer py-3 border-0">
-                            <div class="text-center">
-                                Sudah punya akun? <a href="login" class="text-dark">Masuk ke akunmu</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center mt-5 text-muted">
-                        Copyright &copy; 2025 &mdash; AHID Production
+
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
-    <script src="{{asset('assets-admin/js/scripts.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="{{asset('assets-admin/assets/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset('assets-admin/assets/demo/chart-bar-demo.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-        crossorigin="anonymous"></script>
-    <script src="{{asset('assets-admin/js/datatables-simple-demo.js')}}"></script>
+        </section><!-- /Login Register Section -->
+
+    </main>
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('assets-user/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/drift-zoom/Drift.min.js') }}"></script>
+    <script src="{{ asset('assets-user/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+
+    <!-- Main JS File -->
+    <script src="{{ asset('assets-user/js/main.js') }}"></script>
+
 </body>
 
 </html>
