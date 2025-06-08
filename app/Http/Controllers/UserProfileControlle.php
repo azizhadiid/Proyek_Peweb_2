@@ -19,11 +19,30 @@ class UserProfileControlle extends Controller
         $barangs = $user->likedBarangs()->get();
         $cart = $user->cart()->with('items.barang')->first();
 
-        // Ambil SEMUA review milik user login, termasuk relasi ke barang dan profil user
-        $reviews = $user->reviews()->with(['barang', 'user.profile'])->latest()->get();
+        // 1. Ambil nilai sort dari request, default-nya 'terbaru'
+        $sort = $request->input('sort', 'terbaru');
+
+        // 2. Siapkan query untuk review tanpa ->get() dulu
+        $reviewsQuery = $user->reviews()->with(['barang', 'user.profile']);
+
+        // 3. Terapkan pengurutan berdasarkan nilai $sort
+        switch ($sort) {
+            case 'rating_tertinggi':
+                $reviewsQuery->orderBy('rating', 'desc');
+                break;
+            case 'rating_terendah':
+                $reviewsQuery->orderBy('rating', 'asc');
+                break;
+            default: // 'terbaru' atau nilai lainnya
+                $reviewsQuery->latest(); // Mengurutkan berdasarkan created_at descending
+                break;
+        }
+
+        // 4. Eksekusi query setelah pengurutan diterapkan
+        $reviews = $reviewsQuery->get();
 
         // Hitung rata-rata rating dari semua review milik user
-        $averageRating = $reviews->avg('rating');
+        $averageRating = $user->reviews()->avg('rating'); // Lebih efisien hitung avg terpisah
 
         // Ambil keyword pencarian
         $search = $request->input('search');
@@ -54,7 +73,46 @@ class UserProfileControlle extends Controller
             'search',
             'reviews',
             'averageRating',
+            'sort' // 5. Kirim variabel $sort ke view
         ));
+    }
+
+    public function addAllLikedToCart(Request $request)
+    {
+        // 1. Dapatkan user yang sedang login
+        $user = $request->user();
+
+        // 2. Dapatkan atau buat keranjang belanja untuk user ini
+        // firstOrCreate akan mencari cart milik user, jika tidak ada, akan dibuatkan yang baru
+        $cart = $user->cart()->firstOrCreate([]);
+
+        // 3. Ambil semua barang yang disukai oleh user
+        $likedBarangs = $user->likedBarangs()->get();
+
+        // Jika tidak ada barang yang disukai, langsung kembalikan
+        if ($likedBarangs->isEmpty()) {
+            return redirect()->route('account.index')->with('info', 'Anda tidak memiliki produk yang disukai untuk ditambahkan.');
+        }
+
+        // 4. Loop setiap barang yang disukai dan tambahkan ke keranjang
+        foreach ($likedBarangs as $barang) {
+            // Cek apakah barang ini sudah ada di keranjang
+            $cartItem = $cart->items()->where('barang_id', $barang->id)->first();
+
+            if ($cartItem) {
+                // Jika sudah ada, cukup tambahkan jumlahnya (quantity)
+                $cartItem->increment('quantity');
+            } else {
+                // Jika belum ada, buat item baru di keranjang
+                $cart->items()->create([
+                    'barang_id' => $barang->id,
+                    'quantity'  => 1,
+                ]);
+            }
+        }
+
+        // 5. Kembalikan user ke halaman akun dengan pesan sukses
+        return redirect()->route('account.index')->with('success', 'Semua produk yang disukai berhasil ditambahkan ke keranjang!');
     }
 
     /**

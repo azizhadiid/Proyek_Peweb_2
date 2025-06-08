@@ -9,6 +9,7 @@ use App\Models\Barang;
 use App\Models\Review;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
@@ -48,6 +49,33 @@ class ProdukController extends Controller
         ]);
 
         return redirect()->route('produk.detail', $id)->with('success', 'Ulasan berhasil dikirim!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $review = Review::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+
+        $review->update([
+            'rating' => $request->rating,
+            'judul' => $request->judul,
+            'ulasan' => $request->ulasan,
+        ]);
+
+        return back()->with('success', 'Ulasan berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $review = Review::findOrFail($id);
+
+        // Cek apakah review milik user yang sedang login
+        if ($review->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $review->delete();
+
+        return back()->with('success', 'Ulasan berhasil dihapus.');
     }
 
     public function cari(Request $request)

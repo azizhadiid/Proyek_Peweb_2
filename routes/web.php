@@ -24,6 +24,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
 Route::get('/account', [UserProfileControlle::class, 'index'])->name('account.index');
+Route::post('/account/likes/semua', [UserProfileControlle::class, 'addAllLikedToCart'])->name('liked.addAllToCart');
 Route::post('/account', [UserProfileControlle::class, 'update'])->name('account.update');
 Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
 Route::post('/alamat', [AlamatController::class, 'store'])->name('alamat.tambah');
