@@ -20,114 +20,127 @@ use Midtrans\Notification as MidtransNotification; // Alias untuk Midtrans Notif
 
 class CheckoutController extends Controller
 {
-    public function payment(Request $request)
+    public function show()
     {
+        // 1. Dapatkan pengguna yang sedang login
         $user = Auth::user();
+
+        // 2. Ambil keranjang milik user, beserta relasi item dan barangnya
+        // 'items.barang' -> Eager loading untuk efisiensi query database
         $cart = $user->cart()->with('items.barang')->first();
 
+        // 3. JAGA-JAGA: Jika keranjang tidak ada atau kosong, kembalikan ke halaman lain
         if (!$cart || $cart->items->isEmpty()) {
-            if ($request->expectsJson()) {
-                return response()->json(['message' => 'Keranjang kosong.'], 400);
-            }
-            return redirect()->back()->with('error', 'Keranjang kosong.');
+            // Ganti 'home' dengan route yang Anda inginkan (misal: 'keranjang.index')
+            return redirect()->route('home.index')->with('error', 'Keranjang Anda kosong!');
         }
 
-        $total = $cart->items->sum(fn($item) => $item->barang->harga * $item->quantity);
+        // 4. Ambil semua item dari keranjang
+        $cartItems = $cart->items;
 
-        // Jika ini adalah POST request (dari tombol "Bayar Sekarang" via fetch)
-        if ($request->isMethod('post')) {
+        // 5. Hitung total harga
+        $total = $cartItems->sum(function ($item) {
+            return $item->quantity * $item->barang->harga;
+        });
+
+        // 6. Hitung total jumlah item
+        $totalItemsInCart = $cartItems->sum('quantity');
+
+        // 7. Ambil daftar alamat milik pengguna
+        $alamatList = $user->alamats;
+
+        // 8. Kirim semua data ke view
+        return view('payment', [
+            'cartItems'        => $cartItems,
+            'total'            => $total,
+            'alamatList'       => $alamatList,
+            'totalItemsInCart' => $totalItemsInCart,
+        ]);
+    }
+
+    /**
+     * Memproses pembayaran dan membuat order. (Handle POST Request dari Fetch)
+     */
+    public function processPayment(Request $request)
+    {
+        // Gunakan DB Transaction untuk memastikan semua proses berhasil atau tidak sama sekali
+        DB::beginTransaction();
+
+        try {
+            // 1. Validasi request, terutama alamat_id
             $validator = Validator::make($request->all(), [
-                'alamat_id' => 'required|exists:alamat,id,user_id,' . $user->id, // Validasi alamat_id ada, valid, dan milik user
+                'alamat_id' => 'required|exists:alamat,id,user_id,' . Auth::id(),
             ]);
 
             if ($validator->fails()) {
-                Log::error('Validation failed for payment:', $validator->errors()->toArray());
-                return response()->json(['errors' => $validator->errors(), 'message' => 'Data tidak valid.'], 422);
+                return response()->json(['message' => 'Alamat tidak valid.', 'errors' => $validator->errors()], 422);
             }
 
-            $alamatId = $request->input('alamat_id');
-            Log::info('Alamat ID received in POST:', ['alamat_id' => $alamatId]); // Log alamatId yang diterima
+            // 2. Ambil data user & keranjang (sebagai validasi ulang di server)
+            $user = Auth::user();
+            $cart = $user->cart()->with('items.barang')->first();
 
+            if (!$cart || $cart->items->isEmpty()) {
+                return response()->json(['message' => 'Keranjang Anda kosong.'], 400);
+            }
+
+            // 3. Buat Order di database dengan status "pending"
+            $total = $cart->items->sum(fn($item) => $item->barang->harga * $item->quantity);
             $orderCode = 'ORDER-' . Str::upper(Str::random(8));
 
-            try {
-                $order = Order::create([
-                    'user_id'    => $user->id,
-                    'alamat_id'  => $alamatId, // Ini yang menyebabkan error jika $alamatId null
-                    'order_code' => $orderCode,
-                    'total'      => $total,
-                    'status'     => 'pending',
+            $order = Order::create([
+                'user_id'    => $user->id,
+                'alamat_id'  => $request->alamat_id,
+                'order_code' => $orderCode,
+                'total'      => $total,
+                'status'     => 'pending',
+            ]);
+
+            // 4. Masukkan semua item dari keranjang ke order_items
+            foreach ($cart->items as $item) {
+                OrderItem::create([
+                    'order_id'  => $order->id,
+                    'barang_id' => $item->barang_id,
+                    'quantity'  => $item->quantity,
+                    'price'     => $item->barang->harga,
                 ]);
-                Log::info('Order created successfully:', ['order_id' => $order->id, 'order_code' => $orderCode]);
-
-                foreach ($cart->items as $item) {
-                    OrderItem::create([
-                        'order_id'  => $order->id,
-                        'barang_id' => $item->barang->id,
-                        'quantity'  => $item->quantity,
-                        'price'     => $item->barang->harga,
-                    ]);
-                }
-                Log::info('Order items created for order:', ['order_id' => $order->id]);
-
-                // Midtrans Setup
-                Config::$serverKey = config('midtrans.server_key');
-                Config::$isProduction = config('midtrans.is_production');
-                Config::$isSanitized = config('midtrans.sanitized');
-                Config::$is3ds = config('midtrans.3ds');
-
-                $transactionDetails = [
-                    'order_id'     => $orderCode,
-                    'gross_amount' => $total,
-                ];
-
-                $itemDetails = [];
-                foreach ($cart->items as $item) {
-                    $itemDetails[] = [
-                        'id'       => $item->barang->id,
-                        'price'    => $item->barang->harga,
-                        'quantity' => $item->quantity,
-                        'name'     => Str::limit($item->barang->nama_produk, 50), // Batasi panjang nama produk jika perlu
-                    ];
-                }
-
-                $customerDetails = [
-                    'first_name' => $user->nama, // Asumsi ada kolom 'nama' di model User
-                    'email'      => $user->email,
-                    // 'phone'      => $user->phone_number, // Jika ada
-                    // Tambahkan billing_address dan shipping_address jika diperlukan
-                ];
-
-                $params = [
-                    'transaction_details' => $transactionDetails,
-                    'item_details'        => $itemDetails,
-                    'customer_details'    => $customerDetails,
-                ];
-
-                $snapToken = Snap::getSnapToken($params);
-                Log::info('Snap token generated:', ['snap_token' => $snapToken]);
-                return response()->json(['snapToken' => $snapToken]);
-            } catch (\Exception $e) {
-                Log::error('Error during payment processing or Midtrans Snap Token generation:', [
-                    'message' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString(),
-                    'request_data' => $request->all()
-                ]);
-                return response()->json(['message' => 'Gagal memproses pembayaran.', 'error' => $e->getMessage()], 500);
             }
+
+            // 5. Konfigurasi Midtrans
+            Config::$serverKey = config('midtrans.server_key');
+            Config::$isProduction = config('midtrans.is_production');
+            Config::$isSanitized = true;
+            Config::$is3ds = true;
+
+            // 6. Siapkan parameter untuk Midtrans
+            $params = [
+                'transaction_details' => [
+                    'order_id'     => $order->order_code,
+                    'gross_amount' => $order->total,
+                ],
+                'customer_details' => [
+                    'first_name' => $user->nama, // asumsikan ada kolom 'nama'
+                    'email'      => $user->email,
+                ],
+            ];
+
+            // 7. Dapatkan Snap Token dari Midtrans
+            $snapToken = Snap::getSnapToken($params);
+
+            // Jika semua berhasil, hapus item di keranjang
+            $cart->items()->delete();
+
+            // Commit transaksi jika semua berhasil
+            DB::commit();
+
+            // 8. Kirim Snap Token kembali ke frontend
+            return response()->json(['snapToken' => $snapToken]);
+        } catch (\Exception $e) {
+            // Rollback transaksi jika terjadi error
+            DB::rollBack();
+            Log::error('Payment Processing Error: ' . $e->getMessage());
+            return response()->json(['message' => 'Terjadi kesalahan saat memproses pembayaran.'], 500);
         }
-
-        // Jika ini adalah GET request (untuk menampilkan halaman checkout)
-        $alamatList = $user->alamats; // Ambil daftar alamat untuk ditampilkan di form
-        $totalItemsInCart = $cart->items->sum('quantity'); // Untuk tampilan summary
-
-        return view('checkout.payment', [
-            'cartItems'        => $cart->items,
-            'total'            => $total,
-            'alamatList'       => $alamatList,
-            'totalItemsInCart' => $totalItemsInCart, // Kirim total item ke view
-            // snapToken tidak dikirim di sini, akan didapatkan via fetch POST nanti
-        ]);
     }
 
     public function handleCallback(Request $request)

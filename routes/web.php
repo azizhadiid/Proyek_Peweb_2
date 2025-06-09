@@ -34,8 +34,8 @@ Route::post('/like/{barang}', [LikeController::class, 'toggle'])->name('barang.l
 Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('barang.unlike');
 Route::get('/keranjang', [CartController::class, 'showCart'])->name('cart.index');
 Route::post('/keranjang/{barang}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::get('/beli', [CheckoutController::class, 'payment'])->name('checkout.index');
-Route::post('/checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::get('/beli', [CheckoutController::class, 'show'])->name('checkout.index');
+Route::post('/beli/bayar', [CheckoutController::class, 'processPayment'])->name('checkout.payment');
 Route::post('/midtrans/callback', [CheckoutController::class, 'handleCallback']);
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/produk/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail');

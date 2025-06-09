@@ -42,6 +42,7 @@
                     </div>
 
                     <!-- Cart Item 1 -->
+                    @if($cart && $cart->items)
                     @foreach($cart->items as $item)
                     <div class="cart-item" data-aos="fade-up" data-aos-delay="100">
                         <div class="row align-items-center gy-4">
@@ -87,6 +88,9 @@
                         </div>
                     </div>
                     @endforeach
+                    @else
+                    <p class="text-center">Keranjang masih kosong.</p>
+                    @endif
 
                     <div class="cart-actions">
                         <div class="row g-3">
@@ -110,18 +114,22 @@
                     <div class="summary-item">
                         <span class="summary-label">Subtotal</span>
                         <span class="summary-value">Rp
-                            {{ number_format($cart->items->sum(fn($i) => $i->barang->harga * $i->quantity), 0, ',', '.') }}</span>
+                            {{ $cart && $cart->items ? number_format($cart->items->sum(fn($i) => ($i->barang->harga ?? 0) * $i->quantity), 0, ',', '.') : '0' }}
+                        </span>
                     </div>
 
                     <div class="summary-item">
                         <span class="summary-label">Item</span>
-                        <span class="summary-value">{{ $cart->items->sum('quantity') }} item</span>
+                        <span class="summary-value">{{ $cart && $cart->items ? $cart->items->sum('quantity') : 0 }}
+                            item</span>
                     </div>
 
                     <div class="summary-total">
                         <span class="summary-label">Total</span>
-                        <span class="summary-value">Rp
-                            {{ number_format($cart->items->sum(fn($i) => $i->barang->harga * $i->quantity), 0, ',', '.') }}</span>
+                        <span class="summary-value">
+                            Rp
+                            {{ $cart && $cart->items ? number_format($cart->items->sum(fn($i) => ($i->barang->harga ?? 0) * $i->quantity), 0, ',', '.') : '0' }}
+                        </span>
                     </div>
 
                     <div class="checkout-button">
@@ -131,7 +139,7 @@
                     </div>
 
                     <div class="continue-shopping">
-                        <a href="#" class="btn btn-link w-100">
+                        <a href="/produk" class="btn btn-link w-100">
                             <i class="bi bi-arrow-left"></i> Lanjut Belanja
                         </a>
                     </div>
@@ -142,6 +150,7 @@
                             <i class="bi bi-credit-card-2-front"></i>
                             <i class="bi bi-paypal"></i>
                             <i class="bi bi-wallet2"></i>
+                            <i class="bi bi-credit-card"></i>
                         </div>
                     </div>
                 </div>

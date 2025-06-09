@@ -43,18 +43,18 @@
                                     <p class="order-item-variant">{{ $item->barang->jenis_olahan }}</p>
                                     <div class="order-item-price">
                                         <span class="quantity">{{ $item->quantity }} X</span>
-                                        <span class="price">Rp
-                                            {{ number_format($item->barang->harga, 0, ',', '.') }}</span>
+                                        <span class="price">Rp{{ number_format($item->barang->harga, 0, ',', '.') }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endforeach
+
 
                         <div class="order-totals">
                             <div class="order-shipping d-flex justify-content-between">
-                                <span>Keranjang</span>
-                                <span>{{ $item->quantity }}</span>
+                                <span>Jumlah Item</span>
+                                <span>{{ $totalItemsInCart }}</span>
                             </div>
                             <div class="order-subtotal d-flex justify-content-between">
                                 <span>Subtotal</span>
@@ -65,13 +65,14 @@
                                 <span>Rp {{ number_format($total, 0, ',', '.') }}</span>
                             </div>
                         </div>
+                        @endforeach
 
                         <div class="secure-checkout">
                             <div class="payment-icons">
                                 <i class="bi bi-credit-card-2-front"></i>
-                                <i class="bi bi-credit-card"></i>
                                 <i class="bi bi-paypal"></i>
-                                <i class="bi bi-apple"></i>
+                                <i class="bi bi-wallet2"></i>
+                                <i class="bi bi-credit-card"></i>
                             </div>
                         </div>
                     </div>
@@ -94,9 +95,11 @@
                                     <label for="alamat">Pilih Alamat Pengiriman</label>
                                     <select name="alamat_id" id="alamat" class="form-control" required>
                                         <option disabled selected>-- Pilih Alamat --</option>
+
                                         @foreach ($alamatList as $alamat)
                                         <option value="{{ $alamat->id }}">{{ $alamat->alamat }}</option>
                                         @endforeach
+
                                     </select>
                                     <small>
                                         <a href="/account">+ Tambah Alamat Baru</a>
@@ -113,72 +116,87 @@
                             </div>
 
                             {{-- Midtrans Script --}}
-                            {{-- Midtrans Script --}}
                             <script src="https://app.sandbox.midtrans.com/snap/snap.js"
                                 data-client-key="{{ config('midtrans.client_key') }}"></script>
 
                             <script>
-                                document.getElementById('pay-button').addEventListener('click', function () {
-                                let selectedAlamat = document.getElementById('alamat').value;
+                                // Pastikan event listener dipasang pada elemen form
+                                document.querySelector('.checkout-form').addEventListener('submit', function (event) {
+                                    // Mencegah form submit default
+                                    event.preventDefault();
 
-                                if (!selectedAlamat) {
-                                    alert("Silakan pilih alamat pengiriman terlebih dahulu.");
-                                    return;
-                                }
+                                    // Panggil fungsi pembayaran saat tombol di dalam form di-klik
+                                    handlePayment();
+                                });
 
-                                fetch('/checkout/payment', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                        'Accept': 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                        alamat_id: selectedAlamat
-                                    })
-                                })
-                                .then(response => {
-                                    if (!response.ok) {
-                                        return response.json().then(err => {
-                                            console.error('Gagal memproses pembayaran:', err);
-                                            alert(err.message || 'Terjadi kesalahan.');
-                                            throw new Error('Gagal');
-                                        });
-                                    }
-                                    return response.json();
-                                })
-                                .then(data => {
-                                    if (!data.snapToken) {
-                                        alert('Snap token tidak tersedia.');
+                                // Atau jika Anda tetap ingin menggunakan listener pada tombol
+                                document.getElementById('pay-button').addEventListener('click', function (event) {
+                                    event.preventDefault(); // Mencegah perilaku default
+                                    handlePayment();
+                                });
+
+                                function handlePayment() {
+                                    let selectedAlamat = document.getElementById('alamat').value;
+
+                                    if (!selectedAlamat || selectedAlamat === "-- Pilih Alamat --") {
+                                        alert("Silakan pilih alamat pengiriman terlebih dahulu.");
                                         return;
                                     }
 
-                                    snap.pay(data.snapToken, {
-                                        onSuccess: function (result) {
-                                            console.log('Pembayaran sukses:', result);
-                                            alert("Pembayaran sukses!");
-                                            window.location.href = "/home";
-                                        },
-                                        onPending: function (result) {
-                                            console.log('Menunggu pembayaran:', result);
-                                            alert("Menunggu pembayaran...");
-                                            window.location.href = "/beli";
-                                        },
-                                        onError: function (result) {
-                                            console.error('Pembayaran gagal:', result);
-                                            alert("Pembayaran gagal!");
-                                        },
-                                        onClose: function () {
-                                            alert('Pembayaran dibatalkan!');
-                                        }
-                                    });
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                });
-                            }); 
-                            </script>
+                                    // URL fetch harus sesuai dengan route POST Anda
+                                    fetch('{{ route("checkout.payment") }}', { // Menggunakan helper route lebih aman
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                                'Accept': 'application/json'
+                                            },
+                                            body: JSON.stringify({
+                                                alamat_id: selectedAlamat
+                                            })
+                                        })
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                return response.json().then(err => {
+                                                    throw err;
+                                                });
+                                            }
+                                            return response.json();
+                                        })
+                                        .then(data => {
+                                            if (!data.snapToken) {
+                                                alert('Snap token tidak tersedia.');
+                                                return;
+                                            }
 
+                                            // Tampilkan pop-up pembayaran Midtrans
+                                            snap.pay(data.snapToken, {
+                                                onSuccess: function (result) {
+                                                    alert("Pembayaran sukses!");
+                                                    // Arahkan ke halaman histori transaksi atau halaman utama
+                                                    window.location.href = "/produk";
+                                                },
+                                                onPending: function (result) {
+                                                    alert("Menunggu pembayaran Anda!");
+                                                    window.location.href = "/beli";
+                                                },
+                                                onError: function (result) {
+                                                    alert("Pembayaran gagal!");
+                                                },
+                                                onClose: function () {
+                                                    alert(
+                                                        'Anda menutup pop-up tanpa menyelesaikan pembayaran.'
+                                                        );
+                                                }
+                                            });
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error);
+                                            alert(error.message || 'Terjadi kesalahan. Silakan coba lagi.');
+                                        });
+                                }
+
+                            </script>
                         </div>
                     </form>
                 </div>
