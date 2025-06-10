@@ -147,55 +147,118 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <form method="POST" action="{{ route('produk.beli') }}">
-                        @csrf
-                        <input type="hidden" name="barang_id" value="{{ $barang->id }}">
-                        <input type="hidden" id="buy-quantity" name="quantity" value="1">
-                        <div class="product-actions">
-                            <button class="btn btn-primary add-to-cart-btn">
-                                <i class="bi bi-cart-plus"></i> Tambah ke keranjang
-                            </button>
+
+                    <div class="product-actions">
+                        <button class="btn btn-primary add-to-cart-btn">
+                            <i class="bi bi-cart-plus"></i> Tambah ke keranjang
+                        </button>
+
+                        <form method="POST" action="{{ route('produk.beli') }}">
+                            @csrf
+                            <input type="hidden" name="barang_id" value="{{ $barang->id }}">
+                            <input type="hidden" id="buy-quantity" name="quantity" value="1">
                             <button class="btn btn-outline-primary buy-now-btn">
                                 <i class="bi bi-lightning-fill"></i> Beli sekarang
                             </button>
-                            <button type="submit" class="btn btn-outline-secondary wishlist-btn">
-                                <i class="bi bi-heart"></i>
-                            </button>
-                        </div>
-                    </form>
+                        </form>
+                        <button type="submit" class="btn btn-outline-secondary wishlist-btn">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </div>
+
+                    <!-- SweetAlert2 CDN -->
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                     <script>
-                        const quantityInput = document.querySelector('.quantity-input');
-                        const quantityHiddenInput = document.getElementById('buy-quantity');
-                        const increaseBtn = document.querySelector('.quantity-btn.increase');
-                        const decreaseBtn = document.querySelector('.quantity-btn.decrease');
+                        // Perbaikan script quantity selector
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const quantityInput = document.querySelector('.quantity-input');
+                            const quantityHiddenInput = document.getElementById('buy-quantity');
+                            const increaseBtn = document.querySelector('.quantity-btn.increase');
+                            const decreaseBtn = document.querySelector('.quantity-btn.decrease');
 
-                        // Tambah quantity
-                        increaseBtn.addEventListener('click', () => {
-                            let current = parseInt(quantityInput.value);
-                            let max = parseInt(quantityInput.max);
-                            if (current < max) {
-                                quantityInput.value = current + 1;
-                                quantityHiddenInput.value = current + 1;
+                            // Fungsi untuk menangani penambahan
+                            function handleIncrease() {
+                                let current = parseInt(quantityInput.value);
+                                let max = parseInt(quantityInput.max);
+                                if (current < max) {
+                                    quantityInput.value = current + 1;
+                                    quantityHiddenInput.value = quantityInput.value;
+                                }
                             }
-                        });
 
-                        // Kurangi quantity
-                        decreaseBtn.addEventListener('click', () => {
-                            let current = parseInt(quantityInput.value);
-                            if (current > 1) {
-                                quantityInput.value = current - 1;
-                                quantityHiddenInput.value = current - 1;
+                            // Fungsi untuk menangani pengurangan
+                            function handleDecrease() {
+                                let current = parseInt(quantityInput.value);
+                                if (current > 1) {
+                                    quantityInput.value = current - 1;
+                                    quantityHiddenInput.value = quantityInput.value;
+                                }
                             }
-                        });
 
-                        // Sync manual input ke hidden input
-                        quantityInput.addEventListener('input', () => {
-                            quantityHiddenInput.value = quantityInput.value;
-                        });
+                            // Hapus event listener yang mungkin sudah ada
+                            increaseBtn.removeEventListener('click', handleIncrease);
+                            decreaseBtn.removeEventListener('click', handleDecrease);
 
+                            // Tambahkan event listener baru
+                            increaseBtn.addEventListener('click', handleIncrease, {
+                                once: false
+                            });
+                            decreaseBtn.addEventListener('click', handleDecrease, {
+                                once: false
+                            });
+
+                            // Sync manual input
+                            quantityInput.addEventListener('input', function () {
+                                quantityHiddenInput.value = this.value;
+                            });
+
+                            const addToCartBtn = document.querySelector('.add-to-cart-btn');
+                            const barangId = "{{ $barang->id }}";
+
+                            addToCartBtn.addEventListener('click', function () {
+                                const quantity = parseInt(document.querySelector('.quantity-input').value);
+
+                                fetch("{{ route('produk.keranjang') }}", {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    },
+                                    body: JSON.stringify({
+                                        barang_id: barangId,
+                                        quantity: quantity
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if(data.success){
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Berhasil',
+                                            text: data.message,
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Gagal',
+                                            text: 'Gagal menambahkan ke keranjang'
+                                        });
+                                    }
+                                })
+                                .catch(err => {
+                                    console.error(err);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Terjadi kesalahan saat menambahkan ke keranjang.'
+                                    });
+                                });
+                            });
+                        });
                     </script>
-
 
                     <!-- Additional Info -->
                     <div class="additional-info mt-4">

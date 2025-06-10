@@ -44,6 +44,7 @@ Route::put('/produk/review/{id}', [ProdukController::class, 'update'])->name('pr
 Route::delete('/produk/review/{id}', [ProdukController::class, 'destroy'])->name('produk.review.delete');
 Route::post('/produk/beli', [ProdukController::class, 'beli'])->name('produk.beli');
 Route::post('/produk/beli/bayar', [ProdukController::class, 'bayar'])->name('produk.bayar');
+Route::post('/produk/keranjang', [CartController::class, 'produkKeranjang'])->name('produk.keranjang');
 Route::get('/produk/cari', [ProdukController::class, 'cari'])->name('produk.cari');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
 Route::post('/kontak/kirim', [KontakController::class, 'kirim'])->name('kontak.kirim');
