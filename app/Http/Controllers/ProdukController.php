@@ -29,12 +29,22 @@ class ProdukController extends Controller
     {
         $barang = Barang::with([
             'user',
-            'reviews.user.profile' // memuat user dan profil user dari review
+            'reviews.user.profile'
         ])->findOrFail($id);
 
         $averageRating = $barang->reviews->avg('rating');
+        $totalReviews = $barang->reviews->count();
 
-        return view('detailProduk', compact('barang', 'averageRating'));
+        // Hitung jumlah masing-masing rating 1–5
+        $ratingCounts = [
+            5 => $barang->reviews->where('rating', 5)->count(),
+            4 => $barang->reviews->where('rating', 4)->count(),
+            3 => $barang->reviews->where('rating', 3)->count(),
+            2 => $barang->reviews->where('rating', 2)->count(),
+            1 => $barang->reviews->where('rating', 1)->count(),
+        ];
+
+        return view('detailProduk', compact('barang', 'averageRating', 'totalReviews', 'ratingCounts'));
     }
 
     public function submitReview(Request $request, $id)

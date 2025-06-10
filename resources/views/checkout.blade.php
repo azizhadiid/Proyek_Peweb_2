@@ -121,40 +121,57 @@
                     </script>
 
                     <script>
-                        document.getElementById('payment-form').addEventListener('submit', function (e) {
+                        const payButton = document.getElementById('pay-button');
+                        const form = document.getElementById('payment-form');
+
+                        form.addEventListener('submit', function (e) {
                             e.preventDefault();
 
-                            fetch(this.action, {
-                                    method: 'POST',
-                                    headers: {
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                        'Accept': 'application/json',
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                        barang_id: this.barang_id.value,
-                                        quantity: this.quantity.value,
-                                        alamat_id: this.alamat_id.value
-                                    })
-                                }).then(res => res.json())
-                                .then(data => {
-                                    snap.pay(data.snap_token, {
-                                        onSuccess: function (result) {
-                                            window.location.href =
-                                            '/produk'; // redirect ke halaman pesanan
-                                        },
-                                        onPending: function (result) {
-                                            window.location.href =
-                                            '/produk'; // redirect juga bisa saat pending
-                                        },
-                                        onError: function (result) {
-                                            alert("Pembayaran gagal. Silakan coba lagi.");
-                                        }
-                                    });
-                                });
-                        });
+                            // Disable tombol saat memproses
+                            payButton.disabled = true;
+                            payButton.innerText = 'Memproses...';
 
+                            fetch(this.action, {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    barang_id: this.barang_id.value,
+                                    quantity: this.quantity.value,
+                                    alamat_id: this.alamat_id.value
+                                })
+                            }).then(res => res.json())
+                            .then(data => {
+                                snap.pay(data.snap_token, {
+                                    onSuccess: function (result) {
+                                        window.location.href = '/produk';
+                                    },
+                                    onPending: function (result) {
+                                        window.location.href = '/produk';
+                                    },
+                                    onError: function (result) {
+                                        alert("Pembayaran gagal. Silakan coba lagi.");
+                                        // Enable lagi tombol jika error
+                                        payButton.disabled = false;
+                                        payButton.innerText = 'Bayar Sekarang';
+                                    },
+                                    onClose: function () {
+                                        // Enable lagi jika user tutup pop-up
+                                        payButton.disabled = false;
+                                        payButton.innerText = 'Bayar Sekarang';
+                                    }
+                                });
+                            }).catch(() => {
+                                alert("Terjadi kesalahan. Silakan coba lagi.");
+                                payButton.disabled = false;
+                                payButton.innerText = 'Bayar Sekarang';
+                            });
+                        });
                     </script>
+
                 </div>
             </div>
         </div>

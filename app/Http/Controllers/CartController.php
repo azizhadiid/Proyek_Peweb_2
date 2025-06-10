@@ -35,6 +35,35 @@ class CartController extends Controller
         return view('keranjang', compact('cart'));
     }
 
+    public function updateCart(Request $request)
+    {
+        $cart = auth()->user()->cart();
+        $itemIds = $request->input('item_id'); // Now using cart item IDs
+        $quantities = $request->input('quantity');
+
+        foreach ($itemIds as $index => $id) {
+            $item = $cart->items()->where('id', $id)->first();
+            if ($item) {
+                $item->update(['quantity' => $quantities[$index]]);
+            }
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Keranjang berhasil diperbarui.');
+    }
+
+    public function clearCart()
+    {
+        $cart = auth()->user()->cart;
+
+        if ($cart) {
+            $cart->items()->delete(); // Hapus semua item
+            $cart->delete(); // Hapus cart itu sendiri jika perlu
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Keranjang telah dikosongkan.');
+    }
+
+
     public function produkKeranjang(Request $request)
     {
         $request->validate([

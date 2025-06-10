@@ -6,6 +6,49 @@
 <!-- Hero Section -->
 <section class="ecommerce-hero-1 hero section" id="hero">
     <div class="container">
+        {{-- Pesan Error --}}
+        <div class="row g-4">
+            {{-- Jika Ada Error --}}
+            @if (session('error'))
+            <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert" style="width: 100%">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    <div>
+                        <p class="m-0"> {{ session('error') }}</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
+            {{-- Jika Sukses Login --}}
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
+            {{-- Jika Password Telah Diubah --}}
+            @if (session('status'))
+            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                {{ session('status') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
+            {{-- Jika Password Telah Diubah --}}
+            @if (session('info'))
+            <div class="alert alert-info alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+        </div>
+        
         <div class="row align-items-center">
             <div class="col-lg-6 content-col" data-aos="fade-right" data-aos-delay="100">
                 <div class="content">

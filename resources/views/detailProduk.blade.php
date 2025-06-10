@@ -161,9 +161,51 @@
                                 <i class="bi bi-lightning-fill"></i> Beli sekarang
                             </button>
                         </form>
-                        <button type="submit" class="btn btn-outline-secondary wishlist-btn">
-                            <i class="bi bi-heart"></i>
+
+                        <button type="button" class="btn btn-outline-secondary wishlist-btn"
+                            data-id="{{ $barang->id }}">
+                            <i
+                                class="bi {{ auth()->user() && auth()->user()->likedBarangs->contains($barang->id) ? 'bi-heart-fill text-danger' : 'bi-heart' }}"></i>
                         </button>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                document.querySelectorAll('.wishlist-btn').forEach(button => {
+                                    button.addEventListener('click', function () {
+                                        const barangId = this.dataset.id;
+                                        const icon = this.querySelector('i');
+
+                                        fetch(`/like/${barangId}`, {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                },
+                                            })
+                                            .then(response => {
+                                                if (!response.ok) throw new Error(
+                                                    "Gagal menyukai produk");
+                                                return response
+                                                    .text(); // Bisa juga return JSON kalau kamu ubah di controller
+                                            })
+                                            .then(() => {
+                                                icon.classList.toggle('bi-heart');
+                                                icon.classList.toggle('bi-heart-fill');
+                                                icon.classList.toggle('text-danger');
+                                            })
+                                            .catch(err => {
+                                                console.error(err);
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Oops...',
+                                                    text: 'Terjadi kesalahan saat menyukai produk.'
+                                                });
+                                            });
+                                    });
+                                });
+                            });
+
+                        </script>
                     </div>
 
                     <!-- SweetAlert2 CDN -->
@@ -217,47 +259,49 @@
                             const barangId = "{{ $barang->id }}";
 
                             addToCartBtn.addEventListener('click', function () {
-                                const quantity = parseInt(document.querySelector('.quantity-input').value);
+                                const quantity = parseInt(document.querySelector('.quantity-input')
+                                    .value);
 
                                 fetch("{{ route('produk.keranjang') }}", {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                    },
-                                    body: JSON.stringify({
-                                        barang_id: barangId,
-                                        quantity: quantity
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        },
+                                        body: JSON.stringify({
+                                            barang_id: barangId,
+                                            quantity: quantity
+                                        })
                                     })
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if(data.success){
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Berhasil',
-                                            text: data.message,
-                                            timer: 2000,
-                                            showConfirmButton: false
-                                        });
-                                    } else {
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Berhasil',
+                                                text: data.message,
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Gagal',
+                                                text: 'Gagal menambahkan ke keranjang'
+                                            });
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error(err);
                                         Swal.fire({
                                             icon: 'error',
-                                            title: 'Gagal',
-                                            text: 'Gagal menambahkan ke keranjang'
+                                            title: 'Oops...',
+                                            text: 'Terjadi kesalahan saat menambahkan ke keranjang.'
                                         });
-                                    }
-                                })
-                                .catch(err => {
-                                    console.error(err);
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: 'Terjadi kesalahan saat menambahkan ke keranjang.'
                                     });
-                                });
                             });
                         });
+
                     </script>
 
                     <!-- Additional Info -->
@@ -292,7 +336,7 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews"
                                 type="button" role="tab" aria-controls="reviews" aria-selected="false">Ulasan
-                                (42)</button>
+                                ({{ $totalReviews }})</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="productTabsContent">
@@ -311,58 +355,36 @@
                             <div class="product-reviews">
                                 <div class="reviews-summary">
                                     <div class="overall-rating">
-                                        <div class="rating-number">4.5</div>
+                                        <div class="rating-number">{{ number_format($averageRating, 1) }}</div>
                                         <div class="rating-stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
+                                            @for ($i = 1; $i <= 5; $i++) @if ($averageRating>= $i)
+                                                <i class="bi bi-star-fill"></i>
+                                                @elseif ($averageRating >= $i - 0.5)
+                                                <i class="bi bi-star-half"></i>
+                                                @else
+                                                <i class="bi bi-star"></i>
+                                                @endif
+                                                @endfor
                                         </div>
-                                        <div class="rating-count">Berdasarkan 42 ulasan</div>
+                                        <div class="rating-count">Berdasarkan {{ $totalReviews }} ulasan</div>
                                     </div>
 
                                     <div class="rating-breakdown">
+                                        @foreach ([5, 4, 3, 2, 1] as $star)
+                                        @php
+                                        $count = $ratingCounts[$star];
+                                        $percentage = $totalReviews > 0 ? ($count / $totalReviews) * 100 : 0;
+                                        @endphp
                                         <div class="rating-bar">
-                                            <div class="rating-label">5 stars</div>
+                                            <div class="rating-label">{{ $star }} stars</div>
                                             <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 65%;"
-                                                    aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar" role="progressbar"
+                                                    style="width: {{ $percentage }}%;" aria-valuenow="{{ $percentage }}"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
-                                            <div class="rating-count">27</div>
+                                            <div class="rating-count">{{ $count }}</div>
                                         </div>
-                                        <div class="rating-bar">
-                                            <div class="rating-label">4 stars</div>
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <div class="rating-count">10</div>
-                                        </div>
-                                        <div class="rating-bar">
-                                            <div class="rating-label">3 stars</div>
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 8%;"
-                                                    aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <div class="rating-count">3</div>
-                                        </div>
-                                        <div class="rating-bar">
-                                            <div class="rating-label">2 stars</div>
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 2%;"
-                                                    aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <div class="rating-count">1</div>
-                                        </div>
-                                        <div class="rating-bar">
-                                            <div class="rating-label">1 star</div>
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 2%;"
-                                                    aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <div class="rating-count">1</div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -435,7 +457,11 @@
                                         </div>
                                     </div>
                                     @empty
-                                    <p class="text-muted">Belum ada ulasan untuk produk ini.</p>
+                                    <p
+                                        class="alert alert-warning text-center m-3 d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-chat-left-text d-inline-flex align-items-center me-2"></i> Belum
+                                        ada ulasan untuk produk ini.
+                                    </p>
                                     @endforelse
 
                                     @if ($barang->reviews->count() > 3)

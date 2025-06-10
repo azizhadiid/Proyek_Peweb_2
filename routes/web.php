@@ -33,6 +33,8 @@ Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->name('alama
 Route::post('/like/{barang}', [LikeController::class, 'toggle'])->name('barang.like');
 Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('barang.unlike');
 Route::get('/keranjang', [CartController::class, 'showCart'])->name('cart.index');
+Route::put('/keranjang/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::delete('/keranjang/clear', [CartController::class, 'clearCart'])->name('cart.clear');
 Route::post('/keranjang/{barang}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/beli', [CheckoutController::class, 'show'])->name('checkout.index');
 Route::post('/beli/bayar', [CheckoutController::class, 'processPayment'])->name('checkout.payment');

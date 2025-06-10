@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        @endforeach
 
                         <div class="order-totals">
                             <div class="order-shipping d-flex justify-content-between">
@@ -65,7 +65,6 @@
                                 <span>Rp {{ number_format($total, 0, ',', '.') }}</span>
                             </div>
                         </div>
-                        @endforeach
 
                         <div class="secure-checkout">
                             <div class="payment-icons">
@@ -118,6 +117,9 @@
                             {{-- Midtrans Script --}}
                             <script src="https://app.sandbox.midtrans.com/snap/snap.js"
                                 data-client-key="{{ config('midtrans.client_key') }}"></script>
+                            
+                            <!-- SweetAlert2 -->
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                             <script>
                                 // Pastikan event listener dipasang pada elemen form
@@ -139,62 +141,87 @@
                                     let selectedAlamat = document.getElementById('alamat').value;
 
                                     if (!selectedAlamat || selectedAlamat === "-- Pilih Alamat --") {
-                                        alert("Silakan pilih alamat pengiriman terlebih dahulu.");
+                                        Swal.fire({
+                                            icon: 'warning',
+                                            title: 'Alamat Belum Dipilih',
+                                            text: 'Silakan pilih alamat pengiriman terlebih dahulu.'
+                                        });
                                         return;
                                     }
 
-                                    // URL fetch harus sesuai dengan route POST Anda
-                                    fetch('{{ route("checkout.payment") }}', { // Menggunakan helper route lebih aman
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                                'Accept': 'application/json'
-                                            },
-                                            body: JSON.stringify({
-                                                alamat_id: selectedAlamat
-                                            })
+                                    fetch('{{ route("checkout.payment") }}', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                            'Accept': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            alamat_id: selectedAlamat
                                         })
-                                        .then(response => {
-                                            if (!response.ok) {
-                                                return response.json().then(err => {
-                                                    throw err;
+                                    })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            return response.json().then(err => {
+                                                throw err;
+                                            });
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(data => {
+                                        if (!data.snapToken) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Token Gagal',
+                                                text: 'Snap token tidak tersedia.'
+                                            });
+                                            return;
+                                        }
+
+                                        snap.pay(data.snapToken, {
+                                            onSuccess: function (result) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Pembayaran Sukses!',
+                                                    text: 'Terima kasih telah melakukan pembayaran.'
+                                                }).then(() => {
+                                                    window.location.href = "/produk";
+                                                });
+                                            },
+                                            onPending: function (result) {
+                                                Swal.fire({
+                                                    icon: 'info',
+                                                    title: 'Menunggu Pembayaran',
+                                                    text: 'Silakan selesaikan pembayaran Anda.'
+                                                }).then(() => {
+                                                    window.location.href = "/beli";
+                                                });
+                                            },
+                                            onError: function (result) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Pembayaran Gagal!',
+                                                    text: 'Silakan coba lagi.'
+                                                });
+                                            },
+                                            onClose: function () {
+                                                Swal.fire({
+                                                    icon: 'warning',
+                                                    title: 'Pop-up Ditutup',
+                                                    text: 'Anda menutup pop-up tanpa menyelesaikan pembayaran.'
                                                 });
                                             }
-                                            return response.json();
-                                        })
-                                        .then(data => {
-                                            if (!data.snapToken) {
-                                                alert('Snap token tidak tersedia.');
-                                                return;
-                                            }
-
-                                            // Tampilkan pop-up pembayaran Midtrans
-                                            snap.pay(data.snapToken, {
-                                                onSuccess: function (result) {
-                                                    alert("Pembayaran sukses!");
-                                                    // Arahkan ke halaman histori transaksi atau halaman utama
-                                                    window.location.href = "/produk";
-                                                },
-                                                onPending: function (result) {
-                                                    alert("Menunggu pembayaran Anda!");
-                                                    window.location.href = "/beli";
-                                                },
-                                                onError: function (result) {
-                                                    alert("Pembayaran gagal!");
-                                                },
-                                                onClose: function () {
-                                                    alert(
-                                                        'Anda menutup pop-up tanpa menyelesaikan pembayaran.'
-                                                        );
-                                                }
-                                            });
-                                        })
-                                        .catch(error => {
-                                            console.error('Error:', error);
-                                            alert(error.message || 'Terjadi kesalahan. Silakan coba lagi.');
                                         });
-                                }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Terjadi Kesalahan',
+                                            text: error.message || 'Silakan coba lagi.'
+                                        });
+                                    });
+                                }   
 
                             </script>
                         </div>
