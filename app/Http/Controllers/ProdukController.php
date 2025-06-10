@@ -13,11 +13,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $barangs = Barang::all();
+        $nama_produk  = $request->nama_produk;
+        if ($nama_produk) {
+            $barangs = Barang::where('nama_produk', 'LIKE', '%' . $nama_produk . '%')->get();
+        } else {
+            $barangs = Barang::all();
+        }
 
-        return view('produk', compact('barangs'));
+        return view('produk', compact('barangs', 'nama_produk'));
     }
 
     public function detail($id)

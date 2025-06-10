@@ -19,25 +19,84 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-25">
+            <div class="row">
+                {{-- Jika Error --}}
+                @if ($errors->any())
+                <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert" style="width: 100%">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+                        <div>
+                            @foreach ($errors->all() as $error)
+                            <p class="m-0">{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                {{-- Jika Sukses Login --}}
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                {{-- Jika Password Telah Diubah --}}
+                @if (session('status'))
+                <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                {{-- Jika Password Telah Diubah --}}
+                @if (session('info'))
+                <div class="alert alert-info alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    {{ session('info') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+            </div>
 
             <!-- Category Header Section -->
             <section id="category-header" class="category-header section">
 
                 <div class="container" data-aos="fade-up">
+                    <style>
+                        #pembungkus_cari {
+                            width: 60%;
+                            /* Lebar default untuk desktop */
+                        }
+
+                        /* Media query untuk mobile */
+                        @media (max-width: 768px) {
+                            #pembungkus_cari {
+                                width: 100% !important;
+                            }
+                        }
+                    </style>
 
                     <!-- Filter and Sort Options -->
                     <div class="d-flex justify-content-end">
-                        <div class="filter-container mb-4" data-aos="fade-up" data-aos-delay="100" style="width: 50%">
+                        <div class="filter-container mb-4" data-aos="fade-up" data-aos-delay="100" id="pembungkus_cari">
                             <div class="row g-3">
                                 <div class="filter-item search-form">
-                                    <label for="productSearch" class="form-label">Search Products</label>
-                                    <div class="input-group" style="width: 100%">
-                                        <input type="text" class="form-control" id="productSearch"
-                                            placeholder="Search for products..." aria-label="Search for products">
-                                        <button class="btn search-btn" type="button">
-                                            <i class="bi bi-search"></i>
-                                        </button>
-                                    </div>
+                                    <form action="" method="GET">
+                                        <label for="productSearch" class="form-label">Cari Produk</label>
+                                        <div class="input-group" style="width: 100%">
+                                            <input type="text" class="form-control" id="productSearch"
+                                                placeholder="Search for products..." aria-label="Cari Produk"
+                                                name="nama_produk" value="{{$nama_produk}}">
+                                            <button class="btn search-btn" type="submit">
+                                                <i class="bi bi-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -52,12 +111,28 @@
 
                     <div class="row gy-4">
                         <!-- Product 1 -->
+                        @if($barangs->count() === 0)
+                        <div class="col-12">
+                            <div class="alert alert-info mt-3 alert-dismissible fade show" role="alert"
+                                style="width: 100%">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                                    <div>
+                                        Tidak ditemukan produk dengan kata kunci "{{ $nama_produk }}"
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                        @endif
+
                         @foreach($barangs as $barang)
                         <div class="col-md-6 col-lg-3">
                             <div class="product-box">
                                 <div class="product-thumb">
-                                    <span class="product-label">New Season</span>
-                                    <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="Product Image" class="main-img">
+                                    <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="Product Image"
+                                        class="main-img">
                                     <div class="product-overlay">
                                         <div class="product-quick-actions">
                                             @php
@@ -74,12 +149,17 @@
                                                 class="d-none">
                                                 @csrf
                                             </form>
-                                            <a href="{{ route('produk.detail', $barang->id) }}" class="quick-action-btn">
+                                            <a href="{{ route('produk.detail', $barang->id) }}"
+                                                class="quick-action-btn">
                                                 <i class="bi bi-eye"></i>
                                             </a>
                                         </div>
                                         <div class="add-to-cart-container">
-                                            <button type="button" class="add-to-cart-btn">Tambah Ke Keranjang</button>
+                                            <form action="{{ route('cart.add', $barang->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="add-to-cart-btn">Tambah Ke
+                                                    Keranjang</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +168,7 @@
                                         <h3 class="product-title"><a href="">{{ $barang->nama_produk }}</a></h3>
                                         <div class="product-price" style="margin-top: -20px">
                                             <span>Rp
-                                            {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                                                {{ number_format($barang->harga, 0, ',', '.') }}</span>
                                         </div>
                                     </div>
                                     <div class="product-rating-container">
