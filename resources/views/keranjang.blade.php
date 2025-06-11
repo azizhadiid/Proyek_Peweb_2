@@ -164,19 +164,23 @@
                                 <form action="{{ route('cart.update') }}" method="POST" class="d-inline"
                                     id="update-form">
                                     @csrf
+                                    @method('PUT') {{-- Tambahkan baris ini --}}
+
+                                    @if($cart && $cart->items)
                                     @foreach($cart->items as $item)
                                     <input type="hidden" name="item_id[]" value="{{ $item->id }}">
-                                    <input type="hidden" name="barang_id[]" value="{{ $item->barang_id }}">
                                     <input type="hidden" class="hidden-quantity" name="quantity[]"
                                         value="{{ $item->quantity }}">
                                     @endforeach
+                                    @endif
+                                    
                                     <button type="submit" class="btn btn-outline-accent me-2">
                                         <i class="bi bi-arrow-clockwise"></i> Update
                                     </button>
                                 </form>
 
                                 <script>
-                                    document.getElementById('update-form').addEventListener('submit', function() {
+                                    document.getElementById('update-form').addEventListener('submit', function () {
                                         const quantityInputs = document.querySelectorAll('.quantity-input');
                                         const hiddenQuantities = document.querySelectorAll('.hidden-quantity');
 
@@ -184,6 +188,7 @@
                                             hiddenQuantities[i].value = input.value;
                                         });
                                     });
+
                                 </script>
 
                                 {{-- Form Bersih --}}

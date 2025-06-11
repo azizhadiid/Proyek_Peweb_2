@@ -37,12 +37,20 @@ class CartController extends Controller
 
     public function updateCart(Request $request)
     {
-        $cart = auth()->user()->cart();
-        $itemIds = $request->input('item_id'); // Now using cart item IDs
-        $quantities = $request->input('quantity');
+        // Akses sebagai properti untuk mendapatkan model Cart
+        $cart = auth()->user()->cart;
+
+        // Jika user mungkin tidak punya cart, tambahkan pengecekan
+        if (!$cart) {
+            return redirect()->route('cart.index')->with('error', 'Keranjang tidak ditemukan.');
+        }
+
+        $itemIds = $request->input('item_id', []);
+        $quantities = $request->input('quantity', []);
 
         foreach ($itemIds as $index => $id) {
-            $item = $cart->items()->where('id', $id)->first();
+            // Query langsung dari relasi items di model cart
+            $item = $cart->items()->find($id);
             if ($item) {
                 $item->update(['quantity' => $quantities[$index]]);
             }
