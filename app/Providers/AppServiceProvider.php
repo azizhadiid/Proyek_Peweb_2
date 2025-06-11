@@ -24,24 +24,29 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('templates.mainLayoutUser', function ($view) {
-            $user = Auth::user();
+        // View Composer untuk mainLayoutUser blade
+        View::composer('templates.mainTemplatedUser', function ($view) {
+            $likesCount = 0;
+            $cartItemsCount = 0;
 
-            $likeCount = 0;
-            $cartItemCount = 0;
+            if (Auth::check()) {
+                $user = Auth::user();
 
-            if ($user) {
-                // Jumlah wishlist (likes)
-                $likeCount = Like::where('user_id', $user->id)->count();
+                // Hitung jumlah likes user
+                $likesCount = Like::where('user_id', $user->id)->count();
 
-                // Jumlah total quantity dari cart items milik user
+                // Hitung jumlah cart items user
                 $cart = Cart::where('user_id', $user->id)->first();
                 if ($cart) {
-                    $cartItemCount = CartItem::where('cart_id', $cart->id)->sum('quantity');
+                    $cartItemsCount = CartItem::where('cart_id', $cart->id)
+                        ->sum('quantity'); // Menggunakan sum quantity
                 }
             }
 
-            $view->with('likeCount', $likeCount)->with('cartItemCount', $cartItemCount);
+            $view->with([
+                'likesCount' => $likesCount,
+                'cartItemsCount' => $cartItemsCount
+            ]);
         });
     }
 }

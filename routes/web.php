@@ -20,10 +20,9 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserProfileControlle;
 use App\Http\Controllers\VerifikasiPembayaranController;
+use App\Http\Controllers\WelcomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index'])->name('rasaTangkit.com');
 
 // Khusus User
 Route::middleware(['role:user'])->group(function () {

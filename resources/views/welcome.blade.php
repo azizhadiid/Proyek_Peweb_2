@@ -73,16 +73,17 @@
                 <div class="d-flex py-3 align-items-center justify-content-between">
 
                     <!-- Logo -->
-                    <a href="/" class="logo d-flex align-items-center">
+                    <a href="/" class="d-flex align-items-center">
                         <!-- Uncomment the line below if you also wish to use an image logo -->
                         <!-- <img src="assets/img/logo.webp" alt=""> -->
-                        <h1 class="sitename">RasaTangkit</h1>
+                        <h1 class="sitename"><img src="{{ asset('assets-user/img/logo_navbar.png') }}" alt=""
+                                style="height: 50px; width: auto;"></h1>
                     </a>
 
                     <!-- Search -->
-                    <form class="search-form desktop-search-form">
+                    <form class="search-form desktop-search-form" action="{{ route('produk.cari') }}" method="GET">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for products">
+                            <input type="text" class="form-control" placeholder="Cari Produk Anda" name="query">
                             <button class="btn" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -124,12 +125,13 @@
                     <nav id="navmenu" class="navmenu">
                         <ul>
                             <li><a href="/" class="active">Beranda</a></li>
-                            <li><a href="about.html">Tentang</a></li>
-                            <li><a href="about.html">Produk</a></li>
-                            <li><a href="category.html">Category</a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="/tentang" class="{{ request()->is('tentang') ? 'active' : '' }}">Tentang</a>
+                            </li>
+                            <li><a href="/produk" class="{{ request()->is('produk*') ? 'active' : '' }}">Produk</a></li>
+                            <li><a href="/keranjang"
+                                    class="{{ request()->is('keranjang') ? 'active' : '' }}">Keranjang</a></li>
+                            <li><a href="/beli" class="{{ request()->is('beli*') ? 'active' : '' }}">Beli</a></li>
+                            <li><a href="/kontak" class="{{ request()->is('kontak') ? 'active' : '' }}">Kontak</a></li>
                             <li class="d-md-none text-center mt-5">
                                 <div class="d-flex justify-content-center">
                                     <a href="login-register.html"
@@ -172,6 +174,49 @@
     <main class="main">
         <section class="ecommerce-hero-1 hero section" id="hero">
             <div class="container">
+                {{-- Pesan Error --}}
+                <div class="row g-4">
+                    {{-- Jika Ada Error --}}
+                    @if (session('error'))
+                    <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert" style="width: 100%">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-exclamation-circle-fill me-2"></i>
+                            <div>
+                                <p class="m-0"> {{ session('error') }}</p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
+                    {{-- Jika Sukses Login --}}
+                    @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
+                    {{-- Jika Password Telah Diubah --}}
+                    @if (session('status'))
+                    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        {{ session('status') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
+                    {{-- Jika Password Telah Diubah --}}
+                    @if (session('info'))
+                    <div class="alert alert-info alert-dismissible fade show mt-3" role="alert" style="width: 100%">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        {{ session('info') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                </div>
+
                 <div class="row align-items-center">
                     <div class="col-lg-6 content-col" data-aos="fade-right" data-aos-delay="100">
                         <div class="content">
@@ -180,8 +225,9 @@
                             <p>Temukan beragam olahan nanas khas Tangkit — nikmat, alami, dan penuh kebaikan rasa lokal.
                             </p>
                             <div class="hero-cta">
-                                <a href="#" class="btn btn-shop">Beli Sekarang <i class="bi bi-arrow-right"></i></a>
-                                <a href="#" class="btn btn-collection">Lihat Semua Produk</a>
+                                <a href="/produk" class="btn btn-shop">Beli Sekarang <i
+                                        class="bi bi-arrow-right"></i></a>
+                                <a href="/produk" class="btn btn-collection">Lihat Semua Produk</a>
                             </div>
                             <div class="hero-features">
                                 <div class="feature-item">
@@ -297,47 +343,6 @@
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="category-slider swiper init-swiper">
-                    <script type="application/json" class="swiper-config">
-                        {
-                            "loop": true,
-                            "autoplay": {
-                                "delay": 5000,
-                                "disableOnInteraction": false
-                            },
-                            "grabCursor": true,
-                            "speed": 600,
-                            "slidesPerView": "auto",
-                            "spaceBetween": 20,
-                            "navigation": {
-                                "nextEl": ".swiper-button-next",
-                                "prevEl": ".swiper-button-prev"
-                            },
-                            "breakpoints": {
-                                "320": {
-                                    "slidesPerView": 2,
-                                    "spaceBetween": 15
-                                },
-                                "576": {
-                                    "slidesPerView": 3,
-                                    "spaceBetween": 15
-                                },
-                                "768": {
-                                    "slidesPerView": 4,
-                                    "spaceBetween": 20
-                                },
-                                "992": {
-                                    "slidesPerView": 5,
-                                    "spaceBetween": 20
-                                },
-                                "1200": {
-                                    "slidesPerView": 6,
-                                    "spaceBetween": 20
-                                }
-                            }
-                        }
-
-                    </script>
-
                     <!-- Best Sellers Section -->
                     <section id="best-sellers" class="best-sellers section">
                         <!-- Section Title -->
@@ -351,13 +356,14 @@
                         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                             <div class="row gy-4">
-                                <!-- Product 1 -->
+                                <!-- Menampilkan Product -->
+                                @foreach($bestProducts as $barang)
                                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
                                     <div class="product-card">
                                         <div class="product-image">
-                                            <img src="assets/img/product/product-1.webp" class="img-fluid default-image"
-                                                alt="Product" loading="lazy">
-                                            <img src="assets/img/product/product-1-variant.webp"
+                                            <img src="{{ asset('img/barang/' . $barang->gambar) }}"
+                                                class="img-fluid default-image" alt="Product" loading="lazy">
+                                            <img src="{{ asset('img/barang/' . $barang->gambar) }}"
                                                 class="img-fluid hover-image" alt="Product hover" loading="lazy">
                                             <div class="product-tags">
                                                 <span class="badge bg-accent">New</span>
@@ -372,152 +378,44 @@
                                             </div>
                                         </div>
                                         <div class="product-info">
-                                            <h3 class="product-title"><a href="product-details.html">Lorem ipsum dolor
-                                                    sit
-                                                    amet</a></h3>
+                                            <h4>{{ $barang->nama_produk }}</h4>
+                                            <h3 class="product-title"><a href="#">{{ $barang->deskripsi }}</a></h3>
                                             <div class="product-price">
-                                                <span class="current-price">$89.99</span>
+                                                <span class="current-price">Rp
+                                                    {{ number_format($barang->harga, 0, ',', '.') }}</span>
                                             </div>
                                             <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-half"></i>
-                                                <span class="rating-count">(42)</span>
-                                            </div>
-                                            <button class="btn btn-add-to-cart">
-                                                <i class="bi bi-bag-plus me-2"></i>Add to Cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product 1 -->
+                                                @php
+                                                $average = round($barang->reviews_avg_rating ?? 0, 1);
+                                                $fullStars = floor($average);
+                                                $hasHalfStar = ($average - $fullStars) >= 0.5;
+                                                $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                                $reviewCount = $barang->reviews_count ?? $barang->reviews()->count();
+                                                @endphp
 
-                                <!-- Product 2 -->
-                                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <img src="assets/img/product/product-4.webp" class="img-fluid default-image"
-                                                alt="Product" loading="lazy">
-                                            <img src="assets/img/product/product-4-variant.webp"
-                                                class="img-fluid hover-image" alt="Product hover" loading="lazy">
-                                            <div class="product-tags">
-                                                <span class="badge bg-sale">Sale</span>
-                                            </div>
-                                            <div class="product-actions">
-                                                <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
-                                                    <i class="bi bi-heart"></i>
-                                                </button>
-                                                <button class="btn-quickview" type="button" aria-label="Quick view">
-                                                    <i class="bi bi-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h3 class="product-title"><a href="product-details.html">Consectetur
-                                                    adipiscing
-                                                    elit</a></h3>
-                                            <div class="product-price">
-                                                <span class="current-price">$64.99</span>
-                                                <span class="original-price">$79.99</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <span class="rating-count">(28)</span>
-                                            </div>
-                                            <button class="btn btn-add-to-cart">
-                                                <i class="bi bi-bag-plus me-2"></i>Add to Cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product 2 -->
+                                                @for ($i = 0; $i < $fullStars; $i++) <i class="bi bi-star-fill"></i>
+                                                    @endfor
 
-                                <!-- Product 3 -->
-                                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <img src="assets/img/product/product-7.webp" class="img-fluid default-image"
-                                                alt="Product" loading="lazy">
-                                            <img src="assets/img/product/product-7-variant.webp"
-                                                class="img-fluid hover-image" alt="Product hover" loading="lazy">
-                                            <div class="product-actions">
-                                                <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
-                                                    <i class="bi bi-heart"></i>
-                                                </button>
-                                                <button class="btn-quickview" type="button" aria-label="Quick view">
-                                                    <i class="bi bi-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h3 class="product-title"><a href="product-details.html">Sed do eiusmod
-                                                    tempor
-                                                    incididunt</a></h3>
-                                            <div class="product-price">
-                                                <span class="current-price">$119.00</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <span class="rating-count">(56)</span>
-                                            </div>
-                                            <button class="btn btn-add-to-cart">
-                                                <i class="bi bi-bag-plus me-2"></i>Add to Cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product 3 -->
+                                                    @if ($hasHalfStar)
+                                                    <i class="bi bi-star-half"></i>
+                                                    @endif
 
-                                <!-- Product 4 -->
-                                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="250">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <img src="assets/img/product/product-12.webp"
-                                                class="img-fluid default-image" alt="Product" loading="lazy">
-                                            <img src="assets/img/product/product-12-variant.webp"
-                                                class="img-fluid hover-image" alt="Product hover" loading="lazy">
-                                            <div class="product-tags">
-                                                <span class="badge bg-sold-out">Sold Out</span>
+                                                    @for ($i = 0; $i < $emptyStars; $i++) <i class="bi bi-star"></i>
+                                                        @endfor
+
+                                                        <span>({{ $reviewCount }})</span>
                                             </div>
-                                            <div class="product-actions">
-                                                <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
-                                                    <i class="bi bi-heart"></i>
+                                            <form action="{{ route('cart.add', $barang->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-add-to-cart">
+                                                    <i class="bi bi-bag-plus me-2"></i> Tambah ke Keranjang
                                                 </button>
-                                                <button class="btn-quickview" type="button" aria-label="Quick view">
-                                                    <i class="bi bi-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h3 class="product-title"><a href="product-details.html">Ut labore et dolore
-                                                    magna
-                                                    aliqua</a></h3>
-                                            <div class="product-price">
-                                                <span class="current-price">$75.50</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <i class="bi bi-star"></i>
-                                                <span class="rating-count">(15)</span>
-                                            </div>
-                                            <button class="btn btn-add-to-cart btn-disabled" disabled="">
-                                                <i class="bi bi-bag-plus me-2"></i>Sold Out
-                                            </button>
+                                            </form>
                                         </div>
                                     </div>
-                                </div><!-- End Product 4 -->
+                                </div>
+                                @endforeach
                             </div>
-
                         </div>
 
                     </section><!-- /Best Sellers Section -->
@@ -533,10 +431,11 @@
                                     <div class="product-filters isotope-filters mb-5 d-flex justify-content-center"
                                         data-aos="fade-up">
                                         <ul class="d-flex flex-wrap gap-2 list-unstyled">
-                                            <li class="filter-active" data-filter="*">All</li>
-                                            <li data-filter=".filter-clothing">Clothing</li>
-                                            <li data-filter=".filter-accessories">Accessories</li>
-                                            <li data-filter=".filter-electronics">Electronics</li>
+                                            <li class="filter-active" data-filter="*">Semua</li>
+                                            <li data-filter=".Snack">Snack</li>
+                                            <li data-filter=".Minuman">Minuman</li>
+                                            <li data-filter=".Selai">Selai</li>
+                                            <li data-filter=".Sambal">Sambal</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -545,328 +444,87 @@
                             <div class="row product-container isotope-container" data-aos="fade-up"
                                 data-aos-delay="200">
 
-                                <!-- Product Item 1 -->
-                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
+                                <!-- Menampilkan Barang -->
+                                @foreach($barangs as $barang)
+                                <div
+                                    class="col-md-6 col-lg-3 product-item isotope-item filter-clothing {{$barang->jenis_olahan}}">
                                     <div class="product-card">
                                         <div class="product-image">
                                             <span class="badge">Sale</span>
-                                            <img src="assets/img/product/product-11.webp" alt="Product"
+                                            <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="Product"
                                                 class="img-fluid main-img">
-                                            <img src="assets/img/product/product-11-variant.webp" alt="Product Hover"
+                                            <img src="{{ asset('img/barang/' . $barang->gambar) }}" alt="Product Hover"
                                                 class="img-fluid hover-img">
                                             <div class="product-overlay">
-                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
-                                                    to
-                                                    Cart</a>
-                                                <div class="product-actions">
-                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                                    <a href="#" class="action-btn"><i
-                                                            class="bi bi-arrow-left-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-title"><a href="product-details.html">Lorem ipsum dolor
-                                                    sit
-                                                    amet</a></h5>
-                                            <div class="product-price">
-                                                <span class="current-price">$89.99</span>
-                                                <span class="old-price">$129.99</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-half"></i>
-                                                <span>(24)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product Item -->
+                                                <form action="{{ route('cart.add', $barang->id) }}" method="POST"
+                                                    style="display: inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-cart">
+                                                        <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
+                                                    </button>
+                                                </form>
 
-                                <!-- Product Item 2 -->
-                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <img src="assets/img/product/product-9.webp" alt="Product"
-                                                class="img-fluid main-img">
-                                            <img src="assets/img/product/product-9-variant.webp" alt="Product Hover"
-                                                class="img-fluid hover-img">
-                                            <div class="product-overlay">
-                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
-                                                    to
-                                                    Cart</a>
                                                 <div class="product-actions">
-                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                                    <a href="#" class="action-btn"><i
-                                                            class="bi bi-arrow-left-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-title"><a href="product-details.html">Consectetur
-                                                    adipiscing
-                                                    elit</a></h5>
-                                            <div class="product-price">
-                                                <span class="current-price">$249.99</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <span>(18)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product Item -->
+                                                    @php
+                                                    $liked = auth()->check() &&
+                                                    auth()->user()->likedBarangs->contains($barang->id);
+                                                    @endphp
 
-                                <!-- Product Item 3 -->
-                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-accessories">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <span class="badge">New</span>
-                                            <img src="assets/img/product/product-3.webp" alt="Product"
-                                                class="img-fluid main-img">
-                                            <img src="assets/img/product/product-3-variant.webp" alt="Product Hover"
-                                                class="img-fluid hover-img">
-                                            <div class="product-overlay">
-                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
-                                                    to
-                                                    Cart</a>
-                                                <div class="product-actions">
-                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                                    <a href="#" class="action-btn"><i
-                                                            class="bi bi-arrow-left-right"></i></a>
+                                                    <a href="" class="action-btn"
+                                                        onclick="event.preventDefault(); document.getElementById('like-form-{{ $barang->id }}').submit();">
+                                                        <i
+                                                            class="bi bi-heart{{ $liked ? '-fill text-danger' : '' }}"></i>
+                                                    </a>
+                                                    <form id="like-form-{{ $barang->id }}"
+                                                        action="{{ route('barang.like', $barang->id) }}" method="POST"
+                                                        class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                    <a href="{{ route('produk.detail', $barang->id) }}"
+                                                        class="action-btn"><i class="bi bi-eye"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="product-info">
-                                            <h5 class="product-title"><a href="product-details.html">Sed do eiusmod
-                                                    tempor</a>
+                                            <h5 class="product-title">
+                                                <a href="#">{{ $barang->nama_produk }}</a>
                                             </h5>
                                             <div class="product-price">
-                                                <span class="current-price">$59.99</span>
+                                                <span class="current-price">Rp
+                                                    {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                                                <span class="old-price">Rp
+                                                    {{ number_format($barang->harga + 10000, 0, ',', '.') }}</span>
                                             </div>
                                             <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <i class="bi bi-star"></i>
-                                                <span>(7)</span>
+                                                @php
+                                                $average = round($barang->reviews_avg_rating ?? 0, 1);
+                                                $fullStars = floor($average);
+                                                $hasHalfStar = ($average - $fullStars) >= 0.5;
+                                                $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                                $reviewCount = $barang->reviews_count ?? $barang->reviews()->count();
+                                                @endphp
+
+                                                @for ($i = 0; $i < $fullStars; $i++) <i class="bi bi-star-fill"></i>
+                                                    @endfor
+
+                                                    @if ($hasHalfStar)
+                                                    <i class="bi bi-star-half"></i>
+                                                    @endif
+
+                                                    @for ($i = 0; $i < $emptyStars; $i++) <i class="bi bi-star"></i>
+                                                        @endfor
+
+                                                        <span>({{ $reviewCount }})</span>
                                             </div>
                                         </div>
                                     </div>
-                                </div><!-- End Product Item -->
-
-                                <!-- Product Item 4 -->
-                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <img src="assets/img/product/product-4.webp" alt="Product"
-                                                class="img-fluid main-img">
-                                            <img src="assets/img/product/product-4-variant.webp" alt="Product Hover"
-                                                class="img-fluid hover-img">
-                                            <div class="product-overlay">
-                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
-                                                    to
-                                                    Cart</a>
-                                                <div class="product-actions">
-                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                                    <a href="#" class="action-btn"><i
-                                                            class="bi bi-arrow-left-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-title"><a href="product-details.html">Incididunt ut
-                                                    labore et
-                                                    dolore</a></h5>
-                                            <div class="product-price">
-                                                <span class="current-price">$79.99</span>
-                                                <span class="old-price">$99.99</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <span>(32)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product Item -->
-
-                                <!-- Product Item 5 -->
-                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <span class="badge">Sale</span>
-                                            <img src="assets/img/product/product-5.webp" alt="Product"
-                                                class="img-fluid main-img">
-                                            <img src="assets/img/product/product-5-variant.webp" alt="Product Hover"
-                                                class="img-fluid hover-img">
-                                            <div class="product-overlay">
-                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
-                                                    to
-                                                    Cart</a>
-                                                <div class="product-actions">
-                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                                    <a href="#" class="action-btn"><i
-                                                            class="bi bi-arrow-left-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-title"><a href="product-details.html">Magna aliqua ut
-                                                    enim ad
-                                                    minim</a></h5>
-                                            <div class="product-price">
-                                                <span class="current-price">$199.99</span>
-                                                <span class="old-price">$249.99</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-half"></i>
-                                                <i class="bi bi-star"></i>
-                                                <span>(15)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product Item -->
-
-                                <!-- Product Item 6 -->
-                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-accessories">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <img src="assets/img/product/product-6.webp" alt="Product"
-                                                class="img-fluid main-img">
-                                            <img src="assets/img/product/product-6-variant.webp" alt="Product Hover"
-                                                class="img-fluid hover-img">
-                                            <div class="product-overlay">
-                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
-                                                    to
-                                                    Cart</a>
-                                                <div class="product-actions">
-                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                                    <a href="#" class="action-btn"><i
-                                                            class="bi bi-arrow-left-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-title"><a href="product-details.html">Veniam quis nostrud
-                                                    exercitation</a></h5>
-                                            <div class="product-price">
-                                                <span class="current-price">$45.99</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <span>(21)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product Item -->
-
-                                <!-- Product Item 7 -->
-                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <span class="badge">New</span>
-                                            <img src="assets/img/product/product-7.webp" alt="Product"
-                                                class="img-fluid main-img">
-                                            <img src="assets/img/product/product-7-variant.webp" alt="Product Hover"
-                                                class="img-fluid hover-img">
-                                            <div class="product-overlay">
-                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
-                                                    to
-                                                    Cart</a>
-                                                <div class="product-actions">
-                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                                    <a href="#" class="action-btn"><i
-                                                            class="bi bi-arrow-left-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-title"><a href="product-details.html">Ullamco laboris
-                                                    nisi ut
-                                                    aliquip</a></h5>
-                                            <div class="product-price">
-                                                <span class="current-price">$69.99</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-half"></i>
-                                                <i class="bi bi-star"></i>
-                                                <span>(11)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product Item -->
-
-                                <!-- Product Item 8 -->
-                                <div class="col-md-6 col-lg-3 product-item isotope-item filter-electronics">
-                                    <div class="product-card">
-                                        <div class="product-image">
-                                            <img src="assets/img/product/product-8.webp" alt="Product"
-                                                class="img-fluid main-img">
-                                            <img src="assets/img/product/product-8-variant.webp" alt="Product Hover"
-                                                class="img-fluid hover-img">
-                                            <div class="product-overlay">
-                                                <a href="cart.html" class="btn-cart"><i class="bi bi-cart-plus"></i> Add
-                                                    to
-                                                    Cart</a>
-                                                <div class="product-actions">
-                                                    <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                                    <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                                    <a href="#" class="action-btn"><i
-                                                            class="bi bi-arrow-left-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-title"><a href="product-details.html">Ex ea commodo
-                                                    consequat</a>
-                                            </h5>
-                                            <div class="product-price">
-                                                <span class="current-price">$159.99</span>
-                                            </div>
-                                            <div class="product-rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <span>(29)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- End Product Item -->
-
+                                </div>
+                                @endforeach
                             </div>
 
                             <div class="text-center mt-5" data-aos="fade-up">
-                                <a href="#" class="view-all-btn">View All Products <i class="bi bi-arrow-right"></i></a>
+                                <a href="/produk" class="view-all-btn">Lihat Semua Produk<i
+                                        class="bi bi-arrow-right"></i></a>
                             </div>
 
                         </div>
@@ -908,12 +566,12 @@
                         <div class="footer-widget">
                             <h4>Produk</h4>
                             <ul class="footer-links">
-                                <li><a href="produk.html">Semua Produk</a></li>
-                                <li><a href="produk.html#keripik">Keripik Nanas</a></li>
-                                <li><a href="produk.html#dodol">Dodol Nanas</a></li>
-                                <li><a href="produk.html#selai">Selai Nanas</a></li>
-                                <li><a href="produk.html#minuman">Minuman Nanas</a></li>
-                                <li><a href="promo.html">Promo Spesial</a></li>
+                                <li><a href="/produk">Semua Produk</a></li>
+                                <li>Keripik Nanas</li>
+                                <li>Dodol Nanas</li>
+                                <li>Selai Nanas</li>
+                                <li>Minuman Nanas</li>
+                                <li>Promo Spesial</li>
                             </ul>
                         </div>
                     </div>
@@ -923,12 +581,12 @@
                         <div class="footer-widget">
                             <h4>Bantuan</h4>
                             <ul class="footer-links">
-                                <li><a href="bantuan.html">Pusat Bantuan</a></li>
-                                <li><a href="pesanan.html">Status Pesanan</a></li>
-                                <li><a href="pengiriman.html">Info Pengiriman</a></li>
-                                <li><a href="pengembalian.html">Pengembalian Barang</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
-                                <li><a href="kontak.html">Hubungi Kami</a></li>
+                                <li><a href="/kontak">Pusat Bantuan</a></li>
+                                <li><a href="/account">Status Pesanan</a></li>
+                                <li><a href="/account">Info Pengiriman</a></li>
+                                <li><a href="/account">Pengembalian Barang</a></li>
+                                <li><a href="/home">FAQ</a></li>
+                                <li><a href="/kontak">Hubungi Kami</a></li>
                             </ul>
                         </div>
                     </div>
@@ -938,12 +596,12 @@
                         <div class="footer-widget">
                             <h4>Perusahaan</h4>
                             <ul class="footer-links">
-                                <li><a href="tentang.html">Tentang Kami</a></li>
-                                <li><a href="mitra.html">Mitra & Distribusi</a></li>
-                                <li><a href="berita.html">Berita & Media</a></li>
-                                <li><a href="csr.html">Tanggung Jawab Sosial</a></li>
-                                <li><a href="karir.html">Karir</a></li>
-                                <li><a href="kontak.html">Kontak</a></li>
+                                <li><a href="/tentang">Tentang Kami</a></li>
+                                <li><a href="/tentang">Mitra & Distribusi</a></li>
+                                <li><a href="/tentang">Berita & Media</a></li>
+                                <li><a href="/tentang">Tanggung Jawab Sosial</a></li>
+                                <li><a href="/tentang">Karir</a></li>
+                                <li><a href="/tentang">Kontak</a></li>
                             </ul>
                         </div>
                     </div>
@@ -954,11 +612,11 @@
                             <h4>Unduh Aplikasi Kami</h4>
                             <p>Belanja olahan nanas lebih mudah lewat aplikasi</p>
                             <div class="app-buttons">
-                                <a href="#" class="app-btn">
+                                <a href="/home" class="app-btn">
                                     <i class="bi bi-apple"></i>
                                     <span>App Store</span>
                                 </a>
-                                <a href="#" class="app-btn">
+                                <a href="/home" class="app-btn">
                                     <i class="bi bi-google-play"></i>
                                     <span>Google Play</span>
                                 </a>
