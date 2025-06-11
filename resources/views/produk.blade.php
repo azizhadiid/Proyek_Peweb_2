@@ -79,6 +79,7 @@
                                 width: 100% !important;
                             }
                         }
+
                     </style>
 
                     <!-- Filter and Sort Options -->
@@ -173,13 +174,24 @@
                                     </div>
                                     <div class="product-rating-container">
                                         <div class="rating-stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star"></i>
+                                            @php
+                                            $average = round($barang->reviews_avg_rating ?? 0, 1); // misal: 4.3
+                                            $fullStars = floor($average);
+                                            $hasHalfStar = ($average - $fullStars) >= 0.5;
+                                            $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                            @endphp
+
+                                            @for ($i = 0; $i < $fullStars; $i++) <i class="bi bi-star-fill"></i>
+                                                @endfor
+
+                                                @if ($hasHalfStar)
+                                                <i class="bi bi-star-half"></i>
+                                                @endif
+
+                                                @for ($i = 0; $i < $emptyStars; $i++) <i class="bi bi-star"></i>
+                                                    @endfor
                                         </div>
-                                        <span class="rating-number">4.0</span>
+                                        <span class="rating-number">{{ number_format($average, 1) }}</span>
                                     </div>
                                 </div>
                             </div>

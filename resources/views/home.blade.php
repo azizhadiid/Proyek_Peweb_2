@@ -48,7 +48,7 @@
             </div>
             @endif
         </div>
-        
+
         <div class="row align-items-center">
             <div class="col-lg-6 content-col" data-aos="fade-right" data-aos-delay="100">
                 <div class="content">
@@ -56,8 +56,8 @@
                     <h1><span>RasaTangkit:</span> Produk Berkelas dari Nanas Tangkit</h1>
                     <p>Temukan beragam olahan nanas khas Tangkit — nikmat, alami, dan penuh kebaikan rasa lokal.</p>
                     <div class="hero-cta">
-                        <a href="#" class="btn btn-shop">Beli Sekarang <i class="bi bi-arrow-right"></i></a>
-                        <a href="#" class="btn btn-collection">Lihat Semua Produk</a>
+                        <a href="/produk" class="btn btn-shop">Beli Sekarang <i class="bi bi-arrow-right"></i></a>
+                        <a href="/produk" class="btn btn-collection">Lihat Semua Produk</a>
                     </div>
                     <div class="hero-features">
                         <div class="feature-item">
@@ -210,16 +210,32 @@
                                             {{ number_format($barang->harga, 0, ',', '.') }}</span>
                                     </div>
                                     <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <span class="rating-count">(42)</span>
+                                        @php
+                                        $average = round($barang->reviews_avg_rating ?? 0, 1);
+                                        $fullStars = floor($average);
+                                        $hasHalfStar = ($average - $fullStars) >= 0.5;
+                                        $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                        $reviewCount = $barang->reviews_count ?? $barang->reviews()->count();
+                                        @endphp
+
+                                        @for ($i = 0; $i < $fullStars; $i++) <i class="bi bi-star-fill"></i>
+                                            @endfor
+
+                                            @if ($hasHalfStar)
+                                            <i class="bi bi-star-half"></i>
+                                            @endif
+
+                                            @for ($i = 0; $i < $emptyStars; $i++) <i class="bi bi-star"></i>
+                                                @endfor
+
+                                                <span>({{ $reviewCount }})</span>
                                     </div>
-                                    <button class="btn btn-add-to-cart">
-                                        <i class="bi bi-bag-plus me-2"></i>Tambah ke Keranjang
-                                    </button>
+                                    <form action="{{ route('cart.add', $barang->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-add-to-cart">
+                                            <i class="bi bi-bag-plus me-2"></i> Tambah ke Keranjang
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -241,9 +257,10 @@
                                 data-aos="fade-up">
                                 <ul class="d-flex flex-wrap gap-2 list-unstyled">
                                     <li class="filter-active" data-filter="*">Semua</li>
-                                    <li data-filter=".filter-clothing">Selai</li>
-                                    <li data-filter=".filter-accessories">Keripik</li>
-                                    <li data-filter=".filter-electronics">Minuman</li>
+                                    <li data-filter=".Snack">Snack</li>
+                                    <li data-filter=".Minuman">Minuman</li>
+                                    <li data-filter=".Selai">Selai</li>
+                                    <li data-filter=".Sambal">Sambal</li>
                                 </ul>
                             </div>
                         </div>
@@ -253,7 +270,7 @@
 
                         <!-- Menampilkan Barang -->
                         @foreach($barangs as $barang)
-                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
+                        <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing {{$barang->jenis_olahan}}">
                             <div class="product-card">
                                 <div class="product-image">
                                     <span class="badge">Sale</span>
@@ -285,8 +302,8 @@
                                                 class="d-none">
                                                 @csrf
                                             </form>
-                                            <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="action-btn"><i class="bi bi-arrow-left-right"></i></a>
+                                            <a href="{{ route('produk.detail', $barang->id) }}" class="action-btn"><i
+                                                    class="bi bi-eye"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -301,12 +318,25 @@
                                             {{ number_format($barang->harga + 10000, 0, ',', '.') }}</span>
                                     </div>
                                     <div class="product-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <span>(24)</span>
+                                        @php
+                                        $average = round($barang->reviews_avg_rating ?? 0, 1);
+                                        $fullStars = floor($average);
+                                        $hasHalfStar = ($average - $fullStars) >= 0.5;
+                                        $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                        $reviewCount = $barang->reviews_count ?? $barang->reviews()->count();
+                                        @endphp
+
+                                        @for ($i = 0; $i < $fullStars; $i++) <i class="bi bi-star-fill"></i>
+                                            @endfor
+
+                                            @if ($hasHalfStar)
+                                            <i class="bi bi-star-half"></i>
+                                            @endif
+
+                                            @for ($i = 0; $i < $emptyStars; $i++) <i class="bi bi-star"></i>
+                                                @endfor
+
+                                                <span>({{ $reviewCount }})</span>
                                     </div>
                                 </div>
                             </div>
@@ -315,7 +345,7 @@
                     </div>
 
                     <div class="text-center mt-5" data-aos="fade-up">
-                        <a href="#" class="view-all-btn">Lihat Semua Produk<i class="bi bi-arrow-right"></i></a>
+                        <a href="/produk" class="view-all-btn">Lihat Semua Produk<i class="bi bi-arrow-right"></i></a>
                     </div>
 
                 </div>

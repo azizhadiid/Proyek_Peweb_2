@@ -11,20 +11,27 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Produk best seller dengan rata-rata rating >= 4
+        $filter = $request->query('filter'); // ambil query dari URL, contoh: ?filter=Selai
+
+        $query = Barang::withAvg('reviews', 'rating')->withCount('reviews');
+
+        if ($filter) {
+            $query->where('jenis_olahan', $filter); // filter berdasarkan jenis olahan
+        }
+
+        $barangs = $query->get();
+
         $bestProducts = Barang::withAvg('reviews', 'rating')
             ->having('reviews_avg_rating', '>=', 4)
             ->orderByDesc('reviews_avg_rating')
-            ->take(8) // Boleh dibatasi kalau mau
+            ->take(8)
             ->get();
 
-        // Ambil semua data barang, bisa juga pakai paginate() jika banyak
-        $barangs = Barang::all();
-
-        return view('home', compact('barangs', 'bestProducts'));
+        return view('home', compact('barangs', 'bestProducts', 'filter'));
     }
+
 
     /**
      * Show the form for creating a new resource.

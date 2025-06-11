@@ -202,12 +202,12 @@
                         <div class="footer-widget">
                             <h4>Produk</h4>
                             <ul class="footer-links">
-                                <li><a href="produk.html">Semua Produk</a></li>
-                                <li><a href="produk.html#keripik">Keripik Nanas</a></li>
-                                <li><a href="produk.html#dodol">Dodol Nanas</a></li>
-                                <li><a href="produk.html#selai">Selai Nanas</a></li>
-                                <li><a href="produk.html#minuman">Minuman Nanas</a></li>
-                                <li><a href="promo.html">Promo Spesial</a></li>
+                                <li><a href="/produk">Semua Produk</a></li>
+                                <li>Keripik Nanas</li>
+                                <li>Dodol Nanas</li>
+                                <li>Selai Nanas</li>
+                                <li>Minuman Nanas</li>
+                                <li>Promo Spesial</li>
                             </ul>
                         </div>
                     </div>
@@ -217,12 +217,12 @@
                         <div class="footer-widget">
                             <h4>Bantuan</h4>
                             <ul class="footer-links">
-                                <li><a href="bantuan.html">Pusat Bantuan</a></li>
-                                <li><a href="pesanan.html">Status Pesanan</a></li>
-                                <li><a href="pengiriman.html">Info Pengiriman</a></li>
-                                <li><a href="pengembalian.html">Pengembalian Barang</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
-                                <li><a href="kontak.html">Hubungi Kami</a></li>
+                                <li><a href="/kontak">Pusat Bantuan</a></li>
+                                <li><a href="/account">Status Pesanan</a></li>
+                                <li><a href="/account">Info Pengiriman</a></li>
+                                <li><a href="/account">Pengembalian Barang</a></li>
+                                <li><a href="/home">FAQ</a></li>
+                                <li><a href="/kontak">Hubungi Kami</a></li>
                             </ul>
                         </div>
                     </div>
@@ -232,12 +232,12 @@
                         <div class="footer-widget">
                             <h4>Perusahaan</h4>
                             <ul class="footer-links">
-                                <li><a href="tentang.html">Tentang Kami</a></li>
-                                <li><a href="mitra.html">Mitra & Distribusi</a></li>
-                                <li><a href="berita.html">Berita & Media</a></li>
-                                <li><a href="csr.html">Tanggung Jawab Sosial</a></li>
-                                <li><a href="karir.html">Karir</a></li>
-                                <li><a href="kontak.html">Kontak</a></li>
+                                <li><a href="/tentang">Tentang Kami</a></li>
+                                <li><a href="/tentang">Mitra & Distribusi</a></li>
+                                <li><a href="/tentang">Berita & Media</a></li>
+                                <li><a href="/tentang">Tanggung Jawab Sosial</a></li>
+                                <li><a href="/tentang">Karir</a></li>
+                                <li><a href="/tentang">Kontak</a></li>
                             </ul>
                         </div>
                     </div>
@@ -248,11 +248,11 @@
                             <h4>Unduh Aplikasi Kami</h4>
                             <p>Belanja olahan nanas lebih mudah lewat aplikasi</p>
                             <div class="app-buttons">
-                                <a href="#" class="app-btn">
+                                <a href="/home" class="app-btn">
                                     <i class="bi bi-apple"></i>
                                     <span>App Store</span>
                                 </a>
-                                <a href="#" class="app-btn">
+                                <a href="/home" class="app-btn">
                                     <i class="bi bi-google-play"></i>
                                     <span>Google Play</span>
                                 </a>

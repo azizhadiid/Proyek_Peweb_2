@@ -16,11 +16,14 @@ class ProdukController extends Controller
     public function index(Request $request)
     {
         $nama_produk  = $request->nama_produk;
+
+        $query = Barang::withAvg('reviews', 'rating'); // ini ambil rata-rata rating dari relasi reviews
+
         if ($nama_produk) {
-            $barangs = Barang::where('nama_produk', 'LIKE', '%' . $nama_produk . '%')->get();
-        } else {
-            $barangs = Barang::all();
+            $query->where('nama_produk', 'LIKE', '%' . $nama_produk . '%');
         }
+
+        $barangs = $query->get();
 
         return view('produk', compact('barangs', 'nama_produk'));
     }
