@@ -26,49 +26,56 @@ Route::get('/', function () {
 });
 
 // Khusus User
-Route::get('/home', [HomeController::class, 'index'])->name('home.index');
-Route::get('/logout', [AuthController::class, 'logout']);
-Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
-Route::get('/account', [UserProfileControlle::class, 'index'])->name('account.index');
-Route::post('/account/likes/semua', [UserProfileControlle::class, 'addAllLikedToCart'])->name('liked.addAllToCart');
-Route::post('/account', [UserProfileControlle::class, 'update'])->name('account.update');
-Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
-Route::post('/alamat', [AlamatController::class, 'store'])->name('alamat.tambah');
-Route::put('/alamat/{id}', [AlamatController::class, 'update'])->name('alamat.update');
-Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->name('alamat.destroy');
-Route::post('/like/{barang}', [LikeController::class, 'toggle'])->name('barang.like');
-Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('barang.unlike');
-Route::get('/keranjang', [CartController::class, 'showCart'])->name('cart.index');
-Route::put('/keranjang/update', [CartController::class, 'updateCart'])->name('cart.update');
-Route::delete('/keranjang/clear', [CartController::class, 'clearCart'])->name('cart.clear');
-Route::post('/keranjang/{barang}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::get('/beli', [CheckoutController::class, 'show'])->name('checkout.index');
-Route::post('/beli/bayar', [CheckoutController::class, 'processPayment'])->name('checkout.payment');
-Route::post('/midtrans/callback', [CheckoutController::class, 'handleCallback']);
-Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
-Route::get('/produk/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
-Route::post('/produk/review/{id}', [ProdukController::class, 'submitReview'])->name('produk.review');
-Route::put('/produk/review/{id}', [ProdukController::class, 'update'])->name('produk.review.update');
-Route::delete('/produk/review/{id}', [ProdukController::class, 'destroy'])->name('produk.review.delete');
-Route::post('/produk/beli', [ProdukController::class, 'beli'])->name('produk.beli');
-Route::post('/produk/beli/bayar', [ProdukController::class, 'bayar'])->name('produk.bayar');
-Route::post('/produk/keranjang', [CartController::class, 'produkKeranjang'])->name('produk.keranjang');
-Route::get('/produk/cari', [ProdukController::class, 'cari'])->name('produk.cari');
-Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
-Route::post('/kontak/kirim', [KontakController::class, 'kirim'])->name('kontak.kirim');
+Route::middleware(['role:user'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
+    Route::get('/account', [UserProfileControlle::class, 'index'])->name('account.index');
+    Route::post('/account/likes/semua', [UserProfileControlle::class, 'addAllLikedToCart'])->name('liked.addAllToCart');
+    Route::post('/account', [UserProfileControlle::class, 'update'])->name('account.update');
+    Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
+    Route::post('/alamat', [AlamatController::class, 'store'])->name('alamat.tambah');
+    Route::put('/alamat/{id}', [AlamatController::class, 'update'])->name('alamat.update');
+    Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->name('alamat.destroy');
+    Route::post('/like/{barang}', [LikeController::class, 'toggle'])->name('barang.like');
+    Route::delete('/like/{barang}', [LikeController::class, 'destroy'])->name('barang.unlike');
+    Route::get('/keranjang', [CartController::class, 'showCart'])->name('cart.index');
+    Route::put('/keranjang/update', [CartController::class, 'updateCart'])->name('cart.update');
+    Route::delete('/keranjang/clear', [CartController::class, 'clearCart'])->name('cart.clear');
+    Route::post('/keranjang/{barang}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/beli', [CheckoutController::class, 'show'])->name('checkout.index');
+    Route::post('/beli/bayar', [CheckoutController::class, 'processPayment'])->name('checkout.payment');
+    Route::post('/midtrans/callback', [CheckoutController::class, 'handleCallback']);
+    Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+    Route::get('/produk/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
+    Route::post('/produk/review/{id}', [ProdukController::class, 'submitReview'])->name('produk.review');
+    Route::put('/produk/review/{id}', [ProdukController::class, 'update'])->name('produk.review.update');
+    Route::delete('/produk/review/{id}', [ProdukController::class, 'destroy'])->name('produk.review.delete');
+    Route::post('/produk/beli', [ProdukController::class, 'beli'])->name('produk.beli');
+    Route::post('/produk/beli/bayar', [ProdukController::class, 'bayar'])->name('produk.bayar');
+    Route::post('/produk/keranjang', [CartController::class, 'produkKeranjang'])->name('produk.keranjang');
+    Route::get('/produk/cari', [ProdukController::class, 'cari'])->name('produk.cari');
+    Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
+    Route::post('/kontak/kirim', [KontakController::class, 'kirim'])->name('kontak.kirim');
+});
+
 
 
 
 // Khusus Admin
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
-Route::post('/admin/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
-Route::get('/admin/barang/edit', [BarangController::class, 'edit'])->name('barang.edit');
-Route::get('/admin/barang/edit/{id}', [BarangController::class, 'show'])->name('barang.show');
-Route::put('/admin/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
-Route::delete('/admin/barang/edit/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
-Route::get('/admin/verifikasi/pembayaran', [VerifikasiPembayaranController::class, 'index'])->name('verifikasi.show');
-Route::patch('/admin/verifikasi/pembayaran/{id}', [VerifikasiPembayaranController::class, 'update'])->name('verifikasi.update');
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
+    Route::post('/admin/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
+    Route::get('/admin/barang/edit', [BarangController::class, 'edit'])->name('barang.edit');
+    Route::get('/admin/barang/edit/{id}', [BarangController::class, 'show'])->name('barang.show');
+    Route::put('/admin/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
+    Route::delete('/admin/barang/edit/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+    Route::get('/admin/verifikasi/pembayaran', [VerifikasiPembayaranController::class, 'index'])->name('verifikasi.show');
+    Route::patch('/admin/verifikasi/pembayaran/{id}', [VerifikasiPembayaranController::class, 'update'])->name('verifikasi.update');
+    Route::get('/admin/logout', [AuthController::class, 'logout']);
+});
+
 
 // Khusus Auth
 Route::middleware('guest')->group(function () {
