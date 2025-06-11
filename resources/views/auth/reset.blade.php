@@ -1,58 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="author" content="Muhamad Nauval Azhar">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="description" content="This is a login page template based on Bootstrap 5">
-	<title>Lupa Password</title>
-    <link href="{{asset('assets-admin/css/styles.css')}}" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Reset Password - eStore</title>
+    <link href="{{ asset('assets-user/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets-user/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets-user/css/main.css') }}" rel="stylesheet">
 </head>
 
-<body style="background-color: #FFB22C;">
-	<section class="h-100">
-		<div class="container h-100">
-			<div class="row justify-content-sm-center h-100">
-				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-					<div class="text-center my-5">
-                        <img src="{{ asset('assets-user/images/logo.png') }}" alt="logo" width="300">
-					</div>
-					<div class="card shadow-lg">
-						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4">Reset Password</h1>
-							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
-								<div class="mb-3">
-									<label class="mb-2 text-muted" for="password">Password Baru</label>
-									<input id="password" type="password" class="form-control" name="password" value="" required autofocus>
-									<div class="invalid-feedback">
-										Password diperlukan	
-									</div>
-								</div>
+<body class="login-register-page">
 
-								<div class="mb-3">
-									<label class="mb-2 text-muted" for="password-confirm">Konfirmasi Password</label>
-									<input id="password-confirm" type="password" class="form-control" name="password_confirm" required>
-								    <div class="invalid-feedback">
-										Tolong konfirmasi password baru
-							    	</div>
-								</div>
+    <main class="main">
+        <section id="reset-password" class="login-register section">
+            <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+                <div class="col-lg-5">
+                    <div class="login-register-wraper">
 
-								<div class="d-flex align-items-center mt-4">
-									<button type="submit" class="btn btn-primary ms-auto">
-										Reset Password	
-									</button>
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="text-center mt-5 text-muted">
-						Copyright &copy; 2025 &mdash; AHID Production
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+                        <!-- Logo -->
+                        <div class="text-center mb-4">
+                            <img src="{{ asset('assets-user/img/logo_rasa_tangkit.png') }}" alt="Logo"
+                                style="max-width: 150px;">
+                        </div>
 
-	<script src="js/login.js"></script>
+                        {{-- Pesan Error --}}
+                        <div class="row g-4">
+                            {{-- Jika Ada Error --}}
+                            @if ($errors->any())
+                            <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert"
+                                style="width: 100%">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                                    <div>
+                                        @foreach ($errors->all() as $error)
+                                        <p class="m-0">{{ $error }}</p>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            @endif
+
+                            {{-- Jika Sukses Login --}}
+                            @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert"
+                                style="width: 100%">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            @endif
+
+                            {{-- Jika Password Telah Diubah --}}
+                            @if (session('status'))
+                            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert"
+                                style="width: 100%">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                {{ session('status') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            @endif
+
+                            {{-- Jika Password Telah Diubah --}}
+                            @if (session('info'))
+                            <div class="alert alert-info alert-dismissible fade show mt-3" role="alert"
+                                style="width: 100%">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                {{ session('info') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            @endif
+                        </div>
+
+                        <h4 class="text-center mb-4 mt-3"><b>Reset Password</b></h4>
+
+                        <form method="POST" action="/reset-password">
+                            @csrf
+                            <div class="mb-4">
+                                <input id="token" type="hidden" name="token" class="form-control"
+                                    value="{{ request()->route('token') }}">
+                                <div class="text-danger small"></div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="new-emmail" class="form-label">email</label>
+                                <input type="email" class="form-control" id="new-emmail" name="email" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="new-password" class="form-label">Password Baru</label>
+                                <input type="password" class="form-control" id="new-password" name="password" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="confirm-password" class="form-label">Konfirmasi Password</label>
+                                <input type="password" class="form-control" id="confirm-password"
+                                    name="password_confirmation" required>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Reset Password</button>
+                            </div>
+                        </form>
+
+                        <div class="mt-3 text-center">
+                            <a href="{{ url('login') }}">Kembali ke Login</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ asset('assets-user/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets-user/js/main.js') }}"></script>
 </body>
+
 </html>

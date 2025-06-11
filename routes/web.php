@@ -1,17 +1,23 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KontakController;
-use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserProfileControlle;
 use App\Http\Controllers\VerifikasiPembayaranController;
 
@@ -65,12 +71,55 @@ Route::get('/admin/verifikasi/pembayaran', [VerifikasiPembayaranController::clas
 Route::patch('/admin/verifikasi/pembayaran/{id}', [VerifikasiPembayaranController::class, 'update'])->name('verifikasi.update');
 
 // Khusus Auth
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'store']);
-Route::get('/register', [AuthController::class, 'register']);
-Route::post('/register/create', [AuthController::class, 'create']);
-Route::get('/forgot', function () {
-    return view('auth.forgot');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'store']);
+    Route::get('/register', [AuthController::class, 'register']);
+    Route::post('/register/create', [AuthController::class, 'create']);
+    Route::get('/forgot', function () {
+        return view('auth.forgot');
+    });
+
+    Route::post('/forgot-password', function (Request $request) {
+        $request->validate(['email' => 'required|email']);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::ResetLinkSent
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
+    })->name('password.email');
+
+    Route::get('/reset-password/{token}', function (string $token) {
+        return view('auth.reset', ['token' => $token]);
+    })->name('password.reset');
+
+    Route::post('/reset-password', function (Request $request) {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PasswordReset
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
+    })->name('password.update');
 });
 
 Route::get('/reset', function () {
