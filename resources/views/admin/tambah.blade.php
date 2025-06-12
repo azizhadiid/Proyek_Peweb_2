@@ -55,7 +55,8 @@
                             <option disabled selected>Pilih jenis olahan</option>
                             <option value="Snack">Snack</option>
                             <option value="Manisan">Manisan</option>
-                            <option value="Kua">Kue</option>
+                            <option value="Selai">Selai</option>
+                            <option value="Sambal">Sambal</option>
                             <option value="Minuman">Minuman</option>
                         </select>
                     </div>
