@@ -6,553 +6,357 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4">Dashboard</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Dashboard</li>
+        <li class="breadcrumb-item active"></li>
     </ol>
     <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Primary Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        <!-- Orderan Masuk -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 border-start border-4 border-primary">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs text-uppercase text-primary fw-bold mb-1">Orderan Masuk</div>
+                        <div class="h5 fw-bold text-gray-800">{{ $pendingOrdersCount > 0 ? $pendingOrdersCount : 'Tidak ada' }}</div>
+                    </div>
+                    <i class="fas fa-shopping-cart fa-2x text-primary"></i>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body">Warning Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+
+        <!-- Total Pendapatan -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 border-start border-4 border-warning">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs text-uppercase text-warning fw-bold mb-1">Total Pendapatan</div>
+                        <div class="h5 fw-bold text-gray-800">{{ $totalPendapatan > 0 ? 'Rp' . number_format($totalPendapatan, 0, ',', '.') : 'Rp0' }}</div>
+                    </div>
+                    <i class="fas fa-wallet fa-2x text-warning"></i>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">Success Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+
+        <!-- Produk Terlaris -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 border-start border-4 border-success">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs text-uppercase text-success fw-bold mb-1">Produk Terlaris</div>
+                        <div class="h5 fw-bold text-gray-800"> {{ $produkTerlaris ? $produkTerlaris->nama_produk . ' (' . $produkTerlaris->total_terjual . ' terjual)' : 'Belum ada penjualan' }}</div>
+                    </div>
+                    <i class="fas fa-box-open fa-2x text-success"></i>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4">
-                <div class="card-body">Danger Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+
+        <!-- Stok Kritis -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 border-start border-4 border-danger">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs text-uppercase text-danger fw-bold mb-1">Stok Kritis</div>
+                        <div class="h6 fw-bold text-danger">{{ $produkKritisTerendah ? $produkKritisTerendah->nama_produk . ' (Stok: ' . $produkKritisTerendah->stok . ')' : 'Semua stok aman' }}</div>
+                    </div>
+                    <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-area me-1"></i>
-                    Area Chart Example
+        <!-- Penjualan Perbulan -->
+        <div class="col-xl-6 mb-4">
+            <div class="card shadow h-100 border-start border-4 border-info">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <div class="fw-bold text-info">
+                        <i class="fas fa-chart-line me-2"></i> Penjualan Perbulan
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button id="prevYear" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <select id="yearSelect" class="form-select form-select-sm" style="width: auto;">
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+                        <button id="nextYear" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                <div class="card-body">
+                    <canvas id="myBarsChart" width="100%" height="40"></canvas>
+                </div>
             </div>
         </div>
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-bar me-1"></i>
-                    Bar Chart Example
+
+        <!-- Laporan Harian -->
+        <div class="col-xl-6 mb-4">
+            <div class="card shadow h-100 border-start border-4 border-info">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <div class="fw-bold text-info">
+                        <i class="fas fa-chart-pie me-2"></i> Laporan Harian
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button id="prevDay" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <input type="date" id="dateSelect" class="form-control form-control-sm" style="width: auto;">
+                        <button id="nextDay" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                <div class="card-body">
+                    <canvas id="myPieChart" width="100%" height="40"></canvas>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            DataTable Example
-        </div>
-        <div class="card-body">
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                        <td>$170,750</td>
-                    </tr>
-                    <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009/01/12</td>
-                        <td>$86,000</td>
-                    </tr>
-                    <tr>
-                        <td>Cedric Kelly</td>
-                        <td>Senior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2012/03/29</td>
-                        <td>$433,060</td>
-                    </tr>
-                    <tr>
-                        <td>Airi Satou</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>33</td>
-                        <td>2008/11/28</td>
-                        <td>$162,700</td>
-                    </tr>
-                    <tr>
-                        <td>Brielle Williamson</td>
-                        <td>Integration Specialist</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2012/12/02</td>
-                        <td>$372,000</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012/08/06</td>
-                        <td>$137,500</td>
-                    </tr>
-                    <tr>
-                        <td>Rhona Davidson</td>
-                        <td>Integration Specialist</td>
-                        <td>Tokyo</td>
-                        <td>55</td>
-                        <td>2010/10/14</td>
-                        <td>$327,900</td>
-                    </tr>
-                    <tr>
-                        <td>Colleen Hurst</td>
-                        <td>Javascript Developer</td>
-                        <td>San Francisco</td>
-                        <td>39</td>
-                        <td>2009/09/15</td>
-                        <td>$205,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sonya Frost</td>
-                        <td>Software Engineer</td>
-                        <td>Edinburgh</td>
-                        <td>23</td>
-                        <td>2008/12/13</td>
-                        <td>$103,600</td>
-                    </tr>
-                    <tr>
-                        <td>Jena Gaines</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>30</td>
-                        <td>2008/12/19</td>
-                        <td>$90,560</td>
-                    </tr>
-                    <tr>
-                        <td>Quinn Flynn</td>
-                        <td>Support Lead</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2013/03/03</td>
-                        <td>$342,000</td>
-                    </tr>
-                    <tr>
-                        <td>Charde Marshall</td>
-                        <td>Regional Director</td>
-                        <td>San Francisco</td>
-                        <td>36</td>
-                        <td>2008/10/16</td>
-                        <td>$470,600</td>
-                    </tr>
-                    <tr>
-                        <td>Haley Kennedy</td>
-                        <td>Senior Marketing Designer</td>
-                        <td>London</td>
-                        <td>43</td>
-                        <td>2012/12/18</td>
-                        <td>$313,500</td>
-                    </tr>
-                    <tr>
-                        <td>Tatyana Fitzpatrick</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>19</td>
-                        <td>2010/03/17</td>
-                        <td>$385,750</td>
-                    </tr>
-                    <tr>
-                        <td>Michael Silva</td>
-                        <td>Marketing Designer</td>
-                        <td>London</td>
-                        <td>66</td>
-                        <td>2012/11/27</td>
-                        <td>$198,500</td>
-                    </tr>
-                    <tr>
-                        <td>Paul Byrd</td>
-                        <td>Chief Financial Officer (CFO)</td>
-                        <td>New York</td>
-                        <td>64</td>
-                        <td>2010/06/09</td>
-                        <td>$725,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gloria Little</td>
-                        <td>Systems Administrator</td>
-                        <td>New York</td>
-                        <td>59</td>
-                        <td>2009/04/10</td>
-                        <td>$237,500</td>
-                    </tr>
-                    <tr>
-                        <td>Bradley Greer</td>
-                        <td>Software Engineer</td>
-                        <td>London</td>
-                        <td>41</td>
-                        <td>2012/10/13</td>
-                        <td>$132,000</td>
-                    </tr>
-                    <tr>
-                        <td>Dai Rios</td>
-                        <td>Personnel Lead</td>
-                        <td>Edinburgh</td>
-                        <td>35</td>
-                        <td>2012/09/26</td>
-                        <td>$217,500</td>
-                    </tr>
-                    <tr>
-                        <td>Jenette Caldwell</td>
-                        <td>Development Lead</td>
-                        <td>New York</td>
-                        <td>30</td>
-                        <td>2011/09/03</td>
-                        <td>$345,000</td>
-                    </tr>
-                    <tr>
-                        <td>Yuri Berry</td>
-                        <td>Chief Marketing Officer (CMO)</td>
-                        <td>New York</td>
-                        <td>40</td>
-                        <td>2009/06/25</td>
-                        <td>$675,000</td>
-                    </tr>
-                    <tr>
-                        <td>Caesar Vance</td>
-                        <td>Pre-Sales Support</td>
-                        <td>New York</td>
-                        <td>21</td>
-                        <td>2011/12/12</td>
-                        <td>$106,450</td>
-                    </tr>
-                    <tr>
-                        <td>Doris Wilder</td>
-                        <td>Sales Assistant</td>
-                        <td>Sidney</td>
-                        <td>23</td>
-                        <td>2010/09/20</td>
-                        <td>$85,600</td>
-                    </tr>
-                    <tr>
-                        <td>Angelica Ramos</td>
-                        <td>Chief Executive Officer (CEO)</td>
-                        <td>London</td>
-                        <td>47</td>
-                        <td>2009/10/09</td>
-                        <td>$1,200,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gavin Joyce</td>
-                        <td>Developer</td>
-                        <td>Edinburgh</td>
-                        <td>42</td>
-                        <td>2010/12/22</td>
-                        <td>$92,575</td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Chang</td>
-                        <td>Regional Director</td>
-                        <td>Singapore</td>
-                        <td>28</td>
-                        <td>2010/11/14</td>
-                        <td>$357,650</td>
-                    </tr>
-                    <tr>
-                        <td>Brenden Wagner</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>28</td>
-                        <td>2011/06/07</td>
-                        <td>$206,850</td>
-                    </tr>
-                    <tr>
-                        <td>Fiona Green</td>
-                        <td>Chief Operating Officer (COO)</td>
-                        <td>San Francisco</td>
-                        <td>48</td>
-                        <td>2010/03/11</td>
-                        <td>$850,000</td>
-                    </tr>
-                    <tr>
-                        <td>Shou Itou</td>
-                        <td>Regional Marketing</td>
-                        <td>Tokyo</td>
-                        <td>20</td>
-                        <td>2011/08/14</td>
-                        <td>$163,000</td>
-                    </tr>
-                    <tr>
-                        <td>Michelle House</td>
-                        <td>Integration Specialist</td>
-                        <td>Sidney</td>
-                        <td>37</td>
-                        <td>2011/06/02</td>
-                        <td>$95,400</td>
-                    </tr>
-                    <tr>
-                        <td>Suki Burks</td>
-                        <td>Developer</td>
-                        <td>London</td>
-                        <td>53</td>
-                        <td>2009/10/22</td>
-                        <td>$114,500</td>
-                    </tr>
-                    <tr>
-                        <td>Prescott Bartlett</td>
-                        <td>Technical Author</td>
-                        <td>London</td>
-                        <td>27</td>
-                        <td>2011/05/07</td>
-                        <td>$145,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gavin Cortez</td>
-                        <td>Team Leader</td>
-                        <td>San Francisco</td>
-                        <td>22</td>
-                        <td>2008/10/26</td>
-                        <td>$235,500</td>
-                    </tr>
-                    <tr>
-                        <td>Martena Mccray</td>
-                        <td>Post-Sales support</td>
-                        <td>Edinburgh</td>
-                        <td>46</td>
-                        <td>2011/03/09</td>
-                        <td>$324,050</td>
-                    </tr>
-                    <tr>
-                        <td>Unity Butler</td>
-                        <td>Marketing Designer</td>
-                        <td>San Francisco</td>
-                        <td>47</td>
-                        <td>2009/12/09</td>
-                        <td>$85,675</td>
-                    </tr>
-                    <tr>
-                        <td>Howard Hatfield</td>
-                        <td>Office Manager</td>
-                        <td>San Francisco</td>
-                        <td>51</td>
-                        <td>2008/12/16</td>
-                        <td>$164,500</td>
-                    </tr>
-                    <tr>
-                        <td>Hope Fuentes</td>
-                        <td>Secretary</td>
-                        <td>San Francisco</td>
-                        <td>41</td>
-                        <td>2010/02/12</td>
-                        <td>$109,850</td>
-                    </tr>
-                    <tr>
-                        <td>Vivian Harrell</td>
-                        <td>Financial Controller</td>
-                        <td>San Francisco</td>
-                        <td>62</td>
-                        <td>2009/02/14</td>
-                        <td>$452,500</td>
-                    </tr>
-                    <tr>
-                        <td>Timothy Mooney</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>37</td>
-                        <td>2008/12/11</td>
-                        <td>$136,200</td>
-                    </tr>
-                    <tr>
-                        <td>Jackson Bradshaw</td>
-                        <td>Director</td>
-                        <td>New York</td>
-                        <td>65</td>
-                        <td>2008/09/26</td>
-                        <td>$645,750</td>
-                    </tr>
-                    <tr>
-                        <td>Olivia Liang</td>
-                        <td>Support Engineer</td>
-                        <td>Singapore</td>
-                        <td>64</td>
-                        <td>2011/02/03</td>
-                        <td>$234,500</td>
-                    </tr>
-                    <tr>
-                        <td>Bruno Nash</td>
-                        <td>Software Engineer</td>
-                        <td>London</td>
-                        <td>38</td>
-                        <td>2011/05/03</td>
-                        <td>$163,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sakura Yamamoto</td>
-                        <td>Support Engineer</td>
-                        <td>Tokyo</td>
-                        <td>37</td>
-                        <td>2009/08/19</td>
-                        <td>$139,575</td>
-                    </tr>
-                    <tr>
-                        <td>Thor Walton</td>
-                        <td>Developer</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2013/08/11</td>
-                        <td>$98,540</td>
-                    </tr>
-                    <tr>
-                        <td>Finn Camacho</td>
-                        <td>Support Engineer</td>
-                        <td>San Francisco</td>
-                        <td>47</td>
-                        <td>2009/07/07</td>
-                        <td>$87,500</td>
-                    </tr>
-                    <tr>
-                        <td>Serge Baldwin</td>
-                        <td>Data Coordinator</td>
-                        <td>Singapore</td>
-                        <td>64</td>
-                        <td>2012/04/09</td>
-                        <td>$138,575</td>
-                    </tr>
-                    <tr>
-                        <td>Zenaida Frank</td>
-                        <td>Software Engineer</td>
-                        <td>New York</td>
-                        <td>63</td>
-                        <td>2010/01/04</td>
-                        <td>$125,250</td>
-                    </tr>
-                    <tr>
-                        <td>Zorita Serrano</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>56</td>
-                        <td>2012/06/01</td>
-                        <td>$115,000</td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Acosta</td>
-                        <td>Junior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>43</td>
-                        <td>2013/02/01</td>
-                        <td>$75,650</td>
-                    </tr>
-                    <tr>
-                        <td>Cara Stevens</td>
-                        <td>Sales Assistant</td>
-                        <td>New York</td>
-                        <td>46</td>
-                        <td>2011/12/06</td>
-                        <td>$145,600</td>
-                    </tr>
-                    <tr>
-                        <td>Hermione Butler</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>47</td>
-                        <td>2011/03/21</td>
-                        <td>$356,250</td>
-                    </tr>
-                    <tr>
-                        <td>Lael Greer</td>
-                        <td>Systems Administrator</td>
-                        <td>London</td>
-                        <td>21</td>
-                        <td>2009/02/27</td>
-                        <td>$103,500</td>
-                    </tr>
-                    <tr>
-                        <td>Jonas Alexander</td>
-                        <td>Developer</td>
-                        <td>San Francisco</td>
-                        <td>30</td>
-                        <td>2010/07/14</td>
-                        <td>$86,500</td>
-                    </tr>
-                    <tr>
-                        <td>Shad Decker</td>
-                        <td>Regional Director</td>
-                        <td>Edinburgh</td>
-                        <td>51</td>
-                        <td>2008/11/13</td>
-                        <td>$183,000</td>
-                    </tr>
-                    <tr>
-                        <td>Michael Bruce</td>
-                        <td>Javascript Developer</td>
-                        <td>Singapore</td>
-                        <td>29</td>
-                        <td>2011/06/27</td>
-                        <td>$183,000</td>
-                    </tr>
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>Customer Support</td>
-                        <td>New York</td>
-                        <td>27</td>
-                        <td>2011/01/25</td>
-                        <td>$112,000</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById('myPieChart').getContext('2d');
+        let currentDate = "{{ $tanggal }}"; // Data awal dari controller
+
+        // Fungsi bantu untuk nama hari
+        function getNamaHari(dateString) {
+            const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const d = new Date(dateString);
+            return hari[d.getDay()];
+        }
+
+        // Plugin teks tengah yang akan update saat data berubah
+        const centerText = {
+            id: 'centerText',
+            beforeDraw(chart) {
+                const { width, height, ctx } = chart;
+                ctx.restore();
+
+                const fontSizeDate = (height / 250).toFixed(2);
+                const fontSizeDay = (height / 200).toFixed(2);
+
+                const dateLabel = new Date(currentDate).toLocaleDateString('id-ID');
+                const dayLabel = getNamaHari(currentDate);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                ctx.fillStyle = '#4e73df';
+                ctx.font = `${fontSizeDate}em Inter, sans-serif`;
+                ctx.fillText(dateLabel, width / 2, height / 2 - 10);
+
+                ctx.fillStyle = '#888';
+                ctx.font = `${fontSizeDay}em Inter, sans-serif`;
+                ctx.fillText(dayLabel, width / 2, height / 2 + 20);
+
+                ctx.save();
+            }
+        };
+
+        // Ambil data awal dari Blade
+        const initialData = @json($distribusiOlahan);
+
+        const chartData = {
+            labels: initialData.map(item => item.jenis_olahan),
+            datasets: [{
+                data: initialData.map(item => item.total),
+                backgroundColor: ['#3B82F6', '#EF4444', '#F59E0B', '#10B981'],
+                borderColor: '#FFFFFF',
+                borderWidth: 3,
+                hoverOffset: 8
+            }]
+        };
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 20,
+                        padding: 15,
+                        font: {
+                            size: 14,
+                            family: 'Inter, sans-serif'
+                        },
+                        color: '#333'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const label = context.label || '';
+                            return label ? `${label}: ${context.parsed}` : '';
+                        }
+                    },
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: '#ccc',
+                    borderWidth: 1,
+                    cornerRadius: 4,
+                },
+                title: {
+                    display: true,
+                    text: `Distribusi Penjualan per Jenis Olahan`,
+                    font: {
+                        size: 18,
+                        weight: 'bold',
+                        family: 'Inter, sans-serif'
+                    },
+                    color: '#333',
+                    padding: { top: 10, bottom: 20 }
+                }
+            },
+            animation: {
+                animateRotate: true,
+                animateScale: true
+            }
+        };
+
+        const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: chartOptions,
+            plugins: [centerText]
+        });
+
+        // Fungsi untuk load data AJAX dan update grafik
+        function fetchAndUpdateChart(date) {
+            fetch(`/admin/distribusi-olahan?tanggal=${date}`)
+                .then(response => response.json())
+                .then(data => {
+                    currentDate = date;
+                    myChart.data.labels = data.map(item => item.jenis_olahan);
+                    myChart.data.datasets[0].data = data.map(item => item.total);
+                    myChart.update();
+                });
+        }
+
+        // Event: input tanggal
+        document.getElementById('dateSelect').value = currentDate;
+        document.getElementById('dateSelect').addEventListener('change', function () {
+            fetchAndUpdateChart(this.value);
+        });
+
+        // Event: tombol hari sebelumnya
+        document.getElementById('prevDay').addEventListener('click', function () {
+            const date = new Date(currentDate);
+            date.setDate(date.getDate() - 1);
+            const formatted = date.toISOString().split('T')[0];
+            document.getElementById('dateSelect').value = formatted;
+            fetchAndUpdateChart(formatted);
+        });
+
+        // Event: tombol hari berikutnya
+        document.getElementById('nextDay').addEventListener('click', function () {
+            const date = new Date(currentDate);
+            date.setDate(date.getDate() + 1);
+            const formatted = date.toISOString().split('T')[0];
+            document.getElementById('dateSelect').value = formatted;
+            fetchAndUpdateChart(formatted);
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById("myBarsChart").getContext("2d");
+
+        const gradientPemasukan = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientPemasukan.addColorStop(0, '#b9fbc0');
+        gradientPemasukan.addColorStop(1, '#2a9d8f');
+
+        const gradientPajak = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientPajak.addColorStop(0, '#a0c4ff');
+        gradientPajak.addColorStop(1, '#3a86ff');
+
+        const gradientLaba = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientLaba.addColorStop(0, '#fff3b0');
+        gradientLaba.addColorStop(1, '#ffb703');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [
+                    {
+                        label: 'Pemasukan',
+                        data: [],
+                        backgroundColor: gradientPemasukan,
+                        borderRadius: { topLeft: 10, topRight: 10 },
+                    },
+                    {
+                        label: 'Pajak',
+                        data: [],
+                        backgroundColor: gradientPajak,
+                        borderRadius: { topLeft: 10, topRight: 10 },
+                    },
+                    {
+                        label: 'Laba',
+                        data: [],
+                        backgroundColor: gradientLaba,
+                        borderRadius: { topLeft: 10, topRight: 10 },
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Penjualan Perbulan (Rp)'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => 'Rp' + value.toLocaleString('id-ID')
+                        }
+                    }
+                }
+            }
+        });
+
+        function loadChartData(year) {
+            fetch(`/admin/chart/penjualan-bulanan?year=${year}`)
+                .then(res => res.json())
+                .then(data => {
+                    chart.data.datasets[0].data = data.map(item => item.pemasukan);
+                    chart.data.datasets[1].data = data.map(item => item.pajak);
+                    chart.data.datasets[2].data = data.map(item => item.laba);
+                    chart.update();
+                });
+        }
+
+        const yearSelect = document.getElementById('yearSelect');
+        yearSelect.addEventListener('change', () => {
+            loadChartData(yearSelect.value);
+        });
+
+        document.getElementById('prevYear').addEventListener('click', () => {
+            yearSelect.value = parseInt(yearSelect.value) - 1;
+            loadChartData(yearSelect.value);
+        });
+
+        document.getElementById('nextYear').addEventListener('click', () => {
+            yearSelect.value = parseInt(yearSelect.value) + 1;
+            loadChartData(yearSelect.value);
+        });
+
+        // Inisialisasi pertama kali
+        loadChartData(yearSelect.value);
+    });
+</script>
+
 @endsection

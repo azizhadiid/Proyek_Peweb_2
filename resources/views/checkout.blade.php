@@ -124,12 +124,33 @@
                         const payButton = document.getElementById('pay-button');
                         const form = document.getElementById('payment-form');
 
+                        // Fungsi untuk reset tombol ke kondisi semula
+                        function resetButton() {
+                            payButton.disabled = false;
+                            payButton.innerHTML = `
+                                <span class="btn-text">Bayar Sekarang</span>
+                                <span class="btn-price">Rp{{ number_format($total) }}</span>
+                            `;
+                        }
+
+                        // Fungsi untuk set tombol ke loading state
+                        function setLoadingButton() {
+                            payButton.disabled = true;
+                            payButton.innerText = 'Memproses...';
+                        }
+
                         form.addEventListener('submit', function (e) {
                             e.preventDefault();
 
-                            // Disable tombol saat memproses
-                            payButton.disabled = true;
-                            payButton.innerText = 'Memproses...';
+                            // Validasi alamat di sisi client sebelum submit
+                            const alamatSelect = document.getElementById('alamat');
+                            if (!alamatSelect.value) {
+                                alert('Silakan pilih alamat pengiriman terlebih dahulu');
+                                return;
+                            }
+
+                            // Set loading state
+                            setLoadingButton();
 
                             fetch(this.action, {
                                 method: 'POST',
@@ -143,31 +164,55 @@
                                     quantity: this.quantity.value,
                                     alamat_id: this.alamat_id.value
                                 })
-                            }).then(res => res.json())
+                            })
+                            .then(response => {
+                                // Cek apakah response berhasil
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
                             .then(data => {
+                                // Cek apakah ada snap_token
+                                if (!data.snap_token) {
+                                    throw new Error('Snap token tidak ditemukan');
+                                }
+
+                                // Panggil Midtrans Snap
                                 snap.pay(data.snap_token, {
                                     onSuccess: function (result) {
+                                        console.log('Payment Success:', result);
                                         window.location.href = '/produk';
                                     },
                                     onPending: function (result) {
+                                        console.log('Payment Pending:', result);
                                         window.location.href = '/produk';
                                     },
                                     onError: function (result) {
+                                        console.log('Payment Error:', result);
                                         alert("Pembayaran gagal. Silakan coba lagi.");
-                                        // Enable lagi tombol jika error
-                                        payButton.disabled = false;
-                                        payButton.innerText = 'Bayar Sekarang';
+                                        resetButton();
                                     },
                                     onClose: function () {
-                                        // Enable lagi jika user tutup pop-up
-                                        payButton.disabled = false;
-                                        payButton.innerText = 'Bayar Sekarang';
+                                        console.log('Payment popup closed');
+                      S                  // Reset tombol ketika user menutup popup
+                                        resetButton();
                                     }
                                 });
-                            }).catch(() => {
-                                alert("Terjadi kesalahan. Silakan coba lagi.");
-                                payButton.disabled = false;
-                                payButton.innerText = 'Bayar Sekarang';
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                
+                                // Handle different types of errors
+                                if (error.message.includes('HTTP error! status: 422')) {
+                                    alert("Data tidak valid. Silakan periksa kembali form Anda.");
+                                } else if (error.message.includes('HTTP error! status: 500')) {
+                                    alert("Terjadi kesalahan server. Silakan coba lagi nanti.");
+                                } else {
+                                    alert("Terjadi kesalahan. Silakan coba lagi.");
+                                }
+                                
+                                resetButton();
                             });
                         });
                     </script>

@@ -62,6 +62,8 @@ Route::middleware(['role:user'])->group(function () {
 // Khusus Admin
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/admin/distribusi-olahan', [DashboardController::class, 'getDistribusiOlahan']);
+    Route::get('/admin/chart/penjualan-bulanan', [DashboardController::class, 'getMonthlySales']);
     Route::get('/admin/barang/buat', [BarangController::class, 'create'])->name('barang.create');
     Route::post('/admin/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
     Route::get('/admin/barang/edit', [BarangController::class, 'edit'])->name('barang.edit');
