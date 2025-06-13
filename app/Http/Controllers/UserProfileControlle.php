@@ -16,7 +16,7 @@ class UserProfileControlle extends Controller
         $user = Auth::user();
         $userProfile = $user->profile;
         $alamats = $user->alamats;
-        $barangs = $user->likedBarangs()->get();
+        $barangs = $user->likedBarangs()->withAvg('reviews', 'rating')->get();
         $cart = $user->cart()->with('items.barang')->first();
 
         // 1. Ambil nilai sort dari request, default-nya 'terbaru'

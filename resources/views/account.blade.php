@@ -181,13 +181,20 @@
                                     <div class="wishlist-content">
                                         <h4>{{ $barang->nama_produk }}</h4>
                                         <div class="product-meta">
+                                            @php
+                                                $average = round($barang->reviews_avg_rating ?? 0, 1); // untuk menampilkan bintang
+                                            @endphp 
                                             <div class="rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <span>(4.0)</span>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= floor($average))
+                                                        <i class="bi bi-star-fill text-warning"></i>
+                                                    @elseif ($i - $average < 1)
+                                                        <i class="bi bi-star-half text-warning"></i>
+                                                    @else
+                                                        <i class="bi bi-star text-warning"></i>
+                                                    @endif
+                                                @endfor
+                                                <span>({{ $average }})</span>
                                             </div>
                                             <div class="price">
                                                 <span class="current">Rp
