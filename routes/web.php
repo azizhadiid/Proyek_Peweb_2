@@ -23,12 +23,13 @@ use App\Http\Controllers\VerifikasiPembayaranController;
 use App\Http\Controllers\WelcomeController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('rasaTangkit.com');
+Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
 
 // Khusus User
 Route::middleware(['role:user'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/tentang/pembeli', [TentangController::class, 'tentang'])->name('tentang.home');
     Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
     Route::get('/account', [UserProfileControlle::class, 'index'])->name('account.index');
     Route::post('/account/likes/semua', [UserProfileControlle::class, 'addAllLikedToCart'])->name('liked.addAllToCart');
     Route::post('/account', [UserProfileControlle::class, 'update'])->name('account.update');

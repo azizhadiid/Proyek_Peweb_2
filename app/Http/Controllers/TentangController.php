@@ -14,6 +14,11 @@ class TentangController extends Controller
         return view('tentang');
     }
 
+    public function tentang()
+    {
+        return view('homeTentang');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
