@@ -105,12 +105,15 @@
                     <div class="product-meta mb-2">
                         <span class="product-category">{{$barang->jenis_olahan}}</span>
                         <div class="product-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <span class="rating-count">(42)</span>
+                            @for ($i = 1; $i <= 5; $i++) @if ($averageRating>= $i)
+                                <i class="bi bi-star-fill"></i>
+                                @elseif ($averageRating >= $i - 0.5)
+                                <i class="bi bi-star-half"></i>
+                                @else
+                                <i class="bi bi-star"></i>
+                                @endif
+                                @endfor
+                                <span class="rating-count">({{ $totalReviews }})</span>
                         </div>
                     </div>
 
