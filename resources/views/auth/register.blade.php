@@ -140,7 +140,7 @@
                                         </div>
 
                                         <div class="d-grid">
-                                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
                                         </div>
                                     </form>
 
