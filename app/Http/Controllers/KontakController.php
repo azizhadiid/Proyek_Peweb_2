@@ -28,7 +28,7 @@ class KontakController extends Controller
             'body' => $request->message,
         ];
 
-        Mail::to('info@rasatangkit.id')->send(new \App\Mail\KontakMail($data));
+        Mail::to('azizalhadiid88@gmail.com')->send(new \App\Mail\KontakMail($data));
 
         return back()->with('success', 'Pesan berhasil dikirim.');
     }

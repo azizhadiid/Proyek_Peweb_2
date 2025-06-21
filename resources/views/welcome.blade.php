@@ -134,7 +134,7 @@
                             <li><a href="/kontak" class="{{ request()->is('kontak') ? 'active' : '' }}">Kontak</a></li>
                             <li class="d-md-none text-center mt-5">
                                 <div class="d-flex justify-content-center">
-                                    <a href="login-register.html"
+                                    <a href="/login"
                                         style="background-color: #f7941d; width: 50%; color: white; text-align: center; display: flex; align-items: center; justify-content: center;"
                                         class="btn">
                                         Masuk
@@ -143,7 +143,7 @@
                             </li>
                             <li class="d-md-none text-center mt-2">
                                 <div class="d-flex justify-content-center">
-                                    <a href="register.html"
+                                    <a href="/register"
                                         style="background-color: #f7941d; width: 50%; color: white; text-align: center; display: flex; align-items: center; justify-content: center;"
                                         class="btn">
                                         Daftar
